@@ -1,0 +1,46 @@
+// 共通レイアウト・コンテンツ基盤（固定ヘッダー分の余白）
+#page {
+	padding-top: 5rem; /* ヘッダー高さ分（SP: ナビのみ） */
+
+	@media (min-width: 1024px) {
+		padding-top: 6.5rem; /* PC: トップバー + ナビ */
+	}
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.site-main {
+	min-height: 40vh;
+}
+
+.entry-content {
+	margin-top: 1.5rem;
+
+	p {
+		margin: 0 0 1rem;
+	}
+}
+
+.property-meta {
+	font-size: 0.875rem;
+	color: var(--color-muted-foreground);
+	margin-top: 0.5rem;
+
+	span + span::before {
+		content: " · ";
+	}
+}
+
+.pagination {
+	margin-top: 2rem;
+}
+
+.property-gallery img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}

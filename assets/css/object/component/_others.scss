@@ -1,0 +1,57 @@
+// その他コンポーネント（一覧用・プレースホルダー等）
+.front-hero.placeholder {
+	text-align: center;
+	padding: 3rem 0;
+}
+
+.front-hero-title {
+	font-size: 1.75rem;
+	margin-bottom: 0.5rem;
+}
+
+.archive-title {
+	font-size: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.property-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 1.5rem;
+
+	@media (min-width: 640px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (min-width: 1024px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.property-item a {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	border: 1px solid var(--color-border);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.property-item img {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	display: block;
+}
+
+.property-item-title {
+	font-size: 1rem;
+	margin: 0.5rem 1rem 0;
+}
+
+.property-item-price {
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin: 0.25rem 1rem 1rem;
+}

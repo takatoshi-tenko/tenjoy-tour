@@ -1,0 +1,55 @@
+/*
+Theme Name: Friend 2026（有限会社ふれんど）
+Theme URI: https://friend-fudosan.jp
+Author: 有限会社ふれんど
+Author URI: https://friend-fudosan.jp
+Description: 東京23区・多摩エリアの不動産情報サイト用テーマ。Next.js 版から移行。
+Version: 0.1.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: friend2026
+*/
+
+/* ==============================
+   base
+============================== */
+@use "base/variables";
+@use "base/reset";
+@use "base/base";
+@use "base/mixin";
+
+/* ==============================
+   layout
+============================== */
+@use "layout/header";
+@use "layout/footer";
+
+/* ==============================
+   object - component
+============================== */
+@use "object/component/button";
+@use "object/component/property-card";
+@use "object/component/others";
+
+/* ==============================
+   object - project
+============================== */
+@use "object/project/front";
+@use "object/project/archive-property";
+@use "object/project/single-property";
+@use "object/project/archive-news";
+@use "object/project/single-news";
+@use "object/project/page";
+@use "object/project/staff";
+@use "object/project/company";
+@use "object/project/faq";
+@use "object/project/contact";
+
+/* ==============================
+   object - utility
+============================== */
+@use "object/utility/margin";
+@use "object/utility/padding";

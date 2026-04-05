@@ -1,0 +1,14 @@
+// メディアクエリなど（必要に応じて追加）
+@use "sass:meta";
+
+@mixin mq($breakpoint: 768px) {
+	@media (min-width: $breakpoint) {
+		@content;
+	}
+}
+
+@mixin mq-max($breakpoint: 767px) {
+	@media (max-width: $breakpoint) {
+		@content;
+	}
+}

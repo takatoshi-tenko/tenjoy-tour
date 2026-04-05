@@ -1,0 +1,153 @@
+// 物件カード（一覧・トップで共通）
+.property-card {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: 12px;
+	overflow: hidden;
+	transition: box-shadow 0.2s, border-color 0.2s;
+
+	&:hover {
+		border-color: rgba(0, 157, 170, 0.3);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+	}
+}
+
+.property-card-image {
+	position: relative;
+	aspect-ratio: 4/3;
+	background: var(--color-muted);
+	overflow: hidden;
+}
+
+.property-card-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.property-card-placeholder {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+}
+
+.property-card-badges {
+	position: absolute;
+	top: 0.75rem;
+	left: 0.75rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+.property-badge {
+	font-size: 0.75rem;
+	font-weight: 500;
+	padding: 0.25rem 0.5rem;
+	border-radius: 4px;
+}
+
+.property-badge-new {
+	background: #16a34a;
+	color: #fff;
+}
+
+.property-badge-rec {
+	background: var(--color-accent);
+	color: #fff;
+}
+
+.property-badge-down {
+	background: var(--color-destructive);
+	color: #fff;
+}
+
+.property-badge-open {
+	background: #ea580c;
+	color: #fff;
+}
+
+.property-card-type {
+	position: absolute;
+	bottom: 0.75rem;
+	left: 0.75rem;
+	font-size: 0.75rem;
+	background: rgba(255, 255, 255, 0.9);
+	color: #1a1a1a;
+	padding: 0.25rem 0.5rem;
+	border-radius: 4px;
+}
+
+.property-card-body {
+	padding: 1rem;
+}
+
+.property-card-price {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: var(--color-accent);
+	margin: 0 0 0.5rem;
+
+	@media (min-width: 768px) {
+		font-size: 1.5rem;
+	}
+}
+
+.property-card-title {
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 0 0 0.75rem;
+
+	&:hover {
+		color: var(--color-accent);
+	}
+}
+
+.property-card-details {
+	font-size: 0.8125rem;
+	color: var(--color-muted-foreground);
+	margin: 0;
+}
+
+.property-card-detail {
+	margin: 0 0 0.25rem;
+}
+
+.property-card-detail-line {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.375rem;
+	margin: 0 0 0.35rem;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.property-card-detail-icon {
+	flex-shrink: 0;
+	margin-top: 0.15em;
+	color: var(--color-muted-foreground);
+}
+
+.property-card-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.property-card-tag {
+	display: inline-block;
+	font-size: 0.75rem;
+	padding: 0.2rem 0.5rem;
+	background: var(--color-muted);
+	color: var(--color-foreground);
+	border-radius: 4px;
+}

@@ -1,0 +1,17 @@
+// CSS カスタムプロパティ（Next の globals.css に合わせる）
+:root {
+	--font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Meiryo', sans-serif;
+	/* 見出しもゴシックで統一（旧明朝用トークンは sans と同じスタック） */
+	--font-serif: 'Noto Sans JP', 'Hiragino Sans', 'Meiryo', sans-serif;
+	--color-background: #fafafa;
+	--color-foreground: #1a1a1a;
+	--color-primary: #04a1e8;
+	--color-accent: #04a1e8;
+	--color-primary-dark: #0284c7;
+	--color-accent-light: #5cc5f5;
+	--color-muted: #f1f5f9;
+	--color-muted-foreground: #64748b;
+	--color-border: #e2e8f0;
+	--color-destructive: #dc2626;
+	--radius: 0.5rem;
+}

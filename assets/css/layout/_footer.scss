@@ -1,0 +1,122 @@
+// フッター（黒系背景・テキストは白系）
+.site-footer {
+	background: #1e130f;
+	color: #fff;
+	padding: 2rem 0 0;
+}
+
+.footer-inner {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+
+.footer-grid {
+	display: grid;
+	gap: 2rem;
+	padding-bottom: 2rem;
+
+	@media (min-width: 768px) {
+		grid-template-columns: 2fr repeat(4, 1fr);
+	}
+}
+
+.footer-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	color: #fff;
+	text-decoration: none;
+	margin-bottom: 1rem;
+
+	img {
+		height: 48px;
+		width: auto;
+	}
+}
+
+.footer-logo-label {
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-logo-name {
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.footer-desc {
+	font-size: 0.875rem;
+	max-width: 20rem;
+	margin-bottom: 1rem;
+	color: #fff;
+	line-height: 1.65;
+	opacity: 0.92;
+}
+
+.footer-contact {
+	display: grid;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+
+	dt {
+		font-weight: 600;
+		margin: 0;
+		color: #fff;
+	}
+	dd {
+		margin: 0;
+		color: #fff;
+		opacity: 0.95;
+	}
+	a {
+		color: #fff;
+		text-decoration: underline;
+		text-decoration-color: rgba(255, 255, 255, 0.45);
+		text-underline-offset: 2px;
+
+		&:hover {
+			color: #fff;
+			text-decoration-color: var(--color-accent);
+		}
+	}
+}
+
+.footer-links-title {
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin: 0 0 0.5rem;
+	color: #fff;
+}
+
+.footer-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	a {
+		color: #fff;
+		text-decoration: none;
+		font-size: 0.875rem;
+		opacity: 0.95;
+
+		&:hover {
+			opacity: 1;
+			color: #fff;
+			text-decoration: underline;
+			text-decoration-color: var(--color-accent);
+		}
+	}
+}
+
+.footer-bottom {
+	border-top: 1px solid rgba(255, 255, 255, 0.12);
+	padding: 1rem 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem;
+	font-size: 0.75rem;
+	color: #fff;
+	opacity: 0.88;
+}

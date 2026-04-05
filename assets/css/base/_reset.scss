@@ -1,0 +1,15 @@
+// 軽量リセット・基本
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	line-height: 1.6;
+	color: var(--color-foreground);
+	background: var(--color-background);
+	-webkit-font-smoothing: antialiased;
+}

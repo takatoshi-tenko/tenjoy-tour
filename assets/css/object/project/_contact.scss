@@ -1,0 +1,213 @@
+// お問い合わせページ（/contact）
+.page-contact .site-main {
+	padding: 0;
+}
+
+@media (max-width: 767px) {
+	.page-contact .container {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+}
+
+.page-contact-header {
+	background: rgba(241, 245, 249, 0.5);
+	border-bottom: 1px solid var(--color-border);
+	padding: 2rem;
+	text-align: center;
+}
+
+.page-contact-label {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	color: var(--color-accent);
+	margin: 0 0 0.25rem;
+	text-transform: uppercase;
+}
+
+.page-contact-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	font-family: var(--font-serif);
+	margin: 0;
+
+	@media (min-width: 768px) {
+		font-size: 2rem;
+	}
+}
+
+.page-contact-desc {
+	font-size: 0.9375rem;
+	color: var(--color-muted-foreground);
+	margin: 0.5rem 0 0;
+}
+
+.page-contact-body {
+	padding: 2rem;
+}
+
+.page-contact-grid {
+	display: grid;
+	gap: 2rem;
+	grid-template-columns: 1fr;
+
+	@media (min-width: 768px) {
+		grid-template-columns: 1fr 1.5fr;
+		align-items: start;
+	}
+}
+
+// 左カラム：電話・店舗情報
+.page-contact-info {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.page-contact-info-box {
+	background: #fff;
+	border: 1px solid var(--color-border);
+	border-radius: 12px;
+	padding: 1.5rem;
+}
+
+.page-contact-info-title {
+	font-size: 1rem;
+	font-weight: 700;
+	margin: 0 0 0.75rem;
+}
+
+.page-contact-tel {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 0 0 0.25rem;
+
+	a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+}
+
+.page-contact-hours,
+.page-contact-address,
+.page-contact-email {
+	font-size: 0.9375rem;
+	font-weight: 500;
+	color: #334155;
+	line-height: 1.65;
+	margin: 0;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+}
+
+.page-contact-icon {
+	width: 1rem;
+	height: 1rem;
+	flex-shrink: 0;
+	background: var(--color-accent);
+	opacity: 0.85;
+	border-radius: 2px;
+	margin-top: 0.2em;
+}
+
+// 送信完了メッセージ
+.page-contact-sent {
+	background: #eff8ff;
+	border: 1px solid rgba(4, 161, 232, 0.35);
+	border-radius: 12px;
+	padding: 2rem;
+	text-align: center;
+
+	p {
+		margin: 0;
+		line-height: 1.7;
+		color: #334155;
+	}
+}
+
+// エラー表示
+.page-contact-errors {
+	list-style: none;
+	margin: 0 0 1rem;
+	padding: 1rem;
+	background: #fef2f2;
+	border: 1px solid var(--color-destructive);
+	border-radius: 8px;
+	color: var(--color-destructive);
+	font-size: 0.875rem;
+
+	li + li {
+		margin-top: 0.25rem;
+	}
+}
+
+// フォーム
+.page-contact-form .page-contact-label-required span,
+.page-contact-field label span {
+	color: var(--color-destructive);
+}
+
+.page-contact-field {
+	margin-bottom: 1.25rem;
+
+	label {
+		display: block;
+		font-size: 0.875rem;
+		font-weight: 500;
+		margin-bottom: 0.35rem;
+	}
+}
+
+.page-contact-radios {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+
+	label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-bottom: 0;
+		cursor: pointer;
+	}
+}
+
+.page-contact-form input[type="text"],
+.page-contact-form input[type="email"],
+.page-contact-form input[type="tel"],
+.page-contact-form textarea {
+	width: 100%;
+	padding: 0.5rem 0.75rem;
+	font-size: 1rem;
+	border: 1px solid var(--color-border);
+	border-radius: 6px;
+	font-family: inherit;
+}
+
+.page-contact-form textarea {
+	resize: vertical;
+	min-height: 120px;
+}
+
+.page-contact-row {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: 1fr 1fr;
+
+	@media (max-width: 639px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.page-contact-field-checkbox label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+}
+
+.page-contact-submit {
+	margin: 1.5rem 0 0;
+}
