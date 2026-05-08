@@ -1,173 +1,173 @@
 <?php
-
 /**
- * テンプレート: お問い合わせ（/contact）
- * フォーム送信 → 管理画面に保存 + 送信先メールに通知
+ * お問い合わせページ
+ * Template Name: お問い合わせ
  *
- * @package Friend2026
+ * @package tenjoy-tour
  */
 
-$contact_errors = array();
-$contact_sent   = false;
-$contact_post   = array(
-	'inquiry_type'   => '',
-	'last_name'      => '',
-	'first_name'     => '',
-	'furigana_last'  => '',
-	'furigana_first' => '',
-	'email'          => '',
-	'phone'          => '',
-	'message'        => '',
-);
-
-if (isset($_GET['contact']) && $_GET['contact'] === 'sent') {
-	$contact_sent = true;
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['friend2026_contact_nonce'])) {
-	$result = friend2026_contact_form_submit();
-	if (! empty($result['success'])) {
-		wp_safe_redirect(home_url('/contact/?contact=sent'));
-		exit;
-	}
-	if (! empty($result['errors'])) {
-		$contact_errors = $result['errors'];
-		$contact_post['inquiry_type']   = isset($_POST['inquiry_type']) ? sanitize_text_field(wp_unslash($_POST['inquiry_type'])) : '';
-		$contact_post['last_name']      = isset($_POST['last_name']) ? sanitize_text_field(wp_unslash($_POST['last_name'])) : '';
-		$contact_post['first_name']     = isset($_POST['first_name']) ? sanitize_text_field(wp_unslash($_POST['first_name'])) : '';
-		$contact_post['furigana_last']  = isset($_POST['furigana_last']) ? sanitize_text_field(wp_unslash($_POST['furigana_last'])) : '';
-		$contact_post['furigana_first'] = isset($_POST['furigana_first']) ? sanitize_text_field(wp_unslash($_POST['furigana_first'])) : '';
-		$contact_post['email']          = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
-		$contact_post['phone']          = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
-		$contact_post['message']       = isset($_POST['message']) ? sanitize_textarea_field(wp_unslash($_POST['message'])) : '';
-	}
-}
-
 get_header();
-
-// お問い合わせページ左カラムの表示（サイト掲載用に固定）
-$contact_email = 'info@friend-fudosan.jp';
-$tel             = '0120-123-456';
-$hours           = '9:00〜19:00（水曜定休）';
-$address         = "〒183-0005 東京都府中市若松町1-2-7 3F";
 ?>
 
-<main id="main" class="site-main page-contact" role="main">
-  <div class="page-contact-header">
+<main id="main" class="site-main contact-page" role="main">
+
+  <!-- ページヒーロー -->
+  <section class="contact-hero">
     <div class="container">
-      <p class="page-contact-label">Contact</p>
-      <h1 class="page-contact-title">お問い合わせ</h1>
-      <p class="page-contact-desc">物件に関するご質問、ご相談など、お気軽にお問い合わせください。</p>
+      <div class="contact-hero-inner">
+        <h1 class="contact-hero-title"><?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?></h1>
+        <p class="contact-hero-desc">
+          <?php esc_html_e('ご質問やご相談がございましたら、お気軽にお問い合わせください', 'tenjoy-tour'); ?>
+        </p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container page-contact-body">
-    <div class="page-contact-grid">
-      <div class="page-contact-info">
-        <div class="page-contact-info-box">
-          <h2 class="page-contact-info-title">お電話でのお問い合わせ</h2>
-          <p class="page-contact-tel"><a
-              href="tel:<?php echo esc_attr(preg_replace('/[^0-9+\-]/', '', $tel)); ?>"><?php echo esc_html($tel); ?></a>
+  <!-- 連絡先情報カード -->
+  <section class="contact-info-section">
+    <div class="container">
+      <div class="contact-info-grid">
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon"><?php echo tenjoy_icon('phone'); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+          <h3 class="contact-info-title"><?php esc_html_e('電話でのお問い合わせ', 'tenjoy-tour'); ?></h3>
+          <a href="tel:+81312345678" class="contact-info-value">+81-3-1234-5678</a>
+          <p class="contact-info-note"><?php esc_html_e('平日 9:00 - 18:00', 'tenjoy-tour'); ?></p>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon"><?php echo tenjoy_icon('mail'); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+          <h3 class="contact-info-title"><?php esc_html_e('メールでのお問い合わせ', 'tenjoy-tour'); ?></h3>
+          <a href="mailto:info@tenjoy-tour.com" class="contact-info-value">info@tenjoy-tour.com</a>
+          <p class="contact-info-note"><?php esc_html_e('24時間受付', 'tenjoy-tour'); ?></p>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon"><?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+          <h3 class="contact-info-title"><?php esc_html_e('本社所在地', 'tenjoy-tour'); ?></h3>
+          <p class="contact-info-value"><?php esc_html_e('東京都港区赤坂1-2-3 TENJOYビル 5F', 'tenjoy-tour'); ?></p>
+          <p class="contact-info-note"><?php esc_html_e('地下鉄赤坂駅より徒歩3分', 'tenjoy-tour'); ?></p>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon"><?php echo tenjoy_icon('clock'); // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
+          <h3 class="contact-info-title"><?php esc_html_e('営業時間', 'tenjoy-tour'); ?></h3>
+          <p class="contact-info-value"><?php esc_html_e('平日 9:00 - 18:00', 'tenjoy-tour'); ?></p>
+          <p class="contact-info-note"><?php esc_html_e('土日祝日休業', 'tenjoy-tour'); ?></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- お問い合わせフォーム -->
+  <section class="contact-form-section">
+    <div class="container">
+      <div class="contact-form-wrap">
+        <div class="section-header">
+          <h2 class="section-title"><?php esc_html_e('お問い合わせフォーム', 'tenjoy-tour'); ?></h2>
+          <p class="section-subtitle">
+            <?php esc_html_e('以下のフォームからお問い合わせください。24時間以内にご返信いたします。', 'tenjoy-tour'); ?>
           </p>
-          <p class="page-contact-hours">受付時間: <?php echo esc_html($hours); ?></p>
         </div>
-        <div class="page-contact-info-box">
-          <h2 class="page-contact-info-title">店舗情報</h2>
-          <p class="page-contact-address"><span class="page-contact-icon" aria-hidden="true"></span>
-            <?php echo nl2br(esc_html($address)); ?></p>
-          <p class="page-contact-email"><span class="page-contact-icon" aria-hidden="true"></span>メール
-            <?php echo esc_html($contact_email); ?></p>
-          <p class="page-contact-hours"><span class="page-contact-icon" aria-hidden="true"></span>営業時間
-            <?php echo esc_html($hours); ?></p>
+
+        <?php
+        // Contact Form 7 がある場合はショートコードで表示
+        if (function_exists('wpcf7_contact_form')) :
+          echo do_shortcode('[contact-form-7 id="contact" title="お問い合わせ"]');
+        else :
+        ?>
+        <div class="contact-form-card">
+          <form method="post" action="<?php echo esc_url(home_url('/contact/')); ?>" class="contact-form" novalidate>
+            <?php wp_nonce_field('tenjoy_contact', 'tenjoy_contact_nonce'); ?>
+
+            <div class="contact-form-row">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">
+                  <?php esc_html_e('お名前', 'tenjoy-tour'); ?> <span class="required">*</span>
+                </label>
+                <input type="text" id="contact-name" name="contact_name" class="form-control" required
+                  placeholder="<?php esc_attr_e('山田 太郎', 'tenjoy-tour'); ?>">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-email">
+                  <?php esc_html_e('メールアドレス', 'tenjoy-tour'); ?> <span class="required">*</span>
+                </label>
+                <input type="email" id="contact-email" name="contact_email" class="form-control" required
+                  placeholder="example@email.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-phone">
+                <?php esc_html_e('電話番号', 'tenjoy-tour'); ?>
+              </label>
+              <input type="tel" id="contact-phone" name="contact_phone" class="form-control"
+                placeholder="+81-3-1234-5678">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">
+                <?php esc_html_e('件名', 'tenjoy-tour'); ?> <span class="required">*</span>
+              </label>
+              <input type="text" id="contact-subject" name="contact_subject" class="form-control" required
+                placeholder="<?php esc_attr_e('お問い合わせの件名', 'tenjoy-tour'); ?>">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-message">
+                <?php esc_html_e('お問い合わせ内容', 'tenjoy-tour'); ?> <span class="required">*</span>
+              </label>
+              <textarea id="contact-message" name="contact_message" class="form-control" rows="6" required
+                placeholder="<?php esc_attr_e('お問い合わせ内容を詳しくご記入ください', 'tenjoy-tour'); ?>"></textarea>
+            </div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <?php esc_html_e('送信する', 'tenjoy-tour'); ?>
+              </button>
+            </div>
+            <p class="contact-form-note">
+              <?php esc_html_e('営業日24時間以内にご返信いたします', 'tenjoy-tour'); ?>
+            </p>
+          </form>
         </div>
-      </div>
-
-      <div class="page-contact-form-wrap">
-        <?php if ($contact_sent) : ?>
-        <div class="page-contact-sent">
-          <p>お問い合わせいただきありがとうございます。<br>内容を確認のうえ、ご連絡いたします。</p>
-        </div>
-        <?php else : ?>
-        <?php if (! empty($contact_errors)) : ?>
-        <ul class="page-contact-errors">
-          <?php foreach ($contact_errors as $err) : ?>
-          <li><?php echo esc_html($err); ?></li>
-          <?php endforeach; ?>
-        </ul>
-        <?php endif; ?>
-
-        <form class="page-contact-form" method="post" action="<?php echo esc_url(home_url('/contact/')); ?>">
-          <?php wp_nonce_field('friend2026_contact', 'friend2026_contact_nonce'); ?>
-
-          <div class="page-contact-field">
-            <label class="page-contact-label-required">お問い合わせ種別 <span>*</span></label>
-            <div class="page-contact-radios">
-              <label><input type="radio" name="inquiry_type" value="property"
-                  <?php checked($contact_post['inquiry_type'] !== '' ? $contact_post['inquiry_type'] : 'property', 'property'); ?>>
-                物件について</label>
-              <label><input type="radio" name="inquiry_type" value="consultation"
-                  <?php checked($contact_post['inquiry_type'], 'consultation'); ?>> 無料相談予約</label>
-              <label><input type="radio" name="inquiry_type" value="other"
-                  <?php checked($contact_post['inquiry_type'], 'other'); ?>> その他</label>
-            </div>
-          </div>
-
-          <div class="page-contact-row">
-            <div class="page-contact-field">
-              <label for="contact-last_name">お名前 (姓) <span>*</span></label>
-              <input type="text" id="contact-last_name" name="last_name"
-                value="<?php echo esc_attr($contact_post['last_name']); ?>" placeholder="山田" required>
-            </div>
-            <div class="page-contact-field">
-              <label for="contact-first_name">お名前 (名) <span>*</span></label>
-              <input type="text" id="contact-first_name" name="first_name"
-                value="<?php echo esc_attr($contact_post['first_name']); ?>" placeholder="太郎" required>
-            </div>
-          </div>
-
-          <div class="page-contact-row">
-            <div class="page-contact-field">
-              <label for="contact-furigana_last">フリガナ (姓)</label>
-              <input type="text" id="contact-furigana_last" name="furigana_last"
-                value="<?php echo esc_attr($contact_post['furigana_last']); ?>" placeholder="ヤマダ">
-            </div>
-            <div class="page-contact-field">
-              <label for="contact-furigana_first">フリガナ (名)</label>
-              <input type="text" id="contact-furigana_first" name="furigana_first"
-                value="<?php echo esc_attr($contact_post['furigana_first']); ?>" placeholder="タロウ">
-            </div>
-          </div>
-
-          <div class="page-contact-field">
-            <label for="contact-email">メールアドレス <span>*</span></label>
-            <input type="email" id="contact-email" name="email" value="<?php echo esc_attr($contact_post['email']); ?>"
-              placeholder="example@email.com" required>
-          </div>
-
-          <div class="page-contact-field">
-            <label for="contact-phone">電話番号 <span>*</span></label>
-            <input type="tel" id="contact-phone" name="phone" value="<?php echo esc_attr($contact_post['phone']); ?>"
-              placeholder="090-1234-5678" required>
-          </div>
-
-          <div class="page-contact-field">
-            <label for="contact-message">お問い合わせ内容 <span>*</span></label>
-            <textarea id="contact-message" name="message" rows="6" placeholder="ご質問やご相談内容をご記入ください"
-              required><?php echo esc_textarea($contact_post['message']); ?></textarea>
-          </div>
-
-          <div class="page-contact-field page-contact-field-checkbox">
-            <label>
-              <input type="checkbox" name="agree_privacy" value="1" required>
-              プライバシーポリシーに同意します <span>*</span>
-            </label>
-          </div>
-
-          <p class="page-contact-submit"><button type="submit" class="btn btn-cta">送信する</button></p>
-        </form>
         <?php endif; ?>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- FAQ（簡易版） -->
+  <section class="contact-faq-section">
+    <div class="container">
+      <div class="contact-faq-wrap">
+        <div class="section-header">
+          <h2 class="section-title"><?php esc_html_e('よくあるご質問', 'tenjoy-tour'); ?></h2>
+        </div>
+        <div class="contact-faq-list">
+          <div class="contact-faq-item">
+            <h3 class="contact-faq-q"><?php esc_html_e('キャンセル料はかかりますか？', 'tenjoy-tour'); ?></h3>
+            <p class="contact-faq-a">
+              <?php esc_html_e('ツアー開始日の30日前まで無料でキャンセルいただけます。30日以内の場合はツアー代金の50%、7日以内の場合は100%のキャンセル料が発生いたします。', 'tenjoy-tour'); ?>
+            </p>
+          </div>
+          <div class="contact-faq-item">
+            <h3 class="contact-faq-q"><?php esc_html_e('ツアー代金に何が含まれていますか？', 'tenjoy-tour'); ?></h3>
+            <p class="contact-faq-a">
+              <?php esc_html_e('ゴルフプレイ費、宿泊費、朝食・昼食、空港送迎、専門ガイド、旅行保険が含まれています。航空券は含まれておりませんので、別途ご手配ください。', 'tenjoy-tour'); ?>
+            </p>
+          </div>
+          <div class="contact-faq-item">
+            <h3 class="contact-faq-q"><?php esc_html_e('初心者でも参加できますか？', 'tenjoy-tour'); ?></h3>
+            <p class="contact-faq-a">
+              <?php esc_html_e('はい、もちろん歓迎いたします。経験豊富なスタッフがサポートし、初心者の方でも楽しめるコースを選定しています。', 'tenjoy-tour'); ?>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

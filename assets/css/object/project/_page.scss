@@ -1,105 +1,46 @@
-// 固定ページ共通・お問い合わせ・サイトマップ
-.page-header {
-	margin-bottom: 1.5rem;
+/* 固定ページ共通 */
+.page-content-wrap {
+  padding: 3rem 0 5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0 6rem;
+  }
 }
 
-.page-title {
-	font-size: 1.5rem;
-	margin: 0;
+/* ブログ詳細 */
+.single-post {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 5rem;
 }
 
-.page-content {
-	margin-top: 0;
+.single-post-header {
+  margin-bottom: 2rem;
 }
 
-.page-contact-header .page-contact-label {
-	font-size: 0.75rem;
-	color: var(--color-accent);
-	font-weight: 600;
-	letter-spacing: 0.1em;
-	margin: 0 0 0.25rem;
+.single-post-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  line-height: 1.3;
 }
 
-.page-contact-desc {
-	color: var(--color-muted-foreground);
-	margin-top: 0.5rem;
+.single-post-meta {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.page-sitemap .site-main {
-	padding: 0;
-}
+.single-post-thumbnail {
+  margin-bottom: 2rem;
+  border-radius: var(--radius);
+  overflow: hidden;
 
-.page-sitemap-header {
-	background: rgba(241, 245, 249, 0.5);
-	border-bottom: 1px solid var(--color-border);
-	padding: 2rem;
-	text-align: center;
-}
-
-.page-sitemap-label {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.1em;
-	color: var(--color-accent);
-	margin: 0 0 0.25rem;
-	text-transform: uppercase;
-}
-
-.page-sitemap-title {
-	font-size: 1.5rem;
-	font-weight: 700;
-	font-family: var(--font-serif);
-	margin: 0;
-
-	@media (min-width: 768px) {
-		font-size: 2rem;
-	}
-}
-
-.page-sitemap-desc {
-	font-size: 0.9375rem;
-	color: var(--color-muted-foreground);
-	margin: 0.5rem 0 0;
-}
-
-.page-sitemap-body {
-	padding: 2rem;
-}
-
-.page-sitemap-grid {
-	display: grid;
-	gap: 2rem;
-	grid-template-columns: 1fr;
-
-	@media (min-width: 768px) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	@media (min-width: 1024px) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-}
-
-.page-sitemap-section-title {
-	font-size: 1.125rem;
-	font-weight: 700;
-	margin: 0 0 1rem;
-}
-
-.page-sitemap-links {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-
-	li {
-		margin: 0 0 0.5rem;
-	}
-	a {
-		font-size: 0.875rem;
-		color: var(--color-muted-foreground);
-		text-decoration: none;
-
-		&:hover {
-			color: var(--color-accent);
-		}
-	}
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 }

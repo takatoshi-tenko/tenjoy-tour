@@ -1,18 +1,3 @@
-/*
-Theme Name: Friend 2026（有限会社ふれんど）
-Theme URI: https://friend-fudosan.jp
-Author: 有限会社ふれんど
-Author URI: https://friend-fudosan.jp
-Description: 東京23区・多摩エリアの不動産情報サイト用テーマ。Next.js 版から移行。
-Version: 0.1.0
-Requires at least: 6.0
-Tested up to: 6.4
-Requires PHP: 7.4
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: friend2026
-*/
-
 /* ==============================
    base
 ============================== */
@@ -31,22 +16,26 @@ Text Domain: friend2026
    object - component
 ============================== */
 @use "object/component/button";
-@use "object/component/property-card";
+@use "object/component/card";
 @use "object/component/others";
 
 /* ==============================
    object - project
 ============================== */
 @use "object/project/front";
-@use "object/project/archive-property";
-@use "object/project/single-property";
+@use "object/project/page";
 @use "object/project/archive-news";
 @use "object/project/single-news";
-@use "object/project/page";
-@use "object/project/staff";
-@use "object/project/company";
-@use "object/project/faq";
 @use "object/project/contact";
+@use "object/project/booking";
+@use "object/project/faq";
+@use "object/project/staff";
+@use "object/project/archive-tours";
+@use "object/project/archive-courses";
+@use "object/project/archive-activities";
+@use "object/project/testimonials";
+@use "object/project/company";
+@use "object/project/sitemap";
 
 /* ==============================
    object - utility

@@ -1,0 +1,52 @@
+/* サイトマップページ */
+.sitemap-page {
+  padding: 3rem 0 5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0 6rem;
+  }
+}
+
+.sitemap-grid {
+  display: grid;
+  gap: 2rem;
+  max-width: 56rem;
+  margin: 0 auto;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sitemap-section-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sitemap-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+      color: var(--foreground);
+      text-decoration: underline;
+    }
+  }
+}

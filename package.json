@@ -1,0 +1,13 @@
+{
+  "name": "tenjoy-tour",
+  "version": "1.0.0",
+  "description": "TENJOY-TOUR WordPress theme",
+  "private": true,
+  "scripts": {
+    "build": "sass assets/css/style.scss assets/css/main.css --no-source-map --style=compressed",
+    "dev": "sass --watch assets/css/style.scss:assets/css/main.css --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}

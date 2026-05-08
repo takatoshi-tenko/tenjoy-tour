@@ -1,0 +1,30 @@
+node_modules/
+.DS_Store
+*.log
+
+# -------------------------------------------------------
+# assets/images/ の画像管理ルール
+#
+# Git管理するもの（テーマ静的アセット）:
+#   logo.png
+#   placeholder.jpg / placeholder.svg
+#   placeholder-logo.png / placeholder-logo.svg
+#   placeholder-user.jpg
+#
+# Git管理しないもの:
+#   カテゴリB = カスタマイザー経由でWPメディアライブラリから設定する画像
+#   カテゴリC = CPT投稿のアイキャッチとして登録する画像
+# -------------------------------------------------------
+
+# カテゴリB: カスタマイザー管理画像
+assets/images/hero-golf.jpg
+assets/images/golf-experience-*.jpg
+assets/images/vehicle-*.jpg
+assets/images/qr-*.jpg
+
+# カテゴリC: CPT投稿アイキャッチ
+assets/images/staff-*.jpg
+assets/images/tour-*.jpg
+assets/images/course-*.jpg
+assets/images/activity-*.jpg
+assets/images/blog-*.jpg

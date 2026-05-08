@@ -1,0 +1,13 @@
+/* お客様の声ページ */
+.testimonials-page {
+  padding: 3rem 0 5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0 6rem;
+  }
+
+  /* ホームページの reviews-grid / review-card をそのまま再利用 */
+  .reviews-grid {
+    margin-bottom: 2.5rem;
+  }
+}

@@ -1,9 +1,8 @@
 <?php
-
 /**
  * ヘッダー
  *
- * @package Friend2026
+ * @package tenjoy-tour
  */
 ?>
 <!DOCTYPE html>
@@ -13,9 +12,8 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="profile" href="https://gmpg.org/xfn/11">
-  <?php /* タブアイコン（ファビコン）・ホーム画面用 */ ?>
-  <link rel="icon" type="image/png" href="<?php echo esc_url(FRIEND2026_URI . '/assets/images/logo.png'); ?>">
-  <link rel="apple-touch-icon" href="<?php echo esc_url(FRIEND2026_URI . '/assets/images/logo.png'); ?>">
+  <link rel="icon" type="image/png" href="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>">
+  <link rel="apple-touch-icon" href="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>">
   <?php wp_head(); ?>
 </head>
 
@@ -23,63 +21,102 @@
   <?php wp_body_open(); ?>
 
   <header class="site-header" role="banner">
-    <!-- Top bar（PCのみ） -->
-    <div class="header-top-bar" aria-hidden="true">
-      <div class="header-inner">
-        <p class="header-catch">東京23区・多摩エリアの不動産情報</p>
-        <div class="header-top-right">
-          <a href="tel:0120-123-456" class="header-tel">0120-123-456</a>
-          <span class="header-hours">受付時間: 9:00〜19:00</span>
-        </div>
-      </div>
-    </div>
+    <div class="header-inner">
 
-    <!-- Main navigation -->
-    <nav class="site-nav" aria-label="メインメニュー">
-      <div class="header-inner">
-        <div class="nav-row">
-          <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
-            <img src="<?php echo esc_url(FRIEND2026_URI . '/assets/images/logo.png'); ?>"
-              alt="<?php bloginfo('name'); ?>" width="50" height="50" loading="eager">
-            <div class="site-logo-text">
-              <span class="site-logo-label">有限会社</span>
-              <span class="site-logo-name">ふれんど 東京支社</span>
-            </div>
-          </a>
+      <!-- ロゴ -->
+      <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
+        <img
+          src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
+          alt="<?php bloginfo('name'); ?>"
+          width="48"
+          height="48"
+          loading="eager">
+        <span class="site-logo-name">TENJOY-TOUR</span>
+      </a>
 
-          <ul class="nav-menu nav-menu-desktop">
-            <li><a href="<?php echo esc_url(home_url('/properties/')); ?>">物件一覧</a></li>
-            <li><a href="<?php echo esc_url(home_url('/company/')); ?>">会社概要</a></li>
-            <li><a href="<?php echo esc_url(home_url('/staff/')); ?>">スタッフ紹介</a></li>
-            <li><a href="<?php echo esc_url(home_url('/faq/')); ?>">よくあるご質問</a></li>
-            <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせ</a></li>
-          </ul>
+      <!-- デスクトップナビ -->
+      <nav class="site-nav" aria-label="<?php esc_attr_e('メインメニュー', 'tenjoy-tour'); ?>">
+        <?php
+        wp_nav_menu([
+          'theme_location' => 'primary',
+          'menu_class'     => 'nav-menu',
+          'container'      => false,
+          'fallback_cb'    => 'tenjoy_fallback_nav',
+        ]);
+        ?>
+      </nav>
 
-          <div class="nav-cta">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-cta">無料相談予約</a>
+      <!-- 右側コントロール -->
+      <div class="header-controls">
+
+        <!-- 言語切替（Polylang） -->
+        <?php if (function_exists('pll_the_languages')) : ?>
+          <div class="lang-switcher" aria-label="<?php esc_attr_e('言語切替', 'tenjoy-tour'); ?>">
+            <button class="lang-switcher-toggle" aria-expanded="false" aria-controls="lang-menu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                <path d="M2 12h20"/>
+              </svg>
+              <span class="sr-only"><?php esc_html_e('言語切替', 'tenjoy-tour'); ?></span>
+            </button>
+            <ul id="lang-menu" class="lang-menu" hidden>
+              <?php
+              pll_the_languages([
+                'show_flags'            => 1,
+                'show_names'            => 1,
+                'dropdown'              => 0,
+                'echo'                  => 1,
+                'hide_if_no_translation' => 0,
+              ]);
+              ?>
+            </ul>
           </div>
+        <?php endif; ?>
 
-          <button type="button" class="nav-toggle" aria-label="メニューを開く" aria-expanded="false"
-            aria-controls="mobile-menu">
-            <span class="nav-toggle-icon"></span>
-          </button>
-        </div>
-
-        <div id="mobile-menu" class="nav-menu nav-menu-mobile" aria-hidden="true" hidden>
-          <ul>
-            <li><a href="<?php echo esc_url(home_url('/properties/')); ?>">物件一覧</a></li>
-            <li><a href="<?php echo esc_url(home_url('/company/')); ?>">会社概要</a></li>
-            <li><a href="<?php echo esc_url(home_url('/staff/')); ?>">スタッフ紹介</a></li>
-            <li><a href="<?php echo esc_url(home_url('/faq/')); ?>">よくあるご質問</a></li>
-            <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">お問い合わせ</a></li>
-          </ul>
-          <div class="mobile-menu-footer">
-            <a href="tel:0120-123-456" class="mobile-tel">0120-123-456</a>
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-cta">無料相談予約</a>
-          </div>
-        </div>
+        <!-- ハンバーガーボタン（SP） -->
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-label="<?php esc_attr_e('メニューを開く', 'tenjoy-tour'); ?>"
+          aria-expanded="false"
+          aria-controls="mobile-menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
       </div>
-    </nav>
-  </header>
+    </div><!-- /.header-inner -->
+
+    <!-- モバイルメニュー -->
+    <div id="mobile-menu" class="mobile-menu" aria-hidden="true" hidden>
+      <nav aria-label="<?php esc_attr_e('モバイルメニュー', 'tenjoy-tour'); ?>">
+        <?php
+        wp_nav_menu([
+          'theme_location' => 'primary',
+          'menu_class'     => 'mobile-nav-menu',
+          'container'      => false,
+          'fallback_cb'    => 'tenjoy_fallback_mobile_nav',
+        ]);
+        ?>
+      </nav>
+
+      <!-- モバイル言語切替 -->
+      <?php if (function_exists('pll_the_languages')) : ?>
+        <div class="mobile-lang-switcher">
+          <?php
+          pll_the_languages([
+            'show_flags'            => 1,
+            'show_names'            => 1,
+            'dropdown'              => 0,
+            'echo'                  => 1,
+            'hide_if_no_translation' => 0,
+          ]);
+          ?>
+        </div>
+      <?php endif; ?>
+    </div><!-- /#mobile-menu -->
+
+  </header><!-- /.site-header -->
 
   <div id="page" class="site">

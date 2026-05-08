@@ -1,62 +1,58 @@
 <?php
-
 /**
- * 投稿詳細（ニュース詳細）
- * 本文は投稿エディタで HTML として入力。Markdown を使う場合はプラグインで変換可能。
+ * ブログ詳細（投稿詳細）
  *
- * @package Friend2026
+ * @package tenjoy-tour
  */
 
 get_header();
 ?>
 
-<main id="main" class="site-main single-news" role="main">
-	<?php while (have_posts()) : the_post(); ?>
-		<?php
-		$news_url = function_exists('friend2026_get_news_archive_url') ? friend2026_get_news_archive_url() : home_url('/');
-		?>
+<main id="main" class="site-main" role="main">
+  <?php while (have_posts()) : the_post(); ?>
 
-		<!-- パンくず・戻る -->
-		<div class="single-news-breadcrumb">
-			<div class="container">
-				<nav class="single-news-breadcrumb-inner" aria-label="パンくず">
-					<a href="<?php echo esc_url(home_url('/')); ?>">ホーム</a>
-					<span class="single-news-breadcrumb-sep">/</span>
-					<a href="<?php echo esc_url($news_url); ?>">ニュース</a>
-					<span class="single-news-breadcrumb-sep">/</span>
-					<span class="single-news-breadcrumb-current"><?php the_title(); ?></span>
-				</nav>
-			</div>
-		</div>
+    <div class="container">
+      <div class="single-news-wrap">
 
-		<div class="container single-news-body">
-			<a href="<?php echo esc_url($news_url); ?>" class="single-news-back">← ニュース一覧に戻る</a>
+        <nav class="single-news-breadcrumb" aria-label="<?php esc_attr_e('パンくず', 'tenjoy-tour'); ?>">
+          <a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('ホーム', 'tenjoy-tour'); ?></a>
+          <span class="single-news-breadcrumb-sep">/</span>
+          <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>"><?php esc_html_e('ブログ', 'tenjoy-tour'); ?></a>
+          <span class="single-news-breadcrumb-sep">/</span>
+          <span><?php the_title(); ?></span>
+        </nav>
 
-			<article id="post-<?php the_ID(); ?>" <?php post_class('news-single'); ?>>
-				<header class="entry-header news-single-header">
-					<div class="news-single-meta">
-						<time datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date()); ?></time>
-						<?php
-						$categories = get_the_category();
-						if ($categories) :
-						?>
-							<span class="news-single-category"><?php echo esc_html($categories[0]->name); ?></span>
-						<?php endif; ?>
-					</div>
-					<?php the_title('<h1 class="entry-title news-single-title">', '</h1>'); ?>
-				</header>
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+          <header>
+            <div class="single-news-meta">
+              <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+                <?php echo esc_html(get_the_date()); ?>
+              </time>
+              <?php
+              $categories = get_the_category();
+              if ($categories) :
+              ?>
+                <span class="single-news-category"><?php echo esc_html($categories[0]->name); ?></span>
+              <?php endif; ?>
+            </div>
+            <h1 class="single-news-title"><?php the_title(); ?></h1>
+          </header>
 
-				<div class="entry-content news-single-content prose">
-					<?php the_content(); ?>
-				</div>
+          <div class="entry-content">
+            <?php the_content(); ?>
+          </div>
 
-				<footer class="news-single-footer">
-					<a href="<?php echo esc_url($news_url); ?>" class="btn btn-outline">ニュース一覧に戻る</a>
-				</footer>
-			</article>
-		</div>
-	<?php endwhile; ?>
+          <footer class="single-news-footer">
+            <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="btn btn-outline">
+              <?php esc_html_e('ブログ一覧に戻る', 'tenjoy-tour'); ?>
+            </a>
+          </footer>
+        </article>
+
+      </div>
+    </div>
+
+  <?php endwhile; ?>
 </main>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

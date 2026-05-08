@@ -1,57 +1,66 @@
-// その他コンポーネント（一覧用・プレースホルダー等）
-.front-hero.placeholder {
-	text-align: center;
-	padding: 3rem 0;
-}
+/* アーカイブページ共通ヘッダー */
+.archive-header {
+  padding: 4rem 0 3rem;
+  background: var(--primary);
+  margin-bottom: 0;
 
-.front-hero-title {
-	font-size: 1.75rem;
-	margin-bottom: 0.5rem;
+  @media (min-width: 768px) {
+    padding: 6rem 0 4rem;
+  }
+
+  .container {
+    text-align: center;
+    max-width: 48rem;
+  }
 }
 
 .archive-title {
-	font-size: 1.5rem;
-	margin-bottom: 1.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  font-family: var(--font-serif);
+  margin: 0 0 0.75rem;
+  color: var(--primary-foreground);
 }
 
-.property-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: grid;
-	gap: 1.5rem;
-
-	@media (min-width: 640px) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	@media (min-width: 1024px) {
-		grid-template-columns: repeat(3, 1fr);
-	}
+.archive-desc {
+  font-size: 1rem;
+  color: var(--primary-foreground);
+  margin: 0 auto;
+  line-height: 1.7;
+  max-width: 36rem;
+  opacity: 0.85;
 }
 
-.property-item a {
-	text-decoration: none;
-	color: inherit;
-	display: block;
-	border: 1px solid var(--color-border);
-	border-radius: 8px;
-	overflow: hidden;
+/* アーカイブ空状態 */
+.archive-empty {
+  text-align: center;
+  color: var(--muted-foreground);
+  padding: 3rem 1rem;
 }
 
-.property-item img {
-	width: 100%;
-	height: 200px;
-	object-fit: cover;
-	display: block;
+/* ページ共通ヘッダー */
+.page-hero {
+  padding: 3rem 0;
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
 }
 
-.property-item-title {
-	font-size: 1rem;
-	margin: 0.5rem 1rem 0;
+.page-hero-title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  font-family: var(--font-serif);
+  margin: 0 0 0.75rem;
 }
 
-.property-item-price {
-	font-size: 0.875rem;
-	font-weight: 600;
-	margin: 0.25rem 1rem 1rem;
+.page-hero-desc {
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.65;
+  max-width: 42rem;
 }

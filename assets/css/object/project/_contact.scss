@@ -1,213 +1,240 @@
-// お問い合わせページ（/contact）
-.page-contact .site-main {
-	padding: 0;
+/* お問い合わせページ */
+.contact-page {
+  padding-bottom: 0;
 }
 
-@media (max-width: 767px) {
-	.page-contact .container {
-		padding-left: 1rem;
-		padding-right: 1rem;
-	}
+/* ヒーロー */
+.contact-hero {
+  padding: 4rem 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    padding: 6rem 0;
+  }
 }
 
-.page-contact-header {
-	background: rgba(241, 245, 249, 0.5);
-	border-bottom: 1px solid var(--color-border);
-	padding: 2rem;
-	text-align: center;
+.contact-hero-inner {
+  max-width: 48rem;
+  margin: 0 auto;
 }
 
-.page-contact-label {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.1em;
-	color: var(--color-accent);
-	margin: 0 0 0.25rem;
-	text-transform: uppercase;
+.contact-hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  font-family: var(--font-serif);
+  margin: 0 0 1rem;
 }
 
-.page-contact-title {
-	font-size: 1.5rem;
-	font-weight: 700;
-	font-family: var(--font-serif);
-	margin: 0;
-
-	@media (min-width: 768px) {
-		font-size: 2rem;
-	}
+.contact-hero-desc {
+  font-size: 1.0625rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.65;
 }
 
-.page-contact-desc {
-	font-size: 0.9375rem;
-	color: var(--color-muted-foreground);
-	margin: 0.5rem 0 0;
+/* 連絡先情報 */
+.contact-info-section {
+  padding: 3rem 0;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
 }
 
-.page-contact-body {
-	padding: 2rem;
+.contact-info-grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.page-contact-grid {
-	display: grid;
-	gap: 2rem;
-	grid-template-columns: 1fr;
-
-	@media (min-width: 768px) {
-		grid-template-columns: 1fr 1.5fr;
-		align-items: start;
-	}
+.contact-info-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
 }
 
-// 左カラム：電話・店舗情報
-.page-contact-info {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
+.contact-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--muted);
+  color: var(--brand);
+  margin: 0 auto 1rem;
+
+  svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
 }
 
-.page-contact-info-box {
-	background: #fff;
-	border: 1px solid var(--color-border);
-	border-radius: 12px;
-	padding: 1.5rem;
+.contact-info-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
 }
 
-.page-contact-info-title {
-	font-size: 1rem;
-	font-weight: 700;
-	margin: 0 0 0.75rem;
+.contact-info-value {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-decoration: none;
+  margin-bottom: 0.25rem;
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
-.page-contact-tel {
-	font-size: 1.5rem;
-	font-weight: 700;
-	margin: 0 0 0.25rem;
-
-	a {
-		color: var(--color-accent);
-		text-decoration: none;
-	}
+.contact-info-note {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  margin: 0;
 }
 
-.page-contact-hours,
-.page-contact-address,
-.page-contact-email {
-	font-size: 0.9375rem;
-	font-weight: 500;
-	color: #334155;
-	line-height: 1.65;
-	margin: 0;
-	display: flex;
-	align-items: flex-start;
-	gap: 0.5rem;
+/* フォームセクション */
+.contact-form-section {
+  padding: 3rem 0;
+  background: var(--muted);
+
+  @media (min-width: 768px) {
+    padding: 4rem 0;
+  }
 }
 
-.page-contact-icon {
-	width: 1rem;
-	height: 1rem;
-	flex-shrink: 0;
-	background: var(--color-accent);
-	opacity: 0.85;
-	border-radius: 2px;
-	margin-top: 0.2em;
+.contact-form-wrap {
+  max-width: 48rem;
+  margin: 0 auto;
 }
 
-// 送信完了メッセージ
-.page-contact-sent {
-	background: #eff8ff;
-	border: 1px solid rgba(4, 161, 232, 0.35);
-	border-radius: 12px;
-	padding: 2rem;
-	text-align: center;
-
-	p {
-		margin: 0;
-		line-height: 1.7;
-		color: #334155;
-	}
+.contact-form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
 }
 
-// エラー表示
-.page-contact-errors {
-	list-style: none;
-	margin: 0 0 1rem;
-	padding: 1rem;
-	background: #fef2f2;
-	border: 1px solid var(--color-destructive);
-	border-radius: 8px;
-	color: var(--color-destructive);
-	font-size: 0.875rem;
+.contact-form-row {
+  display: grid;
+  gap: 1rem;
 
-	li + li {
-		margin-top: 0.25rem;
-	}
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-// フォーム
-.page-contact-form .page-contact-label-required span,
-.page-contact-field label span {
-	color: var(--color-destructive);
+.form-group {
+  margin-bottom: 1.25rem;
 }
 
-.page-contact-field {
-	margin-bottom: 1.25rem;
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
 
-	label {
-		display: block;
-		font-size: 0.875rem;
-		font-weight: 500;
-		margin-bottom: 0.35rem;
-	}
+  .required {
+    color: var(--destructive);
+    margin-left: 0.25rem;
+  }
 }
 
-.page-contact-radios {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  box-sizing: border-box;
+  font-family: inherit;
 
-	label {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
-		margin-bottom: 0;
-		cursor: pointer;
-	}
+  &:focus {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+  }
 }
 
-.page-contact-form input[type="text"],
-.page-contact-form input[type="email"],
-.page-contact-form input[type="tel"],
-.page-contact-form textarea {
-	width: 100%;
-	padding: 0.5rem 0.75rem;
-	font-size: 1rem;
-	border: 1px solid var(--color-border);
-	border-radius: 6px;
-	font-family: inherit;
+textarea.form-control {
+  resize: vertical;
+  min-height: 8rem;
 }
 
-.page-contact-form textarea {
-	resize: vertical;
-	min-height: 120px;
+.form-submit {
+  margin-top: 1.5rem;
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
 }
 
-.page-contact-row {
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: 1fr 1fr;
-
-	@media (max-width: 639px) {
-		grid-template-columns: 1fr;
-	}
+.contact-form-note {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  text-align: center;
 }
 
-.page-contact-field-checkbox label {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-	cursor: pointer;
+/* FAQ */
+.contact-faq-section {
+  padding: 3rem 0 5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 0 6rem;
+  }
 }
 
-.page-contact-submit {
-	margin: 1.5rem 0 0;
+.contact-faq-wrap {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.contact-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-faq-item {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.contact-faq-q {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.contact-faq-a {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+  margin: 0;
 }
