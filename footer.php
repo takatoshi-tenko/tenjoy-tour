@@ -56,23 +56,28 @@
             <p>FAX: +81-3-1234-5678</p>
           </div>
           <p class="footer-messenger-label"><?php esc_html_e('メッセージアプリ', 'tenjoy-tour'); ?></p>
+          <?php
+          $footer_messengers = [
+            'line'     => ['name' => 'LINE', 'fallback' => 'qr-line.jpg'],
+            'kakao'    => ['name' => 'KakaoTalk', 'fallback' => 'qr-kakao.jpg'],
+            'wechat'   => ['name' => 'WeChat', 'fallback' => 'qr-wechat.jpg'],
+            'whatsapp' => ['name' => 'WhatsApp', 'fallback' => 'qr-whatsapp.jpg'],
+          ];
+          ?>
           <div class="footer-messenger-links">
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-              <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/qr-line.jpg'); ?>" alt="LINE QR" width="32" height="32" loading="lazy">
-              LINE
-            </a>
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-              <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/qr-kakao.jpg'); ?>" alt="KakaoTalk QR" width="32" height="32" loading="lazy">
-              KakaoTalk
-            </a>
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-              <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/qr-wechat.jpg'); ?>" alt="WeChat QR" width="32" height="32" loading="lazy">
-              WeChat
-            </a>
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-              <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/qr-whatsapp.jpg'); ?>" alt="WhatsApp QR" width="32" height="32" loading="lazy">
-              WhatsApp
-            </a>
+            <?php foreach ($footer_messengers as $key => $m) : ?>
+              <?php
+              $icon_url = tenjoy_customizer_image_url(
+                "tenjoy_icon_{$key}",
+                'thumbnail',
+                get_template_directory_uri() . '/assets/images/' . $m['fallback']
+              );
+              ?>
+              <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
+                <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="32" height="32" loading="lazy">
+                <?php echo esc_html($m['name']); ?>
+              </a>
+            <?php endforeach; ?>
           </div>
         </div>
 

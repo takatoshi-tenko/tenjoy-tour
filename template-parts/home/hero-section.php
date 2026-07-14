@@ -14,9 +14,11 @@
       'tenjoy-hero',
       get_template_directory_uri() . '/assets/images/hero-golf.jpg'
     );
+    $hero_position = get_theme_mod('tenjoy_hero_image_position', 'center center');
     if ($hero_url) :
     ?>
       <img src="<?php echo esc_url($hero_url); ?>" alt="<?php esc_attr_e('ゴルフコース', 'tenjoy-tour'); ?>" class="hero-img"
+        style="object-position: <?php echo esc_attr($hero_position); ?>;"
         loading="eager" decoding="async">
     <?php endif; ?>
   </div>

@@ -474,6 +474,14 @@
     width: 28px;
     height: 28px;
   }
+
+  img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
 }
 
 .messenger-name {

@@ -7,9 +7,9 @@
  *
  * 設定項目:
  *   - ヒーロー画像
- *   - ゴルフ体験ギャラリー画像（4枚）
  *   - 車両紹介画像（バス・ワゴン・セダン）
  *   - SNS連絡先 QRコード（Kakao / WeChat / Instagram / LINE / WhatsApp）
+ *   - SNSアイコン画像（Kakao / WeChat / Instagram / LINE / WhatsApp）
  *
  * 使い方（テンプレート側）:
  *   $url = get_theme_mod('tenjoy_hero_image', '');
@@ -54,27 +54,27 @@ function tenjoy_customizer_register(WP_Customize_Manager $wp_customize)
         'mime_type' => 'image',
     ]));
 
-    // ======================================================================
-    // セクション2: ゴルフ体験ギャラリー
-    // ======================================================================
-
-    $wp_customize->add_section('tenjoy_experience', [
-        'title' => __('ゴルフ体験ギャラリー', 'tenjoy-tour'),
-        'panel' => 'tenjoy_panel',
+    $wp_customize->add_setting('tenjoy_hero_image_position', [
+        'default'           => 'center center',
+        'sanitize_callback' => 'tenjoy_sanitize_hero_image_position',
     ]);
 
-    for ($i = 1; $i <= 4; $i++) {
-        $wp_customize->add_setting("tenjoy_experience_image_{$i}", [
-            'default'           => '',
-            'sanitize_callback' => 'absint',
-        ]);
-
-        $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, "tenjoy_experience_image_{$i}", [
-            'label'     => sprintf(__('体験ギャラリー画像 %d', 'tenjoy-tour'), $i),
-            'section'   => 'tenjoy_experience',
-            'mime_type' => 'image',
-        ]));
-    }
+    $wp_customize->add_control('tenjoy_hero_image_position', [
+        'label'   => __('画像の表示位置', 'tenjoy-tour'),
+        'section' => 'tenjoy_hero',
+        'type'    => 'select',
+        'choices' => [
+            'left top'      => __('左上', 'tenjoy-tour'),
+            'center top'    => __('中央上', 'tenjoy-tour'),
+            'right top'     => __('右上', 'tenjoy-tour'),
+            'left center'   => __('左中央', 'tenjoy-tour'),
+            'center center' => __('中央（初期値）', 'tenjoy-tour'),
+            'right center'  => __('右中央', 'tenjoy-tour'),
+            'left bottom'   => __('左下', 'tenjoy-tour'),
+            'center bottom' => __('中央下', 'tenjoy-tour'),
+            'right bottom'  => __('右下', 'tenjoy-tour'),
+        ],
+    ]);
 
     // ======================================================================
     // セクション3: 車両紹介
@@ -172,6 +172,29 @@ function tenjoy_customizer_register(WP_Customize_Manager $wp_customize)
             'mime_type' => 'image',
         ]));
     }
+
+    // ======================================================================
+    // セクション5: SNSアイコン画像
+    // ======================================================================
+
+    $wp_customize->add_section('tenjoy_sns_icons', [
+        'title' => __('SNSアイコン画像', 'tenjoy-tour'),
+        'panel' => 'tenjoy_panel',
+    ]);
+
+    foreach ($messengers as $key => $label) {
+        $wp_customize->add_setting("tenjoy_icon_{$key}", [
+            'default'           => '',
+            'sanitize_callback' => 'absint',
+        ]);
+
+        $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, "tenjoy_icon_{$key}", [
+            'label'       => sprintf(__('%s アイコン画像', 'tenjoy-tour'), $label),
+            'description' => __('フッターおよび「今すぐお問い合わせ」欄のアイコンに使用されます。', 'tenjoy-tour'),
+            'section'     => 'tenjoy_sns_icons',
+            'mime_type'   => 'image',
+        ]));
+    }
 }
 
 // ======================================================================
@@ -201,4 +224,21 @@ function tenjoy_customizer_image_url(string $setting_key, string $size = 'full',
     }
 
     return $fallback_url;
+}
+
+/**
+ * ヒーロー画像の表示位置（object-position）を許可リストで検証する。
+ *
+ * @param string $value
+ * @return string
+ */
+function tenjoy_sanitize_hero_image_position(string $value): string
+{
+    $allowed = [
+        'left top', 'center top', 'right top',
+        'left center', 'center center', 'right center',
+        'left bottom', 'center bottom', 'right bottom',
+    ];
+
+    return in_array($value, $allowed, true) ? $value : 'center center';
 }

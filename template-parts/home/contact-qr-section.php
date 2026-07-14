@@ -8,6 +8,7 @@
 $messengers = [
   [
     'setting_key' => 'tenjoy_qr_kakao',
+    'icon_key'    => 'tenjoy_icon_kakao',
     'name'        => 'Kakao Talk',
     'color'       => '#FEE500',
     'text'        => '#3C1E1E',
@@ -17,6 +18,7 @@ $messengers = [
   ],
   [
     'setting_key' => 'tenjoy_qr_wechat',
+    'icon_key'    => 'tenjoy_icon_wechat',
     'name'        => 'WeChat',
     'color'       => '#07C160',
     'text'        => '#fff',
@@ -26,6 +28,7 @@ $messengers = [
   ],
   [
     'setting_key' => 'tenjoy_qr_instagram',
+    'icon_key'    => 'tenjoy_icon_instagram',
     'name'        => 'Instagram',
     'color'       => '#e6683c',
     'text'        => '#fff',
@@ -35,6 +38,7 @@ $messengers = [
   ],
   [
     'setting_key' => 'tenjoy_qr_line',
+    'icon_key'    => 'tenjoy_icon_line',
     'name'        => 'LINE',
     'color'       => '#00B900',
     'text'        => '#fff',
@@ -44,6 +48,7 @@ $messengers = [
   ],
   [
     'setting_key' => 'tenjoy_qr_whatsapp',
+    'icon_key'    => 'tenjoy_icon_whatsapp',
     'name'        => 'WhatsApp',
     'color'       => '#25D366',
     'text'        => '#fff',
@@ -65,8 +70,13 @@ $messengers = [
     <div class="messenger-grid">
       <?php foreach ($messengers as $m) : ?>
         <div class="messenger-card">
+          <?php $icon_url = tenjoy_customizer_image_url($m['icon_key'], 'thumbnail'); ?>
           <div class="messenger-icon-wrap" style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
-            <?php echo tenjoy_icon(esc_attr($m['icon'])); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+            <?php if ($icon_url) : ?>
+              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="28" height="28" loading="lazy">
+            <?php else : ?>
+              <?php echo tenjoy_icon(esc_attr($m['icon'])); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+            <?php endif; ?>
           </div>
           <h3 class="messenger-name"><?php echo esc_html($m['name']); ?></h3>
           <p class="messenger-desc"><?php echo esc_html($m['desc']); ?></p>
