@@ -1,4 +1,5 @@
 <?php
+
 /**
  * カスタムメタボックス定義
  * 各 CPT の管理画面フォームを提供する
@@ -15,6 +16,16 @@ if (! defined('ABSPATH')) {
 // ==========================================================================
 
 add_action('add_meta_boxes', function () {
+    // 車両紹介
+    add_meta_box(
+        'tenjoy_vehicle_meta',
+        __('車両情報', 'tenjoy-tour'),
+        'tenjoy_render_vehicle_meta_box',
+        'vehicles',
+        'normal',
+        'high'
+    );
+
     // ゴルフ場
     add_meta_box(
         'tenjoy_course_meta',
@@ -83,21 +94,16 @@ function tenjoy_meta_text_field($post_id, $key, $label, $type = 'text', $desc = 
 {
     $value = get_post_meta($post_id, $key, true);
     $id    = esc_attr($key);
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label for="<?php echo $id; ?>"><strong><?php echo esc_html($label); ?></strong></label>
-      <input
-        type="<?php echo esc_attr($type); ?>"
-        id="<?php echo $id; ?>"
-        name="<?php echo $id; ?>"
-        value="<?php echo esc_attr((string) $value); ?>"
-        class="widefat"
-      >
-      <?php if ($desc) : ?>
-        <p class="description"><?php echo esc_html($desc); ?></p>
-      <?php endif; ?>
+        <label for="<?php echo $id; ?>"><strong><?php echo esc_html($label); ?></strong></label>
+        <input type="<?php echo esc_attr($type); ?>" id="<?php echo $id; ?>" name="<?php echo $id; ?>"
+            value="<?php echo esc_attr((string) $value); ?>" class="widefat">
+        <?php if ($desc) : ?>
+            <p class="description"><?php echo esc_html($desc); ?></p>
+        <?php endif; ?>
     </div>
-    <?php
+<?php
 }
 
 /**
@@ -112,23 +118,44 @@ function tenjoy_meta_checkbox_field($post_id, $key, $label, $desc = '')
 {
     $value = (bool) get_post_meta($post_id, $key, true);
     $id    = esc_attr($key);
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label>
-        <input
-          type="checkbox"
-          id="<?php echo $id; ?>"
-          name="<?php echo $id; ?>"
-          value="1"
-          <?php checked($value, true); ?>
-        >
-        <strong><?php echo esc_html($label); ?></strong>
-      </label>
-      <?php if ($desc) : ?>
-        <p class="description"><?php echo esc_html($desc); ?></p>
-      <?php endif; ?>
+        <label>
+            <input type="checkbox" id="<?php echo $id; ?>" name="<?php echo $id; ?>" value="1" <?php checked($value, true); ?>>
+            <strong><?php echo esc_html($label); ?></strong>
+        </label>
+        <?php if ($desc) : ?>
+            <p class="description"><?php echo esc_html($desc); ?></p>
+        <?php endif; ?>
     </div>
-    <?php
+<?php
+}
+
+// ==========================================================================
+// 車両紹介メタボックス
+// ==========================================================================
+
+/**
+ * @param WP_Post $post
+ */
+function tenjoy_render_vehicle_meta_box($post)
+{
+    wp_nonce_field('tenjoy_vehicle_meta_save', 'tenjoy_vehicle_meta_nonce');
+    $pid  = $post->ID;
+    $desc = get_post_meta($pid, 'vehicle_desc', true);
+    echo '<div class="tenjoy-meta-box">';
+?>
+    <div class="tenjoy-meta-field">
+        <label for="vehicle_desc"><strong><?php esc_html_e('説明文', 'tenjoy-tour'); ?></strong></label>
+        <textarea id="vehicle_desc" name="vehicle_desc" class="widefat"
+            rows="3"><?php echo esc_textarea((string) $desc); ?></textarea>
+        <p class="description"><?php esc_html_e('例: 大人数でのご移動に最適です（最大45名）', 'tenjoy-tour'); ?></p>
+    </div>
+    <p class="description">
+        <?php esc_html_e('タイトルには車両名（例: 大型バス）、アイキャッチ画像には車両写真を設定してください。並び順は「並べ替え」欄で調整できます。', 'tenjoy-tour'); ?>
+    </p>
+<?php
+    echo '</div>';
 }
 
 // ==========================================================================
@@ -154,6 +181,13 @@ function tenjoy_render_course_meta_box($post)
     tenjoy_meta_checkbox_field($pid, 'course_caddie', __('キャディあり', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_cart', __('カート', 'tenjoy-tour'), 'text', __('例: 乗用カート（GPS付）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_website', __('公式サイト URL', 'tenjoy-tour'), 'url', __('例: https://example-golf.com', 'tenjoy-tour'));
+    tenjoy_meta_text_field(
+        $pid,
+        'course_map_embed',
+        __('Googleマップ 埋め込みURL', 'tenjoy-tour'),
+        'url',
+        __('Googleマップで場所を検索→「共有」→「地図を埋め込む」→表示されたHTML内の src="..." のURL部分だけを貼り付けてください。', 'tenjoy-tour')
+    );
     tenjoy_meta_checkbox_field($pid, 'course_has_detail', __('詳細ページを作成する', 'tenjoy-tour'), __('チェックを入れると個別の詳細ページが表示されます', 'tenjoy-tour'));
     echo '</div>';
 }
@@ -180,51 +214,64 @@ function tenjoy_render_activity_meta_box($post)
 
     // ギャラリー画像
     $gallery = get_post_meta($pid, 'activity_gallery', true);
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label><strong><?php esc_html_e('ギャラリー画像', 'tenjoy-tour'); ?></strong></label>
-      <p class="description"><?php esc_html_e('メディアライブラリから画像を選択してください。', 'tenjoy-tour'); ?></p>
-      <div id="activity-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
-        <?php
-        if ($gallery) {
-            foreach (array_filter(explode(',', $gallery)) as $img_id) {
-                $url = wp_get_attachment_image_url((int) $img_id, 'thumbnail');
-                if ($url) {
-                    echo '<img src="' . esc_url($url) . '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+        <label><strong><?php esc_html_e('ギャラリー画像', 'tenjoy-tour'); ?></strong></label>
+        <p class="description"><?php esc_html_e('メディアライブラリから画像を選択してください。', 'tenjoy-tour'); ?></p>
+        <div id="activity-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
+            <?php
+            if ($gallery) {
+                foreach (array_filter(explode(',', $gallery)) as $img_id) {
+                    $url = wp_get_attachment_image_url((int) $img_id, 'thumbnail');
+                    if ($url) {
+                        echo '<img src="' . esc_url($url) . '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+                    }
                 }
             }
-        }
-        ?>
-      </div>
-      <input type="hidden" id="activity_gallery" name="activity_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
-      <button type="button" class="button" id="activity-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
-      <button type="button" class="button" id="activity-gallery-clear" style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
+            ?>
+        </div>
+        <input type="hidden" id="activity_gallery" name="activity_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
+        <button type="button" class="button"
+            id="activity-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
+        <button type="button" class="button" id="activity-gallery-clear"
+            style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
     </div>
     <script>
-    (function($){
-      var frame;
-      $('#activity-gallery-btn').on('click', function(e){
-        e.preventDefault();
-        if(frame){ frame.open(); return; }
-        frame = wp.media({ title:'ギャラリー画像を選択', multiple:true, library:{type:'image'} });
-        frame.on('select', function(){
-          var ids = [], previews = '';
-          frame.state().get('selection').each(function(a){
-            ids.push(a.id);
-            previews += '<img src="'+a.attributes.sizes.thumbnail.url+'" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
-          });
-          $('#activity_gallery').val(ids.join(','));
-          $('#activity-gallery-preview').html(previews);
-        });
-        frame.open();
-      });
-      $('#activity-gallery-clear').on('click', function(){
-        $('#activity_gallery').val('');
-        $('#activity-gallery-preview').html('');
-      });
-    })(jQuery);
+        (function($) {
+            var frame;
+            $('#activity-gallery-btn').on('click', function(e) {
+                e.preventDefault();
+                if (frame) {
+                    frame.open();
+                    return;
+                }
+                frame = wp.media({
+                    title: 'ギャラリー画像を選択',
+                    multiple: true,
+                    library: {
+                        type: 'image'
+                    }
+                });
+                frame.on('select', function() {
+                    var ids = [],
+                        previews = '';
+                    frame.state().get('selection').each(function(a) {
+                        ids.push(a.id);
+                        previews += '<img src="' + a.attributes.sizes.thumbnail.url +
+                            '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+                    });
+                    $('#activity_gallery').val(ids.join(','));
+                    $('#activity-gallery-preview').html(previews);
+                });
+                frame.open();
+            });
+            $('#activity-gallery-clear').on('click', function() {
+                $('#activity_gallery').val('');
+                $('#activity-gallery-preview').html('');
+            });
+        })(jQuery);
     </script>
-    <?php
+<?php
     echo '</div>';
 }
 
@@ -243,12 +290,13 @@ function tenjoy_render_staff_meta_box($post)
     tenjoy_meta_text_field($pid, 'staff_role', __('役職', 'tenjoy-tour'), 'text', __('例: ゴルフコーディネーター', 'tenjoy-tour'));
 
     $bio = get_post_meta($pid, 'staff_bio', true);
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label for="staff_bio"><strong><?php esc_html_e('自己紹介', 'tenjoy-tour'); ?></strong></label>
-      <textarea id="staff_bio" name="staff_bio" class="widefat" rows="4"><?php echo esc_textarea((string) $bio); ?></textarea>
+        <label for="staff_bio"><strong><?php esc_html_e('自己紹介', 'tenjoy-tour'); ?></strong></label>
+        <textarea id="staff_bio" name="staff_bio" class="widefat"
+            rows="4"><?php echo esc_textarea((string) $bio); ?></textarea>
     </div>
-    <?php
+<?php
     tenjoy_meta_text_field($pid, 'staff_languages', __('対応言語', 'tenjoy-tour'), 'text', __('例: 日本語, 英語, 中国語（カンマ区切り）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'staff_email', __('メールアドレス', 'tenjoy-tour'), 'text', __('例: staff@tenjoy-tour.com', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'staff_phone', __('電話番号', 'tenjoy-tour'), 'text', __('例: +81-3-1234-5678', 'tenjoy-tour'));
@@ -273,16 +321,16 @@ function tenjoy_render_review_meta_box($post)
     if ($rating < 1 || $rating > 5) {
         $rating = 5;
     }
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label for="review_rating"><strong><?php esc_html_e('星評価', 'tenjoy-tour'); ?></strong></label>
-      <select id="review_rating" name="review_rating" class="widefat" style="max-width:120px;">
-        <?php for ($i = 5; $i >= 1; $i--) : ?>
-          <option value="<?php echo $i; ?>" <?php selected($rating, $i); ?>><?php echo $i; ?> ★</option>
-        <?php endfor; ?>
-      </select>
+        <label for="review_rating"><strong><?php esc_html_e('星評価', 'tenjoy-tour'); ?></strong></label>
+        <select id="review_rating" name="review_rating" class="widefat" style="max-width:120px;">
+            <?php for ($i = 5; $i >= 1; $i--) : ?>
+                <option value="<?php echo $i; ?>" <?php selected($rating, $i); ?>><?php echo $i; ?> ★</option>
+            <?php endfor; ?>
+        </select>
     </div>
-    <?php
+<?php
     echo '</div>';
 }
 
@@ -300,6 +348,16 @@ add_action('save_post', function ($post_id) {
     }
 
     $post_type = get_post_type($post_id);
+
+    // ---- 車両紹介 ----
+    if ($post_type === 'vehicles' && isset($_POST['tenjoy_vehicle_meta_nonce'])) {
+        if (! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['tenjoy_vehicle_meta_nonce'])), 'tenjoy_vehicle_meta_save')) {
+            return;
+        }
+        if (isset($_POST['vehicle_desc'])) {
+            update_post_meta($post_id, 'vehicle_desc', sanitize_textarea_field(wp_unslash($_POST['vehicle_desc'])));
+        }
+    }
 
     // ---- ゴルフ場 ----
     if ($post_type === 'courses' && isset($_POST['tenjoy_course_meta_nonce'])) {
@@ -319,6 +377,12 @@ add_action('save_post', function ($post_id) {
 
         $website = isset($_POST['course_website']) ? esc_url_raw(wp_unslash($_POST['course_website'])) : '';
         update_post_meta($post_id, 'course_website', $website);
+
+        $map_embed = isset($_POST['course_map_embed']) ? esc_url_raw(wp_unslash($_POST['course_map_embed'])) : '';
+        if ($map_embed !== '' && ! tenjoy_is_valid_map_embed_url($map_embed)) {
+            $map_embed = '';
+        }
+        update_post_meta($post_id, 'course_map_embed', $map_embed);
 
         update_post_meta($post_id, 'course_caddie', isset($_POST['course_caddie']) ? true : false);
         update_post_meta($post_id, 'course_has_detail', isset($_POST['course_has_detail']) ? true : false);
@@ -362,9 +426,15 @@ add_action('save_post', function ($post_id) {
             return;
         }
         $company_fields = [
-            'company_name', 'company_representative', 'company_founded',
-            'company_capital', 'company_employees', 'company_address',
-            'company_phone', 'company_languages', 'company_hours',
+            'company_name',
+            'company_representative',
+            'company_founded',
+            'company_capital',
+            'company_employees',
+            'company_address',
+            'company_phone',
+            'company_languages',
+            'company_hours',
         ];
         foreach ($company_fields as $field) {
             if (isset($_POST[$field])) {
@@ -435,20 +505,40 @@ add_action('admin_head', function () {
     if (! $screen) {
         return;
     }
-    $cpt_list = ['courses', 'activities', 'staff', 'faq'];
+    $cpt_list = ['courses', 'activities', 'staff', 'faq', 'vehicles'];
     if (! in_array($screen->post_type, $cpt_list, true)) {
         return;
     }
-    ?>
+?>
     <style>
-      .tenjoy-meta-box { display: flex; flex-direction: column; gap: 12px; }
-      .tenjoy-meta-field { display: flex; flex-direction: column; gap: 4px; }
-      .tenjoy-meta-field label { font-size: 13px; }
-      .tenjoy-meta-field input[type="text"],
-      .tenjoy-meta-field input[type="url"],
-      .tenjoy-meta-field input[type="number"],
-      .tenjoy-meta-field textarea { margin-top: 2px; }
-      .tenjoy-meta-field .description { color: #646970; font-size: 12px; margin: 2px 0 0; }
+        .tenjoy-meta-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tenjoy-meta-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tenjoy-meta-field label {
+            font-size: 13px;
+        }
+
+        .tenjoy-meta-field input[type="text"],
+        .tenjoy-meta-field input[type="url"],
+        .tenjoy-meta-field input[type="number"],
+        .tenjoy-meta-field textarea {
+            margin-top: 2px;
+        }
+
+        .tenjoy-meta-field .description {
+            color: #646970;
+            font-size: 12px;
+            margin: 2px 0 0;
+        }
     </style>
-    <?php
+<?php
 });

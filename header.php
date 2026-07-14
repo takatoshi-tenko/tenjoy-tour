@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ヘッダー
  *
@@ -12,7 +13,8 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="profile" href="https://gmpg.org/xfn/11">
-  <link rel="icon" type="image/png" href="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>">
+  <link rel="icon" type="image/png"
+    href="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>">
   <link rel="apple-touch-icon" href="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>">
   <?php wp_head(); ?>
 </head>
@@ -25,17 +27,13 @@
 
       <!-- ロゴ -->
       <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
-        <img
-          src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
-          alt="<?php bloginfo('name'); ?>"
-          width="48"
-          height="48"
-          loading="eager">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
+          alt="<?php bloginfo('name'); ?>" width="48" height="48" loading="eager">
         <span class="site-logo-name">TENJOY-TOUR</span>
       </a>
 
       <!-- デスクトップナビ -->
-      <nav class="site-nav" aria-label="<?php esc_attr_e('メインメニュー', 'tenjoy-tour'); ?>">
+      <nav class="site-nav" aria-label="<?php tenjoy_attr_e('header_01'); ?>">
         <?php
         wp_nav_menu([
           'theme_location' => 'primary',
@@ -51,14 +49,23 @@
 
         <!-- 言語切替（Polylang） -->
         <?php if (function_exists('pll_the_languages')) : ?>
-          <div class="lang-switcher" aria-label="<?php esc_attr_e('言語切替', 'tenjoy-tour'); ?>">
+          <div class="lang-switcher" aria-label="<?php tenjoy_attr_e('header_02'); ?>">
             <button class="lang-switcher-toggle" aria-expanded="false" aria-controls="lang-menu">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                <path d="M2 12h20"/>
-              </svg>
-              <span class="sr-only"><?php esc_html_e('言語切替', 'tenjoy-tour'); ?></span>
+              <?php
+              $tenjoy_curlang = function_exists('pll_current_language') ? pll_current_language('OBJECT') : false;
+              ?>
+              <?php if ($tenjoy_curlang) : ?>
+                <?php echo $tenjoy_curlang->get_display_flag('alt'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                ?>
+              <?php else : ?>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  <path d="M2 12h20" />
+                </svg>
+              <?php endif; ?>
+              <span class="sr-only"><?php tenjoy_e('header_02'); ?></span>
             </button>
             <ul id="lang-menu" class="lang-menu" hidden>
               <?php
@@ -75,11 +82,7 @@
         <?php endif; ?>
 
         <!-- ハンバーガーボタン（SP） -->
-        <button
-          type="button"
-          class="nav-toggle"
-          aria-label="<?php esc_attr_e('メニューを開く', 'tenjoy-tour'); ?>"
-          aria-expanded="false"
+        <button type="button" class="nav-toggle" aria-label="<?php tenjoy_attr_e('header_03'); ?>" aria-expanded="false"
           aria-controls="mobile-menu">
           <span class="nav-toggle-bar"></span>
           <span class="nav-toggle-bar"></span>
@@ -90,7 +93,7 @@
 
     <!-- モバイルメニュー -->
     <div id="mobile-menu" class="mobile-menu" aria-hidden="true" hidden>
-      <nav aria-label="<?php esc_attr_e('モバイルメニュー', 'tenjoy-tour'); ?>">
+      <nav aria-label="<?php tenjoy_attr_e('header_04'); ?>">
         <?php
         wp_nav_menu([
           'theme_location' => 'primary',

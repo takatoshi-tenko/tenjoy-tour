@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ゴルフ場一覧ページ
  *
@@ -12,9 +13,9 @@ get_header();
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-title"><?php esc_html_e('ゴルフ場一覧', 'tenjoy-tour'); ?></h1>
+      <h1 class="archive-title"><?php tenjoy_e('footer_04'); ?></h1>
       <p class="archive-desc">
-        <?php esc_html_e('日本全国の厳選されたゴルフコースをご紹介します', 'tenjoy-tour'); ?>
+        <?php tenjoy_e('courses_archive_01'); ?>
       </p>
     </div>
   </div>
@@ -51,7 +52,7 @@ get_header();
 
                 <?php if ($visit_count > 0) : ?>
                   <div class="course-badge-overlay course-badge-visits">
-                    <?php echo esc_html($visit_count); ?><?php esc_html_e('回訪問', 'tenjoy-tour'); ?>
+                    <?php echo esc_html($visit_count); ?><?php tenjoy_e('courses_archive_02'); ?>
                   </div>
                 <?php endif; ?>
               </div>
@@ -86,11 +87,11 @@ get_header();
                   <?php endif; ?>
                   <?php if ($has_detail) : ?>
                     <a href="<?php the_permalink(); ?>" class="btn btn-primary">
-                      <?php esc_html_e('詳細を見る', 'tenjoy-tour'); ?>
+                      <?php tenjoy_e('courses_archive_03'); ?>
                     </a>
                   <?php else : ?>
                     <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-outline">
-                      <?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?>
+                      <?php tenjoy_e('nav_06'); ?>
                     </a>
                   <?php endif; ?>
                 </div>
@@ -102,7 +103,7 @@ get_header();
         <?php tenjoy_pagination(); ?>
 
       <?php else : ?>
-        <p class="archive-empty"><?php esc_html_e('ゴルフ場情報は準備中です。', 'tenjoy-tour'); ?></p>
+        <p class="archive-empty"><?php tenjoy_e('courses_archive_04'); ?></p>
       <?php endif; ?>
     </div>
 
@@ -110,12 +111,12 @@ get_header();
     <div class="courses-cta-section">
       <div class="container">
         <div class="courses-cta-inner">
-          <h2 class="courses-cta-title"><?php esc_html_e('ご希望のゴルフ場が見つかりましたか？', 'tenjoy-tour'); ?></h2>
+          <h2 class="courses-cta-title"><?php tenjoy_e('courses_archive_05'); ?></h2>
           <p class="courses-cta-desc">
-            <?php esc_html_e('ゴルフ場の予約から交通手配まで、お気軽にご相談ください。', 'tenjoy-tour'); ?>
+            <?php tenjoy_e('courses_archive_06'); ?>
           </p>
           <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
-            <?php esc_html_e('無料でお問い合わせ', 'tenjoy-tour'); ?>
+            <?php tenjoy_e('courses_archive_07'); ?>
           </a>
         </div>
       </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: 会社概要
  *
@@ -25,8 +26,8 @@ $co  = [
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-title"><?php esc_html_e('会社概要', 'tenjoy-tour'); ?></h1>
-      <p class="archive-desc"><?php esc_html_e('TENJOY-TOUR について', 'tenjoy-tour'); ?></p>
+      <h1 class="archive-title"><?php tenjoy_e('nav_05'); ?></h1>
+      <p class="archive-desc"><?php tenjoy_e('company_01'); ?></p>
     </div>
   </div>
 
@@ -38,54 +39,57 @@ $co  = [
         <section class="company-greeting">
           <div class="company-greeting-deco" aria-hidden="true">"</div>
           <div class="company-greeting-inner">
-            <p class="company-greeting-lead"><?php esc_html_e('Have a good tour. Have a good trip !', 'tenjoy-tour'); ?></p>
-            <h2 class="company-greeting-title"><?php esc_html_e('訪日ゴルファーの皆様へ', 'tenjoy-tour'); ?></h2>
+            <p class="company-greeting-lead"><?php tenjoy_e('company_02'); ?></p>
+            <h2 class="company-greeting-title"><?php tenjoy_e('company_03'); ?></h2>
             <div class="company-greeting-body">
-              <p><?php esc_html_e('TENJOY-TOURは、日本でのゴルフ旅行を心から楽しんでいただくために設立されました。ゴルフ場の予約・送迎・ガイドなど、旅行に関わるすべての手配を私たちにお任せください。', 'tenjoy-tour'); ?></p>
-              <p><?php esc_html_e('日本語・中国語・韓国語・英語に対応したスタッフが、お客様一人ひとりに寄り添いながら、最高のゴルフ旅行をサポートいたします。', 'tenjoy-tour'); ?></p>
+              <p><?php tenjoy_e('company_04'); ?></p>
+              <p><?php tenjoy_e('company_05'); ?></p>
             </div>
-            <p class="company-greeting-sign"><?php esc_html_e('代表取締役　', 'tenjoy-tour'); ?><?php echo esc_html($co['representative']); ?></p>
+            <p class="company-greeting-sign">
+              <?php tenjoy_e('company_06'); ?><?php echo esc_html($co['representative']); ?></p>
           </div>
         </section>
 
         <!-- 基本情報 -->
         <section class="company-info-section">
-          <h2 class="company-section-title"><?php esc_html_e('基本情報', 'tenjoy-tour'); ?></h2>
+          <h2 class="company-section-title"><?php tenjoy_e('company_07'); ?></h2>
           <dl class="company-info-table">
             <div class="company-info-row">
-              <dt><?php esc_html_e('会社名', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_08'); ?></dt>
               <dd><?php echo esc_html($co['name']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('代表者', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_09'); ?></dt>
               <dd><?php echo esc_html($co['representative']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('設立', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_10'); ?></dt>
               <dd><?php echo esc_html($co['founded']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('資本金', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_11'); ?></dt>
               <dd><?php echo esc_html($co['capital']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('従業員数', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_12'); ?></dt>
               <dd><?php echo esc_html($co['employees']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('所在地', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_13'); ?></dt>
               <dd><?php echo esc_html($co['address']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('電話番号', 'tenjoy-tour'); ?></dt>
-              <dd><a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $co['phone'])); ?>"><?php echo esc_html($co['phone']); ?></a></dd>
+              <dt><?php tenjoy_e('contact_16'); ?></dt>
+              <dd><a
+                  href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $co['phone'])); ?>"><?php echo esc_html($co['phone']); ?></a>
+              </dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('対応言語', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('company_14'); ?></dt>
               <dd><?php echo esc_html($co['languages']); ?></dd>
             </div>
             <div class="company-info-row">
-              <dt><?php esc_html_e('営業時間', 'tenjoy-tour'); ?></dt>
+              <dt><?php tenjoy_e('contact_09'); ?></dt>
               <dd><?php echo esc_html($co['hours']); ?></dd>
             </div>
           </dl>
@@ -93,54 +97,58 @@ $co  = [
 
         <!-- 事業内容 -->
         <section class="company-info-section">
-          <h2 class="company-section-title"><?php esc_html_e('事業内容', 'tenjoy-tour'); ?></h2>
+          <h2 class="company-section-title"><?php tenjoy_e('company_15'); ?></h2>
           <div class="company-services-grid">
             <div class="company-service-card">
               <div class="company-service-icon">
-                <?php echo tenjoy_icon('flag'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                <?php echo tenjoy_icon('flag'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                ?>
               </div>
-              <h3 class="company-service-name"><?php esc_html_e('旅行業', 'tenjoy-tour'); ?></h3>
-              <p class="company-service-desc"><?php esc_html_e('訪日外国人向けのゴルフ旅行・観光ツアーの企画・手配を行います。', 'tenjoy-tour'); ?></p>
+              <h3 class="company-service-name"><?php tenjoy_e('company_16'); ?></h3>
+              <p class="company-service-desc"><?php tenjoy_e('company_17'); ?></p>
             </div>
             <div class="company-service-card">
               <div class="company-service-icon">
-                <?php echo tenjoy_icon('message-square'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                <?php echo tenjoy_icon('message-square'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                ?>
               </div>
-              <h3 class="company-service-name"><?php esc_html_e('翻訳・通訳', 'tenjoy-tour'); ?></h3>
-              <p class="company-service-desc"><?php esc_html_e('中国語・韓国語・英語に対応した翻訳・通訳サービスを提供します。', 'tenjoy-tour'); ?></p>
+              <h3 class="company-service-name"><?php tenjoy_e('company_18'); ?></h3>
+              <p class="company-service-desc"><?php tenjoy_e('company_19'); ?></p>
             </div>
             <div class="company-service-card">
               <div class="company-service-icon">
-                <?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                <?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                ?>
               </div>
-              <h3 class="company-service-name"><?php esc_html_e('観光ガイド', 'tenjoy-tour'); ?></h3>
-              <p class="company-service-desc"><?php esc_html_e('経験豊富なガイドが日本各地の観光スポットをご案内します。', 'tenjoy-tour'); ?></p>
+              <h3 class="company-service-name"><?php tenjoy_e('company_20'); ?></h3>
+              <p class="company-service-desc"><?php tenjoy_e('company_21'); ?></p>
             </div>
             <div class="company-service-card">
               <div class="company-service-icon">
-                <?php echo tenjoy_icon('car'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                <?php echo tenjoy_icon('car'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                ?>
               </div>
-              <h3 class="company-service-name"><?php esc_html_e('送迎・チャーター', 'tenjoy-tour'); ?></h3>
-              <p class="company-service-desc"><?php esc_html_e('空港・ゴルフ場間の送迎から長距離チャーターまで対応します。', 'tenjoy-tour'); ?></p>
+              <h3 class="company-service-name"><?php tenjoy_e('company_22'); ?></h3>
+              <p class="company-service-desc"><?php tenjoy_e('company_23'); ?></p>
             </div>
           </div>
         </section>
 
         <!-- サービスエリア -->
         <section class="company-info-section">
-          <h2 class="company-section-title"><?php esc_html_e('サービスエリア', 'tenjoy-tour'); ?></h2>
+          <h2 class="company-section-title"><?php tenjoy_e('company_24'); ?></h2>
           <div class="company-area-grid">
             <div class="company-area-card">
-              <h3 class="company-area-name"><?php esc_html_e('九州エリア', 'tenjoy-tour'); ?></h3>
-              <p class="company-area-desc"><?php esc_html_e('福岡・佐賀・長崎・熊本・大分・宮崎・鹿児島', 'tenjoy-tour'); ?></p>
+              <h3 class="company-area-name"><?php tenjoy_e('company_25'); ?></h3>
+              <p class="company-area-desc"><?php tenjoy_e('company_26'); ?></p>
             </div>
             <div class="company-area-card">
-              <h3 class="company-area-name"><?php esc_html_e('関西・中国エリア', 'tenjoy-tour'); ?></h3>
-              <p class="company-area-desc"><?php esc_html_e('大阪・京都・兵庫・広島・岡山・山口', 'tenjoy-tour'); ?></p>
+              <h3 class="company-area-name"><?php tenjoy_e('company_27'); ?></h3>
+              <p class="company-area-desc"><?php tenjoy_e('company_28'); ?></p>
             </div>
             <div class="company-area-card">
-              <h3 class="company-area-name"><?php esc_html_e('全国対応', 'tenjoy-tour'); ?></h3>
-              <p class="company-area-desc"><?php esc_html_e('上記以外のエリアもご相談ください。全国のゴルフ場への手配が可能です。', 'tenjoy-tour'); ?></p>
+              <h3 class="company-area-name"><?php tenjoy_e('company_29'); ?></h3>
+              <p class="company-area-desc"><?php tenjoy_e('company_30'); ?></p>
             </div>
           </div>
         </section>
@@ -158,14 +166,14 @@ $co  = [
 
         <!-- CTA -->
         <div class="company-cta">
-          <p class="company-cta-title"><?php esc_html_e('ご不明な点はお気軽にお問い合わせください', 'tenjoy-tour'); ?></p>
-          <p class="company-cta-text"><?php esc_html_e('WeChat・Kakao Talk・LINE・WhatsApp でもご連絡いただけます。', 'tenjoy-tour'); ?></p>
+          <p class="company-cta-title"><?php tenjoy_e('company_31'); ?></p>
+          <p class="company-cta-text"><?php tenjoy_e('company_32'); ?></p>
           <div class="company-cta-buttons">
             <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
-              <?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?>
+              <?php tenjoy_e('nav_06'); ?>
             </a>
             <a href="<?php echo esc_url(home_url('/courses/')); ?>" class="btn btn-outline btn-lg">
-              <?php esc_html_e('ゴルフ場を見る', 'tenjoy-tour'); ?>
+              <?php tenjoy_e('company_33'); ?>
             </a>
           </div>
         </div>

@@ -248,6 +248,32 @@
   }
 }
 
+.course-map-section {
+  margin-top: 2rem;
+}
+
+.course-map-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.course-map-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
 .course-sidebar {
   background: var(--muted);
   border: 1px solid var(--border);

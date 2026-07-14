@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ブログ一覧（投稿一覧）
  * 表示設定で「投稿ページ」に指定した固定ページに適用される
@@ -13,9 +14,9 @@ get_header();
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-title"><?php esc_html_e('ブログ', 'tenjoy-tour'); ?></h1>
+      <h1 class="archive-title"><?php tenjoy_e('footer_06'); ?></h1>
       <p class="archive-desc">
-        <?php esc_html_e('ゴルフ旅行に役立つ最新情報をお届けします', 'tenjoy-tour'); ?>
+        <?php tenjoy_e('home_01'); ?>
       </p>
     </div>
   </div>
@@ -46,7 +47,7 @@ get_header();
 
       <?php else : ?>
         <div class="news-empty-wrap">
-          <p class="news-empty"><?php esc_html_e('記事はまだありません。', 'tenjoy-tour'); ?></p>
+          <p class="news-empty"><?php tenjoy_e('home_02'); ?></p>
         </div>
       <?php endif; ?>
     </div>

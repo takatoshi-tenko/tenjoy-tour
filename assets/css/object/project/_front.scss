@@ -262,12 +262,14 @@
 .vehicles-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 56rem;
-    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -295,15 +297,17 @@
 }
 
 .vehicle-name {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  margin: 1rem 1rem 0.25rem;
+  line-height: 1.3;
+  margin: 0.625rem 0.75rem 0.125rem;
 }
 
 .vehicle-desc {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
   color: var(--muted-foreground);
-  margin: 0 1rem 1rem;
+  margin: 0 0.75rem 0.625rem;
 }
 
 /* ============================================================

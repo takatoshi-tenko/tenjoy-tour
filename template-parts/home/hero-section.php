@@ -17,9 +17,8 @@
     $hero_position = get_theme_mod('tenjoy_hero_image_position', 'center center');
     if ($hero_url) :
     ?>
-      <img src="<?php echo esc_url($hero_url); ?>" alt="<?php esc_attr_e('ゴルフコース', 'tenjoy-tour'); ?>" class="hero-img"
-        style="object-position: <?php echo esc_attr($hero_position); ?>;"
-        loading="eager" decoding="async">
+      <img src="<?php echo esc_url($hero_url); ?>" alt="<?php tenjoy_attr_e('hero_01'); ?>" class="hero-img"
+        style="object-position: <?php echo esc_attr($hero_position); ?>;" loading="eager" decoding="async">
     <?php endif; ?>
   </div>
   <div class="hero-overlay"></div>
@@ -27,14 +26,14 @@
     <div class="container">
       <div class="hero-text">
         <h1 class="hero-title">
-          <?php esc_html_e('日本のゴルフ手配専門', 'tenjoy-tour'); ?>
+          <?php tenjoy_e('hero_02'); ?>
         </h1>
         <p class="hero-subtitle">
-          <?php esc_html_e('訪日ゴルファーの皆様へ、ゴルフ場予約・送迎を完全サポート', 'tenjoy-tour'); ?>
+          <?php tenjoy_e('hero_03'); ?>
         </p>
         <div class="hero-cta">
           <a href="#contact" class="btn btn-primary btn-lg">
-            <?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?>
+            <?php tenjoy_e('nav_06'); ?>
           </a>
         </div>
       </div>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: スタッフ紹介
  *
@@ -8,10 +9,10 @@
 get_header();
 
 $staff_query = new WP_Query([
-    'post_type'      => 'staff',
-    'posts_per_page' => -1,
-    'orderby'        => 'menu_order',
-    'order'          => 'ASC',
+  'post_type'      => 'staff',
+  'posts_per_page' => -1,
+  'orderby'        => 'menu_order',
+  'order'          => 'ASC',
 ]);
 ?>
 
@@ -19,9 +20,9 @@ $staff_query = new WP_Query([
 
   <div class="archive-header">
     <div class="container">
-      <h1 class="archive-title"><?php esc_html_e('スタッフ紹介', 'tenjoy-tour'); ?></h1>
+      <h1 class="archive-title"><?php tenjoy_e('footer_05'); ?></h1>
       <p class="archive-desc">
-        <?php esc_html_e('経験豊富なスタッフがお客様のゴルフ旅行をサポートします', 'tenjoy-tour'); ?>
+        <?php tenjoy_e('staff_page_01'); ?>
       </p>
     </div>
   </div>
@@ -66,13 +67,16 @@ $staff_query = new WP_Query([
                   <div class="staff-item-contact">
                     <?php if ($email) : ?>
                       <a href="mailto:<?php echo esc_attr($email); ?>" class="staff-item-contact-link">
-                        <?php echo tenjoy_icon('mail'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                        <?php echo tenjoy_icon('mail'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                        ?>
                         <?php echo esc_html($email); ?>
                       </a>
                     <?php endif; ?>
                     <?php if ($phone) : ?>
-                      <a href="tel:<?php echo esc_attr(preg_replace('/[^+\d]/', '', $phone)); ?>" class="staff-item-contact-link">
-                        <?php echo tenjoy_icon('phone'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                      <a href="tel:<?php echo esc_attr(preg_replace('/[^+\d]/', '', $phone)); ?>"
+                        class="staff-item-contact-link">
+                        <?php echo tenjoy_icon('phone'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                        ?>
                         <?php echo esc_html($phone); ?>
                       </a>
                     <?php endif; ?>
@@ -84,7 +88,7 @@ $staff_query = new WP_Query([
           <?php wp_reset_postdata(); ?>
         </div>
       <?php else : ?>
-        <p class="archive-empty"><?php esc_html_e('スタッフ情報は準備中です。', 'tenjoy-tour'); ?></p>
+        <p class="archive-empty"><?php tenjoy_e('staff_page_02'); ?></p>
       <?php endif; ?>
     </div>
   </div>

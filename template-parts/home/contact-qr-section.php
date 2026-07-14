@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合わせ QRコードセクション
  *
@@ -12,8 +13,8 @@ $messengers = [
     'name'        => 'Kakao Talk',
     'color'       => '#FEE500',
     'text'        => '#3C1E1E',
-    'desc'        => __('韓国で人気', 'tenjoy-tour'),
-    'cta'         => __('カカオトークで連絡', 'tenjoy-tour'),
+    'desc'        => tenjoy__('contact_qr_01'),
+    'cta'         => tenjoy__('contact_qr_02'),
     'icon'        => 'message-circle',
   ],
   [
@@ -22,8 +23,8 @@ $messengers = [
     'name'        => 'WeChat',
     'color'       => '#07C160',
     'text'        => '#fff',
-    'desc'        => __('中国で人気', 'tenjoy-tour'),
-    'cta'         => __('WeChatで連絡', 'tenjoy-tour'),
+    'desc'        => tenjoy__('contact_qr_03'),
+    'cta'         => tenjoy__('contact_qr_04'),
     'icon'        => 'message-circle',
   ],
   [
@@ -32,8 +33,8 @@ $messengers = [
     'name'        => 'Instagram',
     'color'       => '#e6683c',
     'text'        => '#fff',
-    'desc'        => __('写真・動画を公開中', 'tenjoy-tour'),
-    'cta'         => __('Instagramでフォロー', 'tenjoy-tour'),
+    'desc'        => tenjoy__('contact_qr_05'),
+    'cta'         => tenjoy__('contact_qr_06'),
     'icon'        => 'instagram',
   ],
   [
@@ -42,8 +43,8 @@ $messengers = [
     'name'        => 'LINE',
     'color'       => '#00B900',
     'text'        => '#fff',
-    'desc'        => __('日本で人気', 'tenjoy-tour'),
-    'cta'         => __('LINEで連絡', 'tenjoy-tour'),
+    'desc'        => tenjoy__('contact_qr_07'),
+    'cta'         => tenjoy__('contact_qr_08'),
     'icon'        => 'message-circle',
   ],
   [
@@ -52,8 +53,8 @@ $messengers = [
     'name'        => 'WhatsApp',
     'color'       => '#25D366',
     'text'        => '#fff',
-    'desc'        => __('世界中で人気', 'tenjoy-tour'),
-    'cta'         => __('WhatsAppで連絡', 'tenjoy-tour'),
+    'desc'        => tenjoy__('contact_qr_09'),
+    'cta'         => tenjoy__('contact_qr_10'),
     'icon'        => 'phone',
   ],
 ];
@@ -61,9 +62,9 @@ $messengers = [
 <section id="contact" class="contact-qr-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title"><?php esc_html_e('今すぐお問い合わせ', 'tenjoy-tour'); ?></h2>
+      <h2 class="section-title"><?php tenjoy_e('contact_qr_11'); ?></h2>
       <p class="section-subtitle">
-        <?php esc_html_e('お好みのメッセージアプリでQRコードをスキャンして、簡単にお問い合わせいただけます', 'tenjoy-tour'); ?>
+        <?php tenjoy_e('contact_qr_12'); ?>
       </p>
     </div>
 
@@ -71,25 +72,24 @@ $messengers = [
       <?php foreach ($messengers as $m) : ?>
         <div class="messenger-card">
           <?php $icon_url = tenjoy_customizer_image_url($m['icon_key'], 'thumbnail'); ?>
-          <div class="messenger-icon-wrap" style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
+          <div class="messenger-icon-wrap"
+            style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
             <?php if ($icon_url) : ?>
-              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="28" height="28" loading="lazy">
+              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="28" height="28"
+                loading="lazy">
             <?php else : ?>
-              <?php echo tenjoy_icon(esc_attr($m['icon'])); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+              <?php echo tenjoy_icon(esc_attr($m['icon'])); // phpcs:ignore WordPress.Security.EscapeOutput 
+              ?>
             <?php endif; ?>
           </div>
           <h3 class="messenger-name"><?php echo esc_html($m['name']); ?></h3>
           <p class="messenger-desc"><?php echo esc_html($m['desc']); ?></p>
           <?php $qr_url = tenjoy_customizer_image_url($m['setting_key'], 'full'); ?>
           <?php if ($qr_url) : ?>
-          <div class="messenger-qr">
-            <img
-              src="<?php echo esc_url($qr_url); ?>"
-              alt="<?php echo esc_attr($m['name']); ?> QR Code"
-              width="160"
-              height="160"
-              loading="lazy">
-          </div>
+            <div class="messenger-qr">
+              <img src="<?php echo esc_url($qr_url); ?>" alt="<?php echo esc_attr($m['name']); ?> QR Code" width="160"
+                height="160" loading="lazy">
+            </div>
           <?php endif; ?>
           <p class="messenger-cta"><?php echo esc_html($m['cta']); ?></p>
         </div>
@@ -97,9 +97,9 @@ $messengers = [
     </div>
 
     <div class="contact-note">
-      <p class="contact-note-title"><?php esc_html_e('迅速な対応をお約束します', 'tenjoy-tour'); ?></p>
+      <p class="contact-note-title"><?php tenjoy_e('contact_qr_13'); ?></p>
       <p class="contact-note-text">
-        <?php esc_html_e('メッセージを受信次第、できるだけ早くご返信いたします。お気軽にお問い合わせください。', 'tenjoy-tour'); ?>
+        <?php tenjoy_e('contact_qr_14'); ?>
       </p>
     </div>
   </div>

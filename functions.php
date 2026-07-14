@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TENJOY-TOUR テーマの関数定義
  *
@@ -17,6 +18,7 @@ require_once TENJOY_DIR . '/inc/meta-boxes.php';
 require_once TENJOY_DIR . '/inc/customizer.php';
 require_once TENJOY_DIR . '/inc/notification-settings.php';
 require_once TENJOY_DIR . '/inc/contact-settings.php';
+require_once TENJOY_DIR . '/inc/polylang-strings.php';
 
 // ==========================================================================
 // Polylang: デフォルト言語を韓国語に設定
@@ -37,12 +39,12 @@ add_filter('pll_preferred_language', function ($lang) {
 function tenjoy_fallback_nav()
 {
     $links = [
-        home_url('/#services')     => ['label' => __('サービス', 'tenjoy-tour'),   'cta' => false],
-        home_url('/courses/')      => ['label' => __('ゴルフ場', 'tenjoy-tour'),   'cta' => false],
-        home_url('/activities/')   => ['label' => __('アクティビティ', 'tenjoy-tour'), 'cta' => false],
-        home_url('/testimonials/') => ['label' => __('お客様の声', 'tenjoy-tour'), 'cta' => false],
-        home_url('/company/')      => ['label' => __('会社概要', 'tenjoy-tour'),   'cta' => false],
-        home_url('/contact/')      => ['label' => __('お問い合わせ', 'tenjoy-tour'), 'cta' => true],
+        home_url('/#services')     => ['label' => tenjoy__('nav_01'),   'cta' => false],
+        home_url('/courses/')      => ['label' => tenjoy__('nav_02'),   'cta' => false],
+        home_url('/activities/')   => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        home_url('/testimonials/') => ['label' => tenjoy__('nav_04'), 'cta' => false],
+        home_url('/company/')      => ['label' => tenjoy__('nav_05'),   'cta' => false],
+        home_url('/contact/')      => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];
     echo '<ul class="nav-menu">';
     foreach ($links as $url => $item) {
@@ -55,12 +57,12 @@ function tenjoy_fallback_nav()
 function tenjoy_fallback_mobile_nav()
 {
     $links = [
-        home_url('/#services')     => ['label' => __('サービス', 'tenjoy-tour'),     'cta' => false],
-        home_url('/courses/')      => ['label' => __('ゴルフ場', 'tenjoy-tour'),     'cta' => false],
-        home_url('/activities/')   => ['label' => __('アクティビティ', 'tenjoy-tour'), 'cta' => false],
-        home_url('/testimonials/') => ['label' => __('お客様の声', 'tenjoy-tour'),   'cta' => false],
-        home_url('/company/')      => ['label' => __('会社概要', 'tenjoy-tour'),     'cta' => false],
-        home_url('/contact/')      => ['label' => __('お問い合わせ', 'tenjoy-tour'), 'cta' => true],
+        home_url('/#services')     => ['label' => tenjoy__('nav_01'),     'cta' => false],
+        home_url('/courses/')      => ['label' => tenjoy__('nav_02'),     'cta' => false],
+        home_url('/activities/')   => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        home_url('/testimonials/') => ['label' => tenjoy__('nav_04'),   'cta' => false],
+        home_url('/company/')      => ['label' => tenjoy__('nav_05'),     'cta' => false],
+        home_url('/contact/')      => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];
     echo '<ul class="mobile-nav-menu">';
     foreach ($links as $url => $item) {
@@ -167,6 +169,44 @@ function tenjoy_register_cpt_activities()
     ]);
 }
 add_action('init', 'tenjoy_register_cpt_activities');
+
+// ==========================================================================
+// カスタム投稿タイプ: 車両紹介 (vehicles)
+// ==========================================================================
+
+function tenjoy_register_cpt_vehicles()
+{
+    $labels = [
+        'name'               => __('車両紹介', 'tenjoy-tour'),
+        'singular_name'      => __('車両', 'tenjoy-tour'),
+        'menu_name'          => __('車両紹介', 'tenjoy-tour'),
+        'add_new'            => __('新規追加', 'tenjoy-tour'),
+        'add_new_item'       => __('新規車両を追加', 'tenjoy-tour'),
+        'edit_item'          => __('車両を編集', 'tenjoy-tour'),
+        'view_item'          => __('車両を表示', 'tenjoy-tour'),
+        'search_items'       => __('車両を検索', 'tenjoy-tour'),
+        'not_found'          => __('車両が見つかりません', 'tenjoy-tour'),
+        'not_found_in_trash' => __('ゴミ箱に車両はありません', 'tenjoy-tour'),
+    ];
+
+    register_post_type('vehicles', [
+        'labels'             => $labels,
+        'public'             => false,
+        'publicly_queryable' => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => false,
+        'rewrite'            => false,
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 6,
+        'menu_icon'          => 'dashicons-car',
+        'supports'           => ['title', 'thumbnail', 'page-attributes'],
+        'show_in_rest'       => true,
+    ]);
+}
+add_action('init', 'tenjoy_register_cpt_vehicles');
 
 // ==========================================================================
 // カスタム投稿タイプ: ゴルフ場 (courses)
@@ -334,6 +374,7 @@ function tenjoy_register_post_meta()
         'course_cart'          => 'string',  // カート種類
         'course_has_detail'    => 'boolean', // 詳細ページあり/なし
         'course_website'       => 'string',  // 公式サイト
+        'course_map_embed'     => 'string',  // Googleマップ埋め込みURL
     ];
     foreach ($courses_meta as $key => $type) {
         register_post_meta('courses', $key, [
@@ -345,6 +386,16 @@ function tenjoy_register_post_meta()
             },
         ]);
     }
+
+    // 車両紹介
+    register_post_meta('vehicles', 'vehicle_desc', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'auth_callback' => function () {
+            return current_user_can('edit_posts');
+        },
+    ]);
 }
 add_action('init', 'tenjoy_register_post_meta');
 
@@ -394,10 +445,47 @@ add_action('manage_courses_posts_custom_column', 'tenjoy_courses_column_cell', 1
 
 function tenjoy_polylang_register_types($post_types, $is_settings)
 {
-    $tenjoy_types = ['activities', 'courses', 'staff'];
+    $tenjoy_types = ['activities', 'courses', 'staff', 'vehicles'];
     return array_merge($post_types, $tenjoy_types);
 }
 add_filter('pll_get_post_types', 'tenjoy_polylang_register_types', 10, 2);
+
+// ==========================================================================
+// 管理画面: サイドバーメニューの並び順調整
+// 「言語」（Polylang）メニューを「ゴルフ場一覧」の直下に移動する
+// ==========================================================================
+
+add_filter('custom_menu_order', '__return_true');
+add_filter('menu_order', 'tenjoy_reorder_admin_menu');
+
+/**
+ * @param array<int, string> $menu_order
+ * @return array<int, string>
+ */
+function tenjoy_reorder_admin_menu($menu_order)
+{
+    $courses_slug = 'edit.php?post_type=courses';
+    $lang_slug    = 'mlang';
+
+    $lang_pos = array_search($lang_slug, $menu_order, true);
+    if ($lang_pos === false) {
+        return $menu_order;
+    }
+
+    unset($menu_order[$lang_pos]);
+    $menu_order = array_values($menu_order);
+
+    $courses_pos = array_search($courses_slug, $menu_order, true);
+    if ($courses_pos === false) {
+        // ゴルフ場一覧が見つからない場合は末尾に戻す
+        $menu_order[] = $lang_slug;
+        return $menu_order;
+    }
+
+    array_splice($menu_order, $courses_pos + 1, 0, [$lang_slug]);
+
+    return $menu_order;
+}
 
 // ==========================================================================
 // 管理バー: フロントエンドでは非表示（任意）
@@ -442,6 +530,34 @@ function tenjoy_icon($name)
 }
 
 // ==========================================================================
+// Googleマップ埋め込みURLの検証
+// ==========================================================================
+
+/**
+ * 与えられたURLがGoogleマップの埋め込み用URLとして安全かを判定する。
+ * iframe の src に使うため、Google のドメイン以外は許可しない。
+ *
+ * @param string $url
+ * @return bool
+ */
+function tenjoy_is_valid_map_embed_url(string $url): bool
+{
+    if ($url === '') {
+        return false;
+    }
+
+    $host = wp_parse_url($url, PHP_URL_HOST);
+    if (! $host) {
+        return false;
+    }
+
+    $allowed_hosts = ['www.google.com', 'google.com', 'maps.google.com'];
+    $scheme        = (string) wp_parse_url($url, PHP_URL_SCHEME);
+
+    return in_array($host, $allowed_hosts, true) && strpos($scheme, 'http') === 0;
+}
+
+// ==========================================================================
 // ページネーション
 // ==========================================================================
 
@@ -473,9 +589,10 @@ function tenjoy_pagination($query = null)
 // サムネイルのデフォルトサイズ
 // ==========================================================================
 
-add_image_size('tenjoy-card', 600, 400, true);    // 一覧カード用
-add_image_size('tenjoy-hero', 1440, 640, true);   // ヒーロー用
-add_image_size('tenjoy-thumb', 300, 200, true);   // サムネイル小
+add_image_size('tenjoy-card', 600, 400, true);          // 一覧カード用
+add_image_size('tenjoy-hero', 1440, 640, true);         // ヒーロー用
+add_image_size('tenjoy-thumb', 300, 200, true);         // サムネイル小
+add_image_size('tenjoy-vehicle-card', 640, 360, true);  // 車両紹介カード用（16:9）
 
 // ==========================================================================
 // excerpt の文字数（日本語対応）
@@ -590,13 +707,13 @@ function tenjoy_submit_review()
 
     $subject = "[{$site_name}] 新しいレビューが届きました";
     $body    = "新しいレビューが届きました。内容を確認して承認してください。\n\n"
-             . "━━━━━━━━━━━━━━━━━━━━\n"
-             . "投稿者：{$from_label}\n"
-             . "評価　：{$stars}（{$rating}/5）\n"
-             . "コメント：\n{$content}\n"
-             . "━━━━━━━━━━━━━━━━━━━━\n\n"
-             . "▼ 管理画面で確認・承認する\n"
-             . $manage_url . "\n";
+        . "━━━━━━━━━━━━━━━━━━━━\n"
+        . "投稿者：{$from_label}\n"
+        . "評価　：{$stars}（{$rating}/5）\n"
+        . "コメント：\n{$content}\n"
+        . "━━━━━━━━━━━━━━━━━━━━\n\n"
+        . "▼ 管理画面で確認・承認する\n"
+        . $manage_url . "\n";
 
     wp_mail(
         $to,

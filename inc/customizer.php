@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress カスタマイザー設定
  *
@@ -7,9 +8,10 @@
  *
  * 設定項目:
  *   - ヒーロー画像
- *   - 車両紹介画像（バス・ワゴン・セダン）
  *   - SNS連絡先 QRコード（Kakao / WeChat / Instagram / LINE / WhatsApp）
  *   - SNSアイコン画像（Kakao / WeChat / Instagram / LINE / WhatsApp）
+ *
+ * 車両紹介は「車両紹介」投稿タイプ（管理画面サイドバー）で管理する。
  *
  * 使い方（テンプレート側）:
  *   $url = get_theme_mod('tenjoy_hero_image', '');
@@ -75,73 +77,6 @@ function tenjoy_customizer_register(WP_Customize_Manager $wp_customize)
             'right bottom'  => __('右下', 'tenjoy-tour'),
         ],
     ]);
-
-    // ======================================================================
-    // セクション3: 車両紹介
-    // ======================================================================
-
-    $wp_customize->add_section('tenjoy_vehicles', [
-        'title' => __('車両紹介', 'tenjoy-tour'),
-        'panel' => 'tenjoy_panel',
-    ]);
-
-    $vehicles = [
-        'bus'     => [
-            'label'        => __('大型バス', 'tenjoy-tour'),
-            'default_name' => __('大型バス', 'tenjoy-tour'),
-            'default_desc' => __('大人数でのご移動に最適です（最大45名）', 'tenjoy-tour'),
-        ],
-        'van'     => [
-            'label'        => __('ワゴン車', 'tenjoy-tour'),
-            'default_name' => __('ワゴン車', 'tenjoy-tour'),
-            'default_desc' => __('中人数のグループに最適です（最大10名）', 'tenjoy-tour'),
-        ],
-        'sedan'   => [
-            'label'        => __('高級セダン', 'tenjoy-tour'),
-            'default_name' => __('高級セダン', 'tenjoy-tour'),
-            'default_desc' => __('少人数でのプライベート移動に（最大4名）', 'tenjoy-tour'),
-        ],
-        'minivan' => [
-            'label'        => __('ミニバン', 'tenjoy-tour'),
-            'default_name' => __('ミニバン', 'tenjoy-tour'),
-            'default_desc' => __('小グループに最適な快適移動（最大8名）', 'tenjoy-tour'),
-        ],
-    ];
-
-    foreach ($vehicles as $key => $vehicle) {
-        // 画像
-        $wp_customize->add_setting("tenjoy_vehicle_{$key}", [
-            'default'           => '',
-            'sanitize_callback' => 'absint',
-        ]);
-        $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, "tenjoy_vehicle_{$key}", [
-            'label'     => sprintf('%s — %s', $vehicle['label'], __('画像', 'tenjoy-tour')),
-            'section'   => 'tenjoy_vehicles',
-            'mime_type' => 'image',
-        ]));
-
-        // タイトル
-        $wp_customize->add_setting("tenjoy_vehicle_{$key}_name", [
-            'default'           => $vehicle['default_name'],
-            'sanitize_callback' => 'sanitize_text_field',
-        ]);
-        $wp_customize->add_control("tenjoy_vehicle_{$key}_name", [
-            'label'   => sprintf('%s — %s', $vehicle['label'], __('タイトル', 'tenjoy-tour')),
-            'section' => 'tenjoy_vehicles',
-            'type'    => 'text',
-        ]);
-
-        // 説明
-        $wp_customize->add_setting("tenjoy_vehicle_{$key}_desc", [
-            'default'           => $vehicle['default_desc'],
-            'sanitize_callback' => 'sanitize_text_field',
-        ]);
-        $wp_customize->add_control("tenjoy_vehicle_{$key}_desc", [
-            'label'   => sprintf('%s — %s', $vehicle['label'], __('説明文', 'tenjoy-tour')),
-            'section' => 'tenjoy_vehicles',
-            'type'    => 'text',
-        ]);
-    }
 
     // ======================================================================
     // セクション4: SNS連絡先 QRコード
@@ -235,9 +170,15 @@ function tenjoy_customizer_image_url(string $setting_key, string $size = 'full',
 function tenjoy_sanitize_hero_image_position(string $value): string
 {
     $allowed = [
-        'left top', 'center top', 'right top',
-        'left center', 'center center', 'right center',
-        'left bottom', 'center bottom', 'right bottom',
+        'left top',
+        'center top',
+        'right top',
+        'left center',
+        'center center',
+        'right center',
+        'left bottom',
+        'center bottom',
+        'right bottom',
     ];
 
     return in_array($value, $allowed, true) ? $value : 'center center';

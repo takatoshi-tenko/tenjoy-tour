@@ -144,13 +144,20 @@
   svg {
     display: block;
   }
+
+  img {
+    display: block;
+    width: 20px;
+    height: auto;
+    border-radius: 2px;
+  }
 }
 
 .lang-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
-  min-width: 8rem;
+  min-width: 10rem;
   background: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -161,7 +168,8 @@
   z-index: 100;
 
   li a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
     color: var(--foreground);
@@ -169,14 +177,30 @@
     border-radius: calc(var(--radius) - 2px);
     transition: background-color 0.15s;
 
+    img {
+      width: 18px;
+      height: auto;
+      border-radius: 2px;
+    }
+
     &:hover {
       background-color: var(--muted);
     }
   }
 
-  li.lang-item-current a {
+  li.current-lang a {
+    position: relative;
     background-color: var(--accent);
     font-weight: 600;
+    padding-right: 2rem;
+
+    &::after {
+      content: "\2713";
+      position: absolute;
+      right: 0.75rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
   }
 }
 
@@ -318,14 +342,26 @@
     color: var(--foreground);
     transition: background-color 0.2s;
 
+    img {
+      width: 16px;
+      height: auto;
+      border-radius: 2px;
+    }
+
     &:hover {
       background-color: var(--muted);
     }
   }
 
-  li.lang-item-current a {
+  li.current-lang a {
     background-color: var(--primary);
     color: var(--primary-foreground);
     border-color: var(--primary);
+
+    &::after {
+      content: "\2713";
+      margin-left: 0.125rem;
+      font-weight: 700;
+    }
   }
 }
