@@ -168,8 +168,30 @@ function tenjoy_render_vehicle_meta_box($post)
 function tenjoy_render_course_meta_box($post)
 {
     wp_nonce_field('tenjoy_course_meta_save', 'tenjoy_course_meta_nonce');
-    $pid = $post->ID;
+    $pid       = $post->ID;
+    $map_embed = get_post_meta($pid, 'course_map_embed', true);
     echo '<div class="tenjoy-meta-box">';
+    ?>
+    <div class="tenjoy-meta-field">
+      <label for="course_map_embed"><strong><?php esc_html_e('Googleマップ 埋め込み', 'tenjoy-tour'); ?></strong></label>
+      <textarea
+        id="course_map_embed"
+        name="course_map_embed"
+        class="widefat"
+        rows="3"
+        placeholder="<?php esc_attr_e('GoogleマップのURL、または「地図を埋め込む」でコピーしたiframeタグをそのまま貼り付けてください', 'tenjoy-tour'); ?>"
+      ><?php echo esc_textarea((string) $map_embed); ?></textarea>
+      <p class="description">
+        <?php esc_html_e('Googleマップで場所を検索 →「共有」→「地図を埋め込む」→ 表示されたHTMLをそのまま貼り付けてください（URLだけでも構いません）。', 'tenjoy-tour'); ?>
+      </p>
+      <p>
+        <button type="button" class="button" id="course-map-fetch-btn">
+          <?php esc_html_e('この地図からタイトル・住所を取得', 'tenjoy-tour'); ?>
+        </button>
+        <span id="course-map-fetch-status" style="margin-left:8px;font-size:12px;color:#646970;"></span>
+      </p>
+    </div>
+    <?php
     tenjoy_meta_text_field($pid, 'course_rating', __('星評価', 'tenjoy-tour'), 'text', __('例: 4.8（5.0 満点）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_region', __('エリア', 'tenjoy-tour'), 'text', __('例: 関東 / 関西 / 北海道', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_tags', __('特徴タグ', 'tenjoy-tour'), 'text', __('例: 富士山ビュー,温泉施設（カンマ区切り）', 'tenjoy-tour'));
@@ -181,15 +203,96 @@ function tenjoy_render_course_meta_box($post)
     tenjoy_meta_checkbox_field($pid, 'course_caddie', __('キャディあり', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_cart', __('カート', 'tenjoy-tour'), 'text', __('例: 乗用カート（GPS付）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_website', __('公式サイト URL', 'tenjoy-tour'), 'url', __('例: https://example-golf.com', 'tenjoy-tour'));
-    tenjoy_meta_text_field(
-        $pid,
-        'course_map_embed',
-        __('Googleマップ 埋め込みURL', 'tenjoy-tour'),
-        'url',
-        __('Googleマップで場所を検索→「共有」→「地図を埋め込む」→表示されたHTML内の src="..." のURL部分だけを貼り付けてください。', 'tenjoy-tour')
-    );
     tenjoy_meta_checkbox_field($pid, 'course_has_detail', __('詳細ページを作成する', 'tenjoy-tour'), __('チェックを入れると個別の詳細ページが表示されます', 'tenjoy-tour'));
     echo '</div>';
+    ?>
+    <script>
+    (function ($) {
+      function extractSrc(raw) {
+        raw = (raw || '').trim();
+        if (!raw) {
+          return '';
+        }
+        var m = raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+        if (m) {
+          raw = m[1];
+        }
+        var ta = document.createElement('textarea');
+        ta.innerHTML = raw;
+        return ta.value.trim();
+      }
+
+      function parseFromUrl(url) {
+        var result = { lat: null, lng: null, name: null };
+        try {
+          var u = new URL(url);
+          var pb = u.searchParams.get('pb');
+          if (pb) {
+            var mLatLng = pb.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
+            if (mLatLng) {
+              result.lng = parseFloat(mLatLng[1]);
+              result.lat = parseFloat(mLatLng[2]);
+            }
+            var mName = pb.match(/!1s0x[0-9a-fA-F]+(?:%3A|:)0x[0-9a-fA-F]+!2s([^!]+)!5e0/);
+            if (mName) {
+              result.name = decodeURIComponent(mName[1].replace(/\+/g, ' '));
+            }
+          }
+        } catch (e) {
+          // URLとして解釈できない場合は何もしない
+        }
+        return result;
+      }
+
+      $('#course-map-fetch-btn').on('click', function () {
+        var $status = $('#course-map-fetch-status');
+        var url = extractSrc($('#course_map_embed').val());
+
+        if (!url) {
+          $status.text('<?php echo esc_js(__('URLを認識できませんでした', 'tenjoy-tour')); ?>');
+          return;
+        }
+        $('#course_map_embed').val(url);
+
+        var parsed = parseFromUrl(url);
+        var filled = [];
+
+        if (parsed.name) {
+          var $title = $('#title');
+          if ($title.length) {
+            $title.val(parsed.name);
+            filled.push('<?php echo esc_js(__('タイトル', 'tenjoy-tour')); ?>');
+          }
+        }
+
+        if (parsed.lat && parsed.lng) {
+          $status.text('<?php echo esc_js(__('住所を取得中...', 'tenjoy-tour')); ?>');
+          $.getJSON('https://nominatim.openstreetmap.org/reverse', {
+            format: 'jsonv2',
+            lat: parsed.lat,
+            lon: parsed.lng,
+            'accept-language': 'ja',
+            zoom: 17
+          }).done(function (data) {
+            if (data && data.display_name) {
+              $('#course_address').val(data.display_name);
+              filled.push('<?php echo esc_js(__('住所', 'tenjoy-tour')); ?>');
+            }
+            if (data && data.address && data.address.state) {
+              $('#course_prefecture').val(data.address.state);
+              filled.push('<?php echo esc_js(__('都道府県', 'tenjoy-tour')); ?>');
+            }
+            $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) : '<?php echo esc_js(__('住所情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+          }).fail(function () {
+            $status.text('<?php echo esc_js(__('住所の取得に失敗しました（時間をおいて再度お試しください）', 'tenjoy-tour')); ?>');
+          });
+        } else {
+          $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) : '<?php echo esc_js(__('位置情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+        }
+      });
+    })(jQuery);
+    </script>
+    <?php
 }
 
 // ==========================================================================
@@ -378,7 +481,7 @@ add_action('save_post', function ($post_id) {
         $website = isset($_POST['course_website']) ? esc_url_raw(wp_unslash($_POST['course_website'])) : '';
         update_post_meta($post_id, 'course_website', $website);
 
-        $map_embed = isset($_POST['course_map_embed']) ? esc_url_raw(wp_unslash($_POST['course_map_embed'])) : '';
+        $map_embed = isset($_POST['course_map_embed']) ? tenjoy_extract_map_embed_url(wp_unslash($_POST['course_map_embed'])) : '';
         if ($map_embed !== '' && ! tenjoy_is_valid_map_embed_url($map_embed)) {
             $map_embed = '';
         }

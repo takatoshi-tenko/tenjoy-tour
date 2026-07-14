@@ -94,6 +94,8 @@ function tenjoy_strings(): array
         'course_single_12' => ['text' => '公式サイト', 'group' => 'ゴルフ場詳細'],
         'course_single_13' => ['text' => '外部サイトを開く', 'group' => 'ゴルフ場詳細'],
         'course_single_14' => ['text' => 'アクセスマップ', 'group' => 'ゴルフ場詳細'],
+        'course_single_15' => ['text' => 'このコースが気になりましたか？', 'group' => 'ゴルフ場詳細'],
+        'course_single_16' => ['text' => '空き状況やご予約について、専門スタッフが丁寧にご案内いたします。', 'group' => 'ゴルフ場詳細'],
 
         // アクティビティ詳細
         'activity_single_01' => ['text' => '一覧に戻る', 'group' => 'アクティビティ詳細'],
@@ -104,7 +106,7 @@ function tenjoy_strings(): array
         'activity_single_06' => ['text' => 'フォトギャラリー', 'group' => 'アクティビティ詳細'],
         'activity_single_07' => ['text' => 'このアクティビティに興味がありますか？', 'group' => 'アクティビティ詳細'],
         'activity_single_08' => ['text' => 'お問い合わせ・予約', 'group' => 'アクティビティ詳細'],
-        'activity_single_09' => ['text' => '← 一覧に戻る', 'group' => 'アクティビティ詳細'],
+        'activity_single_10' => ['text' => 'ご不明な点やご予約について、お気軽にお問い合わせください。', 'group' => 'アクティビティ詳細'],
 
         // よくある質問ページ
         'faq_01' => ['text' => 'よくある質問', 'group' => 'よくある質問ページ'],
@@ -257,6 +259,7 @@ function tenjoy_strings(): array
         'reviews_01' => ['text' => '素晴らしいサービスでした。ゴルフ場の予約から送迎まで全てスムーズに手配していただき、日本でのゴルフ旅行が最高の思い出になりました。', 'group' => 'トップ：お客様の声'],
         'reviews_02' => ['text' => '初めての日本ゴルフ旅行でしたが、言葉の心配もなくスタッフの方が親切に対応してくれました。コースも素晴らしかったです。', 'group' => 'トップ：お客様の声'],
         'reviews_03' => ['text' => '友人4人での旅行でしたが、全員が大満足でした。次回は家族も連れて来たいと思います。', 'group' => 'トップ：お客様の声'],
+        'reviews_04' => ['text' => 'もっと見る →', 'group' => 'トップ：お客様の声'],
 
         // トップ：サービス
         'services_01' => ['text' => 'ゴルフ場予約', 'group' => 'トップ：サービス'],

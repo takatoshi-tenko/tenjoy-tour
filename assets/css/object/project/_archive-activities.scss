@@ -313,34 +313,3 @@
 }
 
 /* CTA */
-.activity-single-cta {
-  background: var(--foreground);
-  color: var(--background);
-  border-radius: var(--radius);
-  padding: 2.5rem 2rem;
-  text-align: center;
-}
-
-.activity-cta-text {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin: 0 0 1.25rem;
-  font-family: var(--font-serif);
-}
-
-.activity-cta-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-
-  .btn-outline {
-    border-color: rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.85);
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-  }
-}

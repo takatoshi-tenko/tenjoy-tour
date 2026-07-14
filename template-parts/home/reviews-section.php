@@ -108,6 +108,12 @@ $fallback_reviews = [
       <?php endif; ?>
     </div>
 
+    <div class="reviews-more-link">
+      <a href="<?php echo esc_url(home_url('/testimonials/')); ?>" class="btn btn-outline">
+        <?php tenjoy_e('reviews_04'); ?>
+      </a>
+    </div>
+
     <!-- レビュー投稿フォーム -->
     <div class="review-form-wrap">
       <h3 class="review-form-title"><?php tenjoy_e('testimonials_page_03'); ?></h3>

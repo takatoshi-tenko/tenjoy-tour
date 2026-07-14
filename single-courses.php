@@ -57,15 +57,6 @@ $map_embed  = get_post_meta(get_the_ID(), 'course_map_embed', true);
             </div>
           </div>
           <?php endif; ?>
-
-          <div class="tour-single-cta" style="margin-top:2rem;">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
-              <?php tenjoy_e('course_single_01'); ?>
-            </a>
-            <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="btn btn-outline">
-              <?php tenjoy_e('course_single_02'); ?>
-            </a>
-          </div>
         </div>
 
         <!-- サイドバー：コース情報 -->
@@ -123,6 +114,26 @@ $map_embed  = get_post_meta(get_the_ID(), 'course_map_embed', true);
           </dl>
         </aside>
 
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="courses-cta-section">
+    <div class="container">
+      <div class="courses-cta-inner">
+        <h2 class="courses-cta-title"><?php tenjoy_e('course_single_15'); ?></h2>
+        <p class="courses-cta-desc">
+          <?php tenjoy_e('course_single_16'); ?>
+        </p>
+        <div class="courses-cta-buttons">
+          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+            <?php tenjoy_e('course_single_01'); ?>
+          </a>
+          <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="btn btn-outline">
+            <?php tenjoy_e('course_single_02'); ?>
+          </a>
+        </div>
       </div>
     </div>
   </div>

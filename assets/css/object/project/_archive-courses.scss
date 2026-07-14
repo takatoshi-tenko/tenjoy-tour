@@ -179,8 +179,8 @@
 
 /* CTA セクション */
 .courses-cta-section {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--cta-accent);
+  color: var(--cta-accent-foreground);
   padding: 4rem 0;
   margin-top: 4rem;
 
@@ -208,9 +208,26 @@
 
 .courses-cta-desc {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.65);
   margin: 0;
   line-height: 1.7;
+}
+
+.courses-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+
+  .btn-outline {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: var(--cta-accent-foreground);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+  }
 }
 
 /* ゴルフ場詳細（single）*/

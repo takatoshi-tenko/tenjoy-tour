@@ -557,6 +557,30 @@ function tenjoy_is_valid_map_embed_url(string $url): bool
     return in_array($host, $allowed_hosts, true) && strpos($scheme, 'http') === 0;
 }
 
+/**
+ * 管理画面に入力された値からGoogleマップの埋め込みURLを取り出す。
+ * <iframe> タグがまるごと貼り付けられた場合は src 属性のみを抽出し、
+ * すでにURLだけが入力されている場合はそのまま返す。
+ *
+ * @param string $input
+ * @return string
+ */
+function tenjoy_extract_map_embed_url(string $input): string
+{
+    $input = trim($input);
+    if ($input === '') {
+        return '';
+    }
+
+    if (stripos($input, '<iframe') !== false && preg_match('/\ssrc=["\']([^"\']+)["\']/i', $input, $matches)) {
+        $input = $matches[1];
+    }
+
+    $input = html_entity_decode($input, ENT_QUOTES);
+
+    return esc_url_raw($input);
+}
+
 // ==========================================================================
 // ページネーション
 // ==========================================================================

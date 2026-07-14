@@ -32,6 +32,10 @@
   --input: hsl(0, 0%, 89.8%);
   --ring: hsl(0, 0%, 3.9%);
 
+  /* CTA用アクセントカラー（ゴルフ・黄緑基調） */
+  --cta-accent: #8bc34a;
+  --cta-accent-foreground: hsl(0, 0%, 9%);
+
   /* レイアウト */
   --radius: 0.5rem;
   --container-max: 1280px;

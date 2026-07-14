@@ -116,21 +116,23 @@ $gallery_ids = $gallery_raw ? array_filter(array_map('intval', explode(',', $gal
       </section>
       <?php endif; ?>
 
-      <!-- CTA -->
-      <div class="activity-single-cta">
-        <div class="activity-cta-inner">
-          <p class="activity-cta-text"><?php tenjoy_e('activity_single_07'); ?></p>
-          <div class="activity-cta-buttons">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
-              <?php tenjoy_e('activity_single_08'); ?>
-            </a>
-            <a href="<?php echo esc_url(get_post_type_archive_link('activities')); ?>" class="btn btn-outline">
-              <?php tenjoy_e('activity_single_09'); ?>
-            </a>
-          </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="courses-cta-section">
+    <div class="container">
+      <div class="courses-cta-inner">
+        <h2 class="courses-cta-title"><?php tenjoy_e('activity_single_07'); ?></h2>
+        <p class="courses-cta-desc">
+          <?php tenjoy_e('activity_single_10'); ?>
+        </p>
+        <div class="courses-cta-buttons">
+          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+            <?php tenjoy_e('activity_single_08'); ?>
+          </a>
         </div>
       </div>
-
     </div>
   </div>
 
