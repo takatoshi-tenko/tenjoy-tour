@@ -16,6 +16,7 @@ define('TENJOY_URI', get_template_directory_uri());
 require_once TENJOY_DIR . '/inc/meta-boxes.php';
 require_once TENJOY_DIR . '/inc/customizer.php';
 require_once TENJOY_DIR . '/inc/notification-settings.php';
+require_once TENJOY_DIR . '/inc/contact-settings.php';
 
 // ==========================================================================
 // Polylang: デフォルト言語を韓国語に設定
@@ -168,44 +169,6 @@ function tenjoy_register_cpt_activities()
 add_action('init', 'tenjoy_register_cpt_activities');
 
 // ==========================================================================
-// カスタム投稿タイプ: ツアー (tours)
-// ==========================================================================
-
-function tenjoy_register_cpt_tours()
-{
-    $labels = [
-        'name'               => __('ツアー', 'tenjoy-tour'),
-        'singular_name'      => __('ツアー', 'tenjoy-tour'),
-        'menu_name'          => __('ツアー一覧', 'tenjoy-tour'),
-        'add_new'            => __('新規追加', 'tenjoy-tour'),
-        'add_new_item'       => __('新規ツアーを追加', 'tenjoy-tour'),
-        'edit_item'          => __('ツアーを編集', 'tenjoy-tour'),
-        'view_item'          => __('ツアーを表示', 'tenjoy-tour'),
-        'search_items'       => __('ツアーを検索', 'tenjoy-tour'),
-        'not_found'          => __('ツアーが見つかりません', 'tenjoy-tour'),
-        'not_found_in_trash' => __('ゴミ箱にツアーはありません', 'tenjoy-tour'),
-    ];
-
-    register_post_type('tours', [
-        'labels'             => $labels,
-        'public'             => false,
-        'publicly_queryable' => false,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => false,
-        'rewrite'            => false,
-        'capability_type'    => 'post',
-        'has_archive'        => false,
-        'hierarchical'       => false,
-        'menu_position'      => 6,
-        'menu_icon'          => 'dashicons-palmtree',
-        'supports'           => ['title', 'editor', 'thumbnail', 'excerpt', 'page-attributes'],
-        'show_in_rest'       => true,
-    ]);
-}
-add_action('init', 'tenjoy_register_cpt_tours');
-
-// ==========================================================================
 // カスタム投稿タイプ: ゴルフ場 (courses)
 // ==========================================================================
 
@@ -342,27 +305,6 @@ function tenjoy_register_post_meta()
         ]);
     }
 
-    // ツアー
-    $tours_meta = [
-        'tour_price'       => 'string',  // 料金
-        'tour_duration'    => 'string',  // 期間
-        'tour_destination' => 'string',  // 目的地
-        'tour_includes'    => 'string',  // 含まれるもの
-        'tour_min_pax'     => 'integer', // 最小人数
-        'tour_rating'      => 'string',  // 星評価（例: 4.9）
-        'tour_featured'    => 'boolean', // おすすめフラグ
-    ];
-    foreach ($tours_meta as $key => $type) {
-        register_post_meta('tours', $key, [
-            'show_in_rest'  => true,
-            'single'        => true,
-            'type'          => $type,
-            'auth_callback' => function () {
-                return current_user_can('edit_posts');
-            },
-        ]);
-    }
-
     // スタッフ
     $staff_meta = [
         'staff_role'      => 'string', // 役職
@@ -452,7 +394,7 @@ add_action('manage_courses_posts_custom_column', 'tenjoy_courses_column_cell', 1
 
 function tenjoy_polylang_register_types($post_types, $is_settings)
 {
-    $tenjoy_types = ['activities', 'tours', 'courses', 'staff'];
+    $tenjoy_types = ['activities', 'courses', 'staff'];
     return array_merge($post_types, $tenjoy_types);
 }
 add_filter('pll_get_post_types', 'tenjoy_polylang_register_types', 10, 2);

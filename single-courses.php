@@ -45,8 +45,8 @@ $website    = get_post_meta(get_the_ID(), 'course_website', true);
             </div>
 
             <div class="tour-single-cta" style="margin-top:2rem;">
-              <a href="<?php echo esc_url(home_url('/booking/')); ?>" class="btn btn-primary btn-lg">
-                <?php esc_html_e('このコースでツアーを予約する', 'tenjoy-tour'); ?>
+              <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+                <?php esc_html_e('このコースについてお問い合わせする', 'tenjoy-tour'); ?>
               </a>
               <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="btn btn-outline">
                 <?php esc_html_e('コース一覧に戻る', 'tenjoy-tour'); ?>

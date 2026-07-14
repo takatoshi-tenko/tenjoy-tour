@@ -35,7 +35,6 @@
             <li><a href="<?php echo esc_url(home_url('/#services')); ?>"><?php esc_html_e('サービス', 'tenjoy-tour'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/activities/')); ?>"><?php esc_html_e('アクティビティ', 'tenjoy-tour'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/courses/')); ?>"><?php esc_html_e('ゴルフ場一覧', 'tenjoy-tour'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/tours/')); ?>"><?php esc_html_e('ツアー一覧', 'tenjoy-tour'); ?></a></li>
           </ul>
         </div>
 

@@ -154,6 +154,12 @@
   }
 }
 
+.form-hint {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  margin: 0.375rem 0 0;
+}
+
 .form-control {
   display: block;
   width: 100%;

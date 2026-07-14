@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ヒーローセクション
  *
@@ -15,12 +16,8 @@
     );
     if ($hero_url) :
     ?>
-    <img
-      src="<?php echo esc_url($hero_url); ?>"
-      alt="<?php esc_attr_e('ゴルフコース', 'tenjoy-tour'); ?>"
-      class="hero-img"
-      loading="eager"
-      decoding="async">
+      <img src="<?php echo esc_url($hero_url); ?>" alt="<?php esc_attr_e('ゴルフコース', 'tenjoy-tour'); ?>" class="hero-img"
+        loading="eager" decoding="async">
     <?php endif; ?>
   </div>
   <div class="hero-overlay"></div>

@@ -15,16 +15,6 @@ if (! defined('ABSPATH')) {
 // ==========================================================================
 
 add_action('add_meta_boxes', function () {
-    // ツアー
-    add_meta_box(
-        'tenjoy_tour_meta',
-        __('ツアー詳細', 'tenjoy-tour'),
-        'tenjoy_render_tour_meta_box',
-        'tours',
-        'normal',
-        'high'
-    );
-
     // ゴルフ場
     add_meta_box(
         'tenjoy_course_meta',
@@ -139,28 +129,6 @@ function tenjoy_meta_checkbox_field($post_id, $key, $label, $desc = '')
       <?php endif; ?>
     </div>
     <?php
-}
-
-// ==========================================================================
-// ツアーメタボックス
-// ==========================================================================
-
-/**
- * @param WP_Post $post
- */
-function tenjoy_render_tour_meta_box($post)
-{
-    wp_nonce_field('tenjoy_tour_meta_save', 'tenjoy_tour_meta_nonce');
-    $pid = $post->ID;
-    echo '<div class="tenjoy-meta-box">';
-    tenjoy_meta_text_field($pid, 'tour_destination', __('目的地', 'tenjoy-tour'), 'text', __('例: 東京・神奈川', 'tenjoy-tour'));
-    tenjoy_meta_text_field($pid, 'tour_duration', __('期間', 'tenjoy-tour'), 'text', __('例: 2泊3日', 'tenjoy-tour'));
-    tenjoy_meta_text_field($pid, 'tour_price', __('料金', 'tenjoy-tour'), 'text', __('例: ¥80,000〜', 'tenjoy-tour'));
-    tenjoy_meta_text_field($pid, 'tour_includes', __('含まれるもの', 'tenjoy-tour'), 'text', __('例: ゴルフ場・送迎・宿泊', 'tenjoy-tour'));
-    tenjoy_meta_text_field($pid, 'tour_min_pax', __('最小催行人数', 'tenjoy-tour'), 'number', __('例: 2', 'tenjoy-tour'));
-    tenjoy_meta_text_field($pid, 'tour_rating', __('星評価', 'tenjoy-tour'), 'text', __('例: 4.9（5.0 満点）', 'tenjoy-tour'));
-    tenjoy_meta_checkbox_field($pid, 'tour_featured', __('おすすめツアーとして表示する', 'tenjoy-tour'));
-    echo '</div>';
 }
 
 // ==========================================================================
@@ -333,22 +301,6 @@ add_action('save_post', function ($post_id) {
 
     $post_type = get_post_type($post_id);
 
-    // ---- ツアー ----
-    if ($post_type === 'tours' && isset($_POST['tenjoy_tour_meta_nonce'])) {
-        if (! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['tenjoy_tour_meta_nonce'])), 'tenjoy_tour_meta_save')) {
-            return;
-        }
-        $string_fields = ['tour_destination', 'tour_duration', 'tour_price', 'tour_includes', 'tour_rating'];
-        foreach ($string_fields as $field) {
-            if (isset($_POST[$field])) {
-                update_post_meta($post_id, $field, sanitize_text_field(wp_unslash($_POST[$field])));
-            }
-        }
-        $min_pax = isset($_POST['tour_min_pax']) ? (int) $_POST['tour_min_pax'] : 0;
-        update_post_meta($post_id, 'tour_min_pax', $min_pax);
-        update_post_meta($post_id, 'tour_featured', isset($_POST['tour_featured']) ? true : false);
-    }
-
     // ---- ゴルフ場 ----
     if ($post_type === 'courses' && isset($_POST['tenjoy_course_meta_nonce'])) {
         if (! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['tenjoy_course_meta_nonce'])), 'tenjoy_course_meta_save')) {
@@ -483,7 +435,7 @@ add_action('admin_head', function () {
     if (! $screen) {
         return;
     }
-    $cpt_list = ['tours', 'courses', 'activities', 'staff', 'faq'];
+    $cpt_list = ['courses', 'activities', 'staff', 'faq'];
     if (! in_array($screen->post_type, $cpt_list, true)) {
         return;
     }

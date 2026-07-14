@@ -33,18 +33,16 @@ get_header();
         </section>
 
         <section>
-          <h2 class="sitemap-section-title"><?php esc_html_e('ツアー', 'tenjoy-tour'); ?></h2>
+          <h2 class="sitemap-section-title"><?php esc_html_e('ゴルフ・アクティビティ', 'tenjoy-tour'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(get_post_type_archive_link('tours')); ?>"><?php esc_html_e('ツアー一覧', 'tenjoy-tour'); ?></a></li>
             <li><a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>"><?php esc_html_e('ゴルフ場一覧', 'tenjoy-tour'); ?></a></li>
             <li><a href="<?php echo esc_url(get_post_type_archive_link('activities')); ?>"><?php esc_html_e('アクティビティ一覧', 'tenjoy-tour'); ?></a></li>
           </ul>
         </section>
 
         <section>
-          <h2 class="sitemap-section-title"><?php esc_html_e('予約・お問い合わせ', 'tenjoy-tour'); ?></h2>
+          <h2 class="sitemap-section-title"><?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(home_url('/booking/')); ?>"><?php esc_html_e('ツアー予約', 'tenjoy-tour'); ?></a></li>
             <li><a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php esc_html_e('お問い合わせ', 'tenjoy-tour'); ?></a></li>
           </ul>
         </section>

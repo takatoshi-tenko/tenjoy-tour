@@ -107,18 +107,32 @@ get_header();
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="contact-subject">
-                <?php esc_html_e('件名', 'tenjoy-tour'); ?> <span class="required">*</span>
+              <label class="form-label" for="contact-prefecture">
+                <?php esc_html_e('どの県に行く予定ですか', 'tenjoy-tour'); ?> <span class="required">*</span>
               </label>
-              <input type="text" id="contact-subject" name="contact_subject" class="form-control" required
-                placeholder="<?php esc_attr_e('お問い合わせの件名', 'tenjoy-tour'); ?>">
+              <select id="contact-prefecture" name="contact_prefecture" class="form-control" required>
+                <option value=""><?php esc_html_e('選択してください', 'tenjoy-tour'); ?></option>
+                <?php foreach (tenjoy_get_contact_prefectures() as $prefecture) : ?>
+                  <option value="<?php echo esc_attr($prefecture); ?>"><?php echo esc_html($prefecture); ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contact-visit-date">
+                <?php esc_html_e('いつ日本に来る予定ですか', 'tenjoy-tour'); ?> <span class="required">*</span>
+              </label>
+              <input type="date" id="contact-visit-date" name="contact_visit_date" class="form-control" required>
+              <p class="form-hint">
+                <?php esc_html_e('まだ確定していない人は大体の日付で問題ございません', 'tenjoy-tour'); ?>
+              </p>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="contact-message">
-                <?php esc_html_e('お問い合わせ内容', 'tenjoy-tour'); ?> <span class="required">*</span>
+                <?php esc_html_e('お問い合わせ内容', 'tenjoy-tour'); ?>
               </label>
-              <textarea id="contact-message" name="contact_message" class="form-control" rows="6" required
+              <textarea id="contact-message" name="contact_message" class="form-control" rows="6"
                 placeholder="<?php esc_attr_e('お問い合わせ内容を詳しくご記入ください', 'tenjoy-tour'); ?>"></textarea>
             </div>
 
