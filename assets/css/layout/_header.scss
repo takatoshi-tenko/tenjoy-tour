@@ -313,18 +313,20 @@
 .mobile-lang-switcher {
   padding: 0.75rem 1.5rem 1rem;
   border-top: 1px solid var(--border);
+  list-style: none;
+  gap: 0.75rem;
 
   ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-    list-style: none;
     margin: 0;
     padding: 0;
   }
 
   li {
     min-width: 0;
+    margin-bottom: 0.75rem;
   }
 
   li a {
