@@ -15,7 +15,7 @@ $messengers = [
     'text'        => '#3C1E1E',
     'desc'        => tenjoy__('contact_qr_01'),
     'cta'         => tenjoy__('contact_qr_02'),
-    'icon'        => 'message-circle',
+    'icon'        => 'kakao',
   ],
   [
     'setting_key' => 'tenjoy_qr_wechat',
@@ -45,7 +45,7 @@ $messengers = [
     'text'        => '#fff',
     'desc'        => tenjoy__('contact_qr_07'),
     'cta'         => tenjoy__('contact_qr_08'),
-    'icon'        => 'message-circle',
+    'icon'        => 'line',
   ],
   [
     'setting_key' => 'tenjoy_qr_whatsapp',

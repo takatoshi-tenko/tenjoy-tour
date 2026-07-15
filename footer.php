@@ -57,32 +57,34 @@
           <p>Email: <a href="mailto:<?php echo esc_attr($footer_email); ?>"><?php echo esc_html($footer_email); ?></a>
           </p>
           <?php if ($footer_fax) : ?>
-            <p>FAX: <?php echo esc_html($footer_fax); ?></p>
+          <p>FAX: <?php echo esc_html($footer_fax); ?></p>
           <?php endif; ?>
         </div>
         <p class="footer-messenger-label"><?php tenjoy_e('footer_07'); ?></p>
         <?php
         $footer_messengers = [
-          'line'     => ['name' => 'LINE', 'fallback' => 'qr-line.jpg'],
-          'kakao'    => ['name' => 'KakaoTalk', 'fallback' => 'qr-kakao.jpg'],
-          'wechat'   => ['name' => 'WeChat', 'fallback' => 'qr-wechat.jpg'],
-          'whatsapp' => ['name' => 'WhatsApp', 'fallback' => 'qr-whatsapp.jpg'],
+          'kakao'     => ['name' => 'KakaoTalk', 'color' => '#FEE500', 'text' => '#3C1E1E', 'icon' => 'kakao'],
+          'wechat'    => ['name' => 'WeChat', 'color' => '#07C160', 'text' => '#fff', 'icon' => 'message-circle'],
+          'instagram' => ['name' => 'Instagram', 'color' => '#e6683c', 'text' => '#fff', 'icon' => 'instagram'],
+          'line'      => ['name' => 'LINE', 'color' => '#00B900', 'text' => '#fff', 'icon' => 'line'],
+          'whatsapp'  => ['name' => 'WhatsApp', 'color' => '#25D366', 'text' => '#fff', 'icon' => 'phone'],
         ];
         ?>
         <div class="footer-messenger-links">
           <?php foreach ($footer_messengers as $key => $m) : ?>
-            <?php
-            $icon_url = tenjoy_customizer_image_url(
-              "tenjoy_icon_{$key}",
-              'thumbnail',
-              get_template_directory_uri() . '/assets/images/' . $m['fallback']
-            );
-            ?>
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="32"
-                height="32" loading="lazy">
-              <?php echo esc_html($m['name']); ?>
-            </a>
+          <?php $icon_url = tenjoy_customizer_image_url("tenjoy_icon_{$key}", 'thumbnail'); ?>
+          <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
+            <span class="footer-messenger-icon-wrap"
+              style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
+              <?php if ($icon_url) : ?>
+              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="20"
+                height="20" loading="lazy">
+              <?php else : ?>
+              <?php echo tenjoy_icon($m['icon']); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+              <?php endif; ?>
+            </span>
+            <?php echo esc_html($m['name']); ?>
+          </a>
           <?php endforeach; ?>
         </div>
       </div>

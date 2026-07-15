@@ -498,39 +498,39 @@ function tenjoy_pll_strings_per_page_shortcuts(): void
 {
     $show_all_value = 99999;
 ?>
-    <script>
-        (function($) {
-            var $input = $('#pll_strings_per_page');
-            if (!$input.length) {
-                return;
-            }
+<script>
+(function($) {
+  var $input = $('#pll_strings_per_page');
+  if (!$input.length) {
+    return;
+  }
 
-            var $wrap = $('<div class="tenjoy-per-page-shortcuts" style="margin-top:8px;"></div>');
-            var presets = [10, 30, 50, 100];
+  var $wrap = $('<div class="tenjoy-per-page-shortcuts" style="margin-top:8px;"></div>');
+  var presets = [10, 30, 50, 100];
 
-            function applyValue(value) {
-                $input.val(value);
-                $('input[name="screen-options-apply"]').trigger('click');
-            }
+  function applyValue(value) {
+    $input.val(value);
+    $('input[name="screen-options-apply"]').trigger('click');
+  }
 
-            presets.forEach(function(n) {
-                var $btn = $('<button type="button" class="button button-small" style="margin-right:4px;"></button>').text(n);
-                $btn.on('click', function() {
-                    applyValue(n);
-                });
-                $wrap.append($btn);
-            });
+  presets.forEach(function(n) {
+    var $btn = $('<button type="button" class="button button-small" style="margin-right:4px;"></button>').text(n);
+    $btn.on('click', function() {
+      applyValue(n);
+    });
+    $wrap.append($btn);
+  });
 
-            var $all = $('<button type="button" class="button button-small"></button>').text(
-                '<?php echo esc_js(__('全部', 'tenjoy-tour')); ?>');
-            $all.on('click', function() {
-                applyValue(<?php echo (int) $show_all_value; ?>);
-            });
-            $wrap.append($all);
+  var $all = $('<button type="button" class="button button-small"></button>').text(
+    '<?php echo esc_js(__('全部', 'tenjoy-tour')); ?>');
+  $all.on('click', function() {
+    applyValue(<?php echo (int) $show_all_value; ?>);
+  });
+  $wrap.append($all);
 
-            $input.closest('.screen-options').append($wrap);
-        })(jQuery);
-    </script>
+  $input.closest('.screen-options').append($wrap);
+})(jQuery);
+</script>
 <?php
 }
 
@@ -560,6 +560,8 @@ function tenjoy_icon($name)
         'map-pin'        => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
         'star'           => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         'message-circle' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+        'kakao'          => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 3C6.5 3 2 6.58 2 11c0 2.85 1.86 5.36 4.66 6.78L5.6 21.6a.5.5 0 0 0 .74.56l4.3-2.84c.45.05.9.08 1.36.08 5.5 0 10-3.58 10-8s-4.5-8-10-8z"/></svg>',
+        'line'           => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 2C6.48 2 2 5.7 2 10.25c0 4.08 3.55 7.49 8.35 8.14.32.07.77.22.88.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .87.55 1.08-.46 5.8-3.42 7.92-5.85C21.28 13.85 22 12.13 22 10.25 22 5.7 17.52 2 12 2z"/></svg>',
         'message-square' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
         'flag'           => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
         'globe'          => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>',

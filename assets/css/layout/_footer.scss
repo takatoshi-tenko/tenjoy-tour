@@ -114,21 +114,38 @@
 .footer-messenger-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   font-size: 0.875rem;
   color: var(--muted-foreground);
   text-decoration: none;
   transition: color 0.2s;
 
-  img {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
-
   &:hover {
     color: var(--foreground);
+  }
+}
+
+.footer-messenger-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  img {
+    display: block;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 3px;
   }
 }
 
