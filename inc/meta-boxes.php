@@ -171,25 +171,20 @@ function tenjoy_render_course_meta_box($post)
     $pid       = $post->ID;
     $map_embed = get_post_meta($pid, 'course_map_embed', true);
     echo '<div class="tenjoy-meta-box">';
-    ?>
+?>
     <div class="tenjoy-meta-field">
-      <label for="course_map_embed"><strong><?php esc_html_e('Googleマップ 埋め込み', 'tenjoy-tour'); ?></strong></label>
-      <textarea
-        id="course_map_embed"
-        name="course_map_embed"
-        class="widefat"
-        rows="3"
-        placeholder="<?php esc_attr_e('GoogleマップのURL、または「地図を埋め込む」でコピーしたiframeタグをそのまま貼り付けてください', 'tenjoy-tour'); ?>"
-      ><?php echo esc_textarea((string) $map_embed); ?></textarea>
-      <p class="description">
-        <?php esc_html_e('Googleマップで場所を検索 →「共有」→「地図を埋め込む」→ 表示されたHTMLをそのまま貼り付けてください（URLだけでも構いません）。', 'tenjoy-tour'); ?>
-      </p>
-      <p>
-        <button type="button" class="button" id="course-map-fetch-btn">
-          <?php esc_html_e('この地図からタイトル・住所を取得', 'tenjoy-tour'); ?>
-        </button>
-        <span id="course-map-fetch-status" style="margin-left:8px;font-size:12px;color:#646970;"></span>
-      </p>
+        <label for="course_map_embed"><strong><?php esc_html_e('Googleマップ 埋め込み', 'tenjoy-tour'); ?></strong></label>
+        <textarea id="course_map_embed" name="course_map_embed" class="widefat" rows="3"
+            placeholder="<?php esc_attr_e('GoogleマップのURL、または「地図を埋め込む」でコピーしたiframeタグをそのまま貼り付けてください', 'tenjoy-tour'); ?>"><?php echo esc_textarea((string) $map_embed); ?></textarea>
+        <p class="description">
+            <?php esc_html_e('Googleマップで場所を検索 →「共有」→「地図を埋め込む」→ 表示されたHTMLをそのまま貼り付けてください（URLだけでも構いません）。', 'tenjoy-tour'); ?>
+        </p>
+        <p>
+            <button type="button" class="button" id="course-map-fetch-btn">
+                <?php esc_html_e('この地図からタイトル・住所を取得', 'tenjoy-tour'); ?>
+            </button>
+            <span id="course-map-fetch-status" style="margin-left:8px;font-size:12px;color:#646970;"></span>
+        </p>
     </div>
     <?php
     tenjoy_meta_text_field($pid, 'course_rating', __('星評価', 'tenjoy-tour'), 'text', __('例: 4.8（5.0 満点）', 'tenjoy-tour'));
@@ -207,92 +202,98 @@ function tenjoy_render_course_meta_box($post)
     echo '</div>';
     ?>
     <script>
-    (function ($) {
-      function extractSrc(raw) {
-        raw = (raw || '').trim();
-        if (!raw) {
-          return '';
-        }
-        var m = raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
-        if (m) {
-          raw = m[1];
-        }
-        var ta = document.createElement('textarea');
-        ta.innerHTML = raw;
-        return ta.value.trim();
-      }
-
-      function parseFromUrl(url) {
-        var result = { lat: null, lng: null, name: null };
-        try {
-          var u = new URL(url);
-          var pb = u.searchParams.get('pb');
-          if (pb) {
-            var mLatLng = pb.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
-            if (mLatLng) {
-              result.lng = parseFloat(mLatLng[1]);
-              result.lat = parseFloat(mLatLng[2]);
+        (function($) {
+            function extractSrc(raw) {
+                raw = (raw || '').trim();
+                if (!raw) {
+                    return '';
+                }
+                var m = raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+                if (m) {
+                    raw = m[1];
+                }
+                var ta = document.createElement('textarea');
+                ta.innerHTML = raw;
+                return ta.value.trim();
             }
-            var mName = pb.match(/!1s0x[0-9a-fA-F]+(?:%3A|:)0x[0-9a-fA-F]+!2s([^!]+)!5e0/);
-            if (mName) {
-              result.name = decodeURIComponent(mName[1].replace(/\+/g, ' '));
+
+            function parseFromUrl(url) {
+                var result = {
+                    lat: null,
+                    lng: null,
+                    name: null
+                };
+                try {
+                    var u = new URL(url);
+                    var pb = u.searchParams.get('pb');
+                    if (pb) {
+                        var mLatLng = pb.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
+                        if (mLatLng) {
+                            result.lng = parseFloat(mLatLng[1]);
+                            result.lat = parseFloat(mLatLng[2]);
+                        }
+                        var mName = pb.match(/!1s0x[0-9a-fA-F]+(?:%3A|:)0x[0-9a-fA-F]+!2s([^!]+)!5e0/);
+                        if (mName) {
+                            result.name = decodeURIComponent(mName[1].replace(/\+/g, ' '));
+                        }
+                    }
+                } catch (e) {
+                    // URLとして解釈できない場合は何もしない
+                }
+                return result;
             }
-          }
-        } catch (e) {
-          // URLとして解釈できない場合は何もしない
-        }
-        return result;
-      }
 
-      $('#course-map-fetch-btn').on('click', function () {
-        var $status = $('#course-map-fetch-status');
-        var url = extractSrc($('#course_map_embed').val());
+            $('#course-map-fetch-btn').on('click', function() {
+                var $status = $('#course-map-fetch-status');
+                var url = extractSrc($('#course_map_embed').val());
 
-        if (!url) {
-          $status.text('<?php echo esc_js(__('URLを認識できませんでした', 'tenjoy-tour')); ?>');
-          return;
-        }
-        $('#course_map_embed').val(url);
+                if (!url) {
+                    $status.text('<?php echo esc_js(__('URLを認識できませんでした', 'tenjoy-tour')); ?>');
+                    return;
+                }
+                $('#course_map_embed').val(url);
 
-        var parsed = parseFromUrl(url);
-        var filled = [];
+                var parsed = parseFromUrl(url);
+                var filled = [];
 
-        if (parsed.name) {
-          var $title = $('#title');
-          if ($title.length) {
-            $title.val(parsed.name);
-            filled.push('<?php echo esc_js(__('タイトル', 'tenjoy-tour')); ?>');
-          }
-        }
+                if (parsed.name) {
+                    var $title = $('#title');
+                    if ($title.length) {
+                        $title.val(parsed.name);
+                        filled.push('<?php echo esc_js(__('タイトル', 'tenjoy-tour')); ?>');
+                    }
+                }
 
-        if (parsed.lat && parsed.lng) {
-          $status.text('<?php echo esc_js(__('住所を取得中...', 'tenjoy-tour')); ?>');
-          $.getJSON('https://nominatim.openstreetmap.org/reverse', {
-            format: 'jsonv2',
-            lat: parsed.lat,
-            lon: parsed.lng,
-            'accept-language': 'ja',
-            zoom: 17
-          }).done(function (data) {
-            if (data && data.display_name) {
-              $('#course_address').val(data.display_name);
-              filled.push('<?php echo esc_js(__('住所', 'tenjoy-tour')); ?>');
-            }
-            if (data && data.address && data.address.state) {
-              $('#course_prefecture').val(data.address.state);
-              filled.push('<?php echo esc_js(__('都道府県', 'tenjoy-tour')); ?>');
-            }
-            $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) : '<?php echo esc_js(__('住所情報が見つかりませんでした', 'tenjoy-tour')); ?>');
-          }).fail(function () {
-            $status.text('<?php echo esc_js(__('住所の取得に失敗しました（時間をおいて再度お試しください）', 'tenjoy-tour')); ?>');
-          });
-        } else {
-          $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) : '<?php echo esc_js(__('位置情報が見つかりませんでした', 'tenjoy-tour')); ?>');
-        }
-      });
-    })(jQuery);
+                if (parsed.lat && parsed.lng) {
+                    $status.text('<?php echo esc_js(__('住所を取得中...', 'tenjoy-tour')); ?>');
+                    $.getJSON('https://nominatim.openstreetmap.org/reverse', {
+                        format: 'jsonv2',
+                        lat: parsed.lat,
+                        lon: parsed.lng,
+                        'accept-language': 'ja',
+                        zoom: 17
+                    }).done(function(data) {
+                        if (data && data.display_name) {
+                            $('#course_address').val(data.display_name);
+                            filled.push('<?php echo esc_js(__('住所', 'tenjoy-tour')); ?>');
+                        }
+                        if (data && data.address && data.address.state) {
+                            $('#course_prefecture').val(data.address.state);
+                            filled.push('<?php echo esc_js(__('都道府県', 'tenjoy-tour')); ?>');
+                        }
+                        $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join(
+                            '・')) : '<?php echo esc_js(__('住所情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+                    }).fail(function() {
+                        $status.text('<?php echo esc_js(__('住所の取得に失敗しました（時間をおいて再度お試しください）', 'tenjoy-tour')); ?>');
+                    });
+                } else {
+                    $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) :
+                        '<?php echo esc_js(__('位置情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+                }
+            });
+        })(jQuery);
     </script>
-    <?php
+<?php
 }
 
 // ==========================================================================
@@ -536,6 +537,8 @@ add_action('save_post', function ($post_id) {
             'company_employees',
             'company_address',
             'company_phone',
+            'company_fax',
+            'company_email',
             'company_languages',
             'company_hours',
         ];
@@ -581,6 +584,8 @@ function tenjoy_render_company_meta_box(WP_Post $post): void
         'company_employees'      => ['label' => __('従業員数', 'tenjoy-tour'), 'default' => '5名'],
         'company_address'        => ['label' => __('所在地', 'tenjoy-tour'),   'default' => '福岡市東区'],
         'company_phone'          => ['label' => __('電話番号', 'tenjoy-tour'), 'default' => '090-9561-3388'],
+        'company_fax'            => ['label' => __('FAX番号', 'tenjoy-tour'), 'default' => ''],
+        'company_email'          => ['label' => __('メールアドレス', 'tenjoy-tour'), 'default' => 'info@tenjoy-tour.com'],
         'company_languages'      => ['label' => __('対応言語', 'tenjoy-tour'), 'default' => '日本語・中国語・韓国語・英語'],
         'company_hours'          => ['label' => __('営業時間', 'tenjoy-tour'), 'default' => '09:00 〜 18:00（年中無休）'],
     ];

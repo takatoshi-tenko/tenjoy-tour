@@ -488,6 +488,53 @@ function tenjoy_reorder_admin_menu($menu_order)
 }
 
 // ==========================================================================
+// 管理画面: Polylang「翻訳」一覧に表示件数クイック切替を追加
+// （ページネーションの代わりに 10 / 30 / 50 / 100 / 全部 から選べるようにする）
+// ==========================================================================
+
+add_action('admin_footer-languages_page_mlang_strings', 'tenjoy_pll_strings_per_page_shortcuts');
+
+function tenjoy_pll_strings_per_page_shortcuts(): void
+{
+    $show_all_value = 99999;
+?>
+    <script>
+        (function($) {
+            var $input = $('#pll_strings_per_page');
+            if (!$input.length) {
+                return;
+            }
+
+            var $wrap = $('<div class="tenjoy-per-page-shortcuts" style="margin-top:8px;"></div>');
+            var presets = [10, 30, 50, 100];
+
+            function applyValue(value) {
+                $input.val(value);
+                $('input[name="screen-options-apply"]').trigger('click');
+            }
+
+            presets.forEach(function(n) {
+                var $btn = $('<button type="button" class="button button-small" style="margin-right:4px;"></button>').text(n);
+                $btn.on('click', function() {
+                    applyValue(n);
+                });
+                $wrap.append($btn);
+            });
+
+            var $all = $('<button type="button" class="button button-small"></button>').text(
+                '<?php echo esc_js(__('全部', 'tenjoy-tour')); ?>');
+            $all.on('click', function() {
+                applyValue(<?php echo (int) $show_all_value; ?>);
+            });
+            $wrap.append($all);
+
+            $input.closest('.screen-options').append($wrap);
+        })(jQuery);
+    </script>
+<?php
+}
+
+// ==========================================================================
 // 管理バー: フロントエンドでは非表示（任意）
 // ==========================================================================
 
@@ -527,6 +574,58 @@ function tenjoy_icon($name)
     ];
 
     return isset($icons[$name]) ? $icons[$name] : '';
+}
+
+// ==========================================================================
+// 会社情報（「会社概要」テンプレートのページ）を他のテンプレートから参照する
+// ==========================================================================
+
+/**
+ * 「会社概要」テンプレート（page-company.php）が割り当てられている
+ * 固定ページのIDを返す。見つからない場合は0。
+ *
+ * @return int
+ */
+function tenjoy_get_company_page_id(): int
+{
+    static $page_id = null;
+
+    if ($page_id !== null) {
+        return $page_id;
+    }
+
+    $pages = get_posts([
+        'post_type'      => 'page',
+        'post_status'    => 'publish',
+        'posts_per_page' => 1,
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'page-company.php',
+        'fields'         => 'ids',
+    ]);
+
+    $page_id = $pages ? (int) $pages[0] : 0;
+
+    return $page_id;
+}
+
+/**
+ * 「会社概要」ページに設定された会社情報メタを取得する。
+ * ページ自体が見つからない、または値が未設定の場合は $default を返す。
+ *
+ * @param string $key
+ * @param string $default
+ * @return string
+ */
+function tenjoy_get_company_meta(string $key, string $default = ''): string
+{
+    $page_id = tenjoy_get_company_page_id();
+    if (! $page_id) {
+        return $default;
+    }
+
+    $value = (string) get_post_meta($page_id, $key, true);
+
+    return $value !== '' ? $value : $default;
 }
 
 // ==========================================================================

@@ -17,6 +17,8 @@ $co  = [
   'employees'      => (string) get_post_meta($pid, 'company_employees', true)      ?: '5名',
   'address'        => (string) get_post_meta($pid, 'company_address', true)        ?: '福岡市東区',
   'phone'          => (string) get_post_meta($pid, 'company_phone', true)          ?: '090-9561-3388',
+  'fax'            => (string) get_post_meta($pid, 'company_fax', true),
+  'email'          => (string) get_post_meta($pid, 'company_email', true)          ?: 'info@tenjoy-tour.com',
   'languages'      => (string) get_post_meta($pid, 'company_languages', true)      ?: '日本語・中国語・韓国語・英語',
   'hours'          => (string) get_post_meta($pid, 'company_hours', true)          ?: '09:00 〜 18:00（年中無休）',
 ];
@@ -83,6 +85,16 @@ $co  = [
               <dd><a
                   href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $co['phone'])); ?>"><?php echo esc_html($co['phone']); ?></a>
               </dd>
+            </div>
+            <?php if ($co['fax']) : ?>
+              <div class="company-info-row">
+                <dt>FAX</dt>
+                <dd><?php echo esc_html($co['fax']); ?></dd>
+              </div>
+            <?php endif; ?>
+            <div class="company-info-row">
+              <dt>E-mail</dt>
+              <dd><a href="mailto:<?php echo esc_attr($co['email']); ?>"><?php echo esc_html($co['email']); ?></a></dd>
             </div>
             <div class="company-info-row">
               <dt><?php tenjoy_e('company_14'); ?></dt>

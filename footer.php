@@ -1,4 +1,5 @@
 <?php
+
 /**
  * フッター
  *
@@ -31,6 +32,7 @@
           <li><a href="<?php echo esc_url(home_url('/#services')); ?>"><?php tenjoy_e('nav_01'); ?></a></li>
           <li><a href="<?php echo esc_url(home_url('/activities/')); ?>"><?php tenjoy_e('nav_03'); ?></a></li>
           <li><a href="<?php echo esc_url(home_url('/courses/')); ?>"><?php tenjoy_e('footer_04'); ?></a></li>
+          <li><a href="<?php echo esc_url(home_url('/sitemap/')); ?>"><?php tenjoy_e('footer_02'); ?></a></li>
         </ul>
       </div>
 
@@ -47,33 +49,40 @@
       <!-- お問い合わせ -->
       <div class="footer-links-block">
         <h3 class="footer-links-title"><?php tenjoy_e('nav_06'); ?></h3>
+        <?php
+        $footer_email = tenjoy_get_company_meta('company_email', 'info@tenjoy-tour.com');
+        $footer_fax   = tenjoy_get_company_meta('company_fax', '');
+        ?>
         <div class="footer-contact-info">
-          <p>Email: <a href="mailto:info@tenjoy-tour.com">info@tenjoy-tour.com</a></p>
-          <p>FAX: +81-3-1234-5678</p>
+          <p>Email: <a href="mailto:<?php echo esc_attr($footer_email); ?>"><?php echo esc_html($footer_email); ?></a>
+          </p>
+          <?php if ($footer_fax) : ?>
+            <p>FAX: <?php echo esc_html($footer_fax); ?></p>
+          <?php endif; ?>
         </div>
         <p class="footer-messenger-label"><?php tenjoy_e('footer_07'); ?></p>
         <?php
-          $footer_messengers = [
-            'line'     => ['name' => 'LINE', 'fallback' => 'qr-line.jpg'],
-            'kakao'    => ['name' => 'KakaoTalk', 'fallback' => 'qr-kakao.jpg'],
-            'wechat'   => ['name' => 'WeChat', 'fallback' => 'qr-wechat.jpg'],
-            'whatsapp' => ['name' => 'WhatsApp', 'fallback' => 'qr-whatsapp.jpg'],
-          ];
-          ?>
+        $footer_messengers = [
+          'line'     => ['name' => 'LINE', 'fallback' => 'qr-line.jpg'],
+          'kakao'    => ['name' => 'KakaoTalk', 'fallback' => 'qr-kakao.jpg'],
+          'wechat'   => ['name' => 'WeChat', 'fallback' => 'qr-wechat.jpg'],
+          'whatsapp' => ['name' => 'WhatsApp', 'fallback' => 'qr-whatsapp.jpg'],
+        ];
+        ?>
         <div class="footer-messenger-links">
           <?php foreach ($footer_messengers as $key => $m) : ?>
-          <?php
-              $icon_url = tenjoy_customizer_image_url(
-                "tenjoy_icon_{$key}",
-                'thumbnail',
-                get_template_directory_uri() . '/assets/images/' . $m['fallback']
-              );
-              ?>
-          <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-            <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="32"
-              height="32" loading="lazy">
-            <?php echo esc_html($m['name']); ?>
-          </a>
+            <?php
+            $icon_url = tenjoy_customizer_image_url(
+              "tenjoy_icon_{$key}",
+              'thumbnail',
+              get_template_directory_uri() . '/assets/images/' . $m['fallback']
+            );
+            ?>
+            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
+              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="32"
+                height="32" loading="lazy">
+              <?php echo esc_html($m['name']); ?>
+            </a>
           <?php endforeach; ?>
         </div>
       </div>
