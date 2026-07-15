@@ -57,7 +57,7 @@
           <p>Email: <a href="mailto:<?php echo esc_attr($footer_email); ?>"><?php echo esc_html($footer_email); ?></a>
           </p>
           <?php if ($footer_fax) : ?>
-          <p>FAX: <?php echo esc_html($footer_fax); ?></p>
+            <p>FAX: <?php echo esc_html($footer_fax); ?></p>
           <?php endif; ?>
         </div>
         <p class="footer-messenger-label"><?php tenjoy_e('footer_07'); ?></p>
@@ -72,19 +72,20 @@
         ?>
         <div class="footer-messenger-links">
           <?php foreach ($footer_messengers as $key => $m) : ?>
-          <?php $icon_url = tenjoy_customizer_image_url("tenjoy_icon_{$key}", 'thumbnail'); ?>
-          <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
-            <span class="footer-messenger-icon-wrap"
-              style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
-              <?php if ($icon_url) : ?>
-              <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="20"
-                height="20" loading="lazy">
-              <?php else : ?>
-              <?php echo tenjoy_icon($m['icon']); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-              <?php endif; ?>
-            </span>
-            <?php echo esc_html($m['name']); ?>
-          </a>
+            <?php $icon_url = tenjoy_customizer_image_url("tenjoy_icon_{$key}", 'thumbnail'); ?>
+            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
+              <span class="footer-messenger-icon-wrap"
+                style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
+                <?php if ($icon_url) : ?>
+                  <img src="<?php echo esc_url($icon_url); ?>" alt="<?php echo esc_attr($m['name']); ?>" width="20"
+                    height="20" loading="lazy">
+                <?php else : ?>
+                  <?php echo tenjoy_icon($m['icon']); // phpcs:ignore WordPress.Security.EscapeOutput 
+                  ?>
+                <?php endif; ?>
+              </span>
+              <?php echo esc_html($m['name']); ?>
+            </a>
           <?php endforeach; ?>
         </div>
       </div>
@@ -97,6 +98,18 @@
 
   </div><!-- /.footer-inner -->
 </footer><!-- /.site-footer -->
+
+<!-- 画像ライトボックス -->
+<div id="tenjoy-lightbox" class="tenjoy-lightbox" hidden aria-hidden="true">
+  <button type="button" class="tenjoy-lightbox-close"
+    aria-label="<?php tenjoy_attr_e('lightbox_01'); ?>">&times;</button>
+  <button type="button" class="tenjoy-lightbox-prev"
+    aria-label="<?php tenjoy_attr_e('lightbox_02'); ?>">&#8249;</button>
+  <img src="" alt="" class="tenjoy-lightbox-img">
+  <button type="button" class="tenjoy-lightbox-next"
+    aria-label="<?php tenjoy_attr_e('lightbox_03'); ?>">&#8250;</button>
+  <div class="tenjoy-lightbox-counter"></div>
+</div>
 
 <?php wp_footer(); ?>
 </body>

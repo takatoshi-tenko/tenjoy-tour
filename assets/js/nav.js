@@ -82,6 +82,91 @@
       });
     }
 
+    // 画像ライトボックス
+    var lightbox = document.getElementById('tenjoy-lightbox');
+    if (lightbox) {
+      var lightboxImg = lightbox.querySelector('.tenjoy-lightbox-img');
+      var lightboxCounter = lightbox.querySelector('.tenjoy-lightbox-counter');
+      var lightboxPrev = lightbox.querySelector('.tenjoy-lightbox-prev');
+      var lightboxNext = lightbox.querySelector('.tenjoy-lightbox-next');
+      var lightboxClose = lightbox.querySelector('.tenjoy-lightbox-close');
+      var lightboxImages = [];
+      var lightboxIndex = 0;
+
+      function renderLightbox() {
+        lightboxImg.src = lightboxImages[lightboxIndex];
+        lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + lightboxImages.length;
+        var hasMultiple = lightboxImages.length > 1;
+        lightboxPrev.hidden = !hasMultiple;
+        lightboxNext.hidden = !hasMultiple;
+        lightboxCounter.hidden = !hasMultiple;
+      }
+
+      function openLightbox(images, index) {
+        lightboxImages = images;
+        lightboxIndex = index;
+        if (!lightboxImages.length) {
+          return;
+        }
+        renderLightbox();
+        lightbox.hidden = false;
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.hidden = true;
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-lightbox-images]');
+        if (!trigger) {
+          return;
+        }
+        var images;
+        try {
+          images = JSON.parse(trigger.getAttribute('data-lightbox-images') || '[]');
+        } catch (err) {
+          images = [];
+        }
+        var index = parseInt(trigger.getAttribute('data-lightbox-index'), 10) || 0;
+        openLightbox(images, index);
+      });
+
+      lightboxPrev.addEventListener('click', function () {
+        lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+        renderLightbox();
+      });
+
+      lightboxNext.addEventListener('click', function () {
+        lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+        renderLightbox();
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (lightbox.hidden) {
+          return;
+        }
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          lightboxPrev.click();
+        } else if (e.key === 'ArrowRight') {
+          lightboxNext.click();
+        }
+      });
+    }
+
     // レビュー投稿フォーム（AJAX）
     var reviewForm = document.getElementById('review-form');
     var reviewMsg = document.getElementById('review-form-msg');

@@ -95,14 +95,14 @@ function tenjoy_meta_text_field($post_id, $key, $label, $type = 'text', $desc = 
     $value = get_post_meta($post_id, $key, true);
     $id    = esc_attr($key);
 ?>
-    <div class="tenjoy-meta-field">
-        <label for="<?php echo $id; ?>"><strong><?php echo esc_html($label); ?></strong></label>
-        <input type="<?php echo esc_attr($type); ?>" id="<?php echo $id; ?>" name="<?php echo $id; ?>"
-            value="<?php echo esc_attr((string) $value); ?>" class="widefat">
-        <?php if ($desc) : ?>
-            <p class="description"><?php echo esc_html($desc); ?></p>
-        <?php endif; ?>
-    </div>
+<div class="tenjoy-meta-field">
+  <label for="<?php echo $id; ?>"><strong><?php echo esc_html($label); ?></strong></label>
+  <input type="<?php echo esc_attr($type); ?>" id="<?php echo $id; ?>" name="<?php echo $id; ?>"
+    value="<?php echo esc_attr((string) $value); ?>" class="widefat">
+  <?php if ($desc) : ?>
+  <p class="description"><?php echo esc_html($desc); ?></p>
+  <?php endif; ?>
+</div>
 <?php
 }
 
@@ -119,15 +119,15 @@ function tenjoy_meta_checkbox_field($post_id, $key, $label, $desc = '')
     $value = (bool) get_post_meta($post_id, $key, true);
     $id    = esc_attr($key);
 ?>
-    <div class="tenjoy-meta-field">
-        <label>
-            <input type="checkbox" id="<?php echo $id; ?>" name="<?php echo $id; ?>" value="1" <?php checked($value, true); ?>>
-            <strong><?php echo esc_html($label); ?></strong>
-        </label>
-        <?php if ($desc) : ?>
-            <p class="description"><?php echo esc_html($desc); ?></p>
-        <?php endif; ?>
-    </div>
+<div class="tenjoy-meta-field">
+  <label>
+    <input type="checkbox" id="<?php echo $id; ?>" name="<?php echo $id; ?>" value="1" <?php checked($value, true); ?>>
+    <strong><?php echo esc_html($label); ?></strong>
+  </label>
+  <?php if ($desc) : ?>
+  <p class="description"><?php echo esc_html($desc); ?></p>
+  <?php endif; ?>
+</div>
 <?php
 }
 
@@ -146,18 +146,18 @@ function tenjoy_render_vehicle_meta_box($post)
     $gallery = get_post_meta($pid, 'vehicle_gallery', true);
     echo '<div class="tenjoy-meta-box">';
 ?>
-    <div class="tenjoy-meta-field">
-        <label for="vehicle_desc"><strong><?php esc_html_e('説明文', 'tenjoy-tour'); ?></strong></label>
-        <textarea id="vehicle_desc" name="vehicle_desc" class="widefat"
-            rows="3"><?php echo esc_textarea((string) $desc); ?></textarea>
-        <p class="description"><?php esc_html_e('例: 大人数でのご移動に最適です（最大45名）', 'tenjoy-tour'); ?></p>
-    </div>
+<div class="tenjoy-meta-field">
+  <label for="vehicle_desc"><strong><?php esc_html_e('説明文', 'tenjoy-tour'); ?></strong></label>
+  <textarea id="vehicle_desc" name="vehicle_desc" class="widefat"
+    rows="3"><?php echo esc_textarea((string) $desc); ?></textarea>
+  <p class="description"><?php esc_html_e('例: 大人数でのご移動に最適です（最大45名）', 'tenjoy-tour'); ?></p>
+</div>
 
-    <div class="tenjoy-meta-field">
-        <label><strong><?php esc_html_e('車両画像（複数登録可）', 'tenjoy-tour'); ?></strong></label>
-        <p class="description"><?php esc_html_e('メディアライブラリから複数の画像を選択できます。1枚目が代表画像として使われます。', 'tenjoy-tour'); ?></p>
-        <div id="vehicle-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
-            <?php
+<div class="tenjoy-meta-field">
+  <label><strong><?php esc_html_e('車両画像（複数登録可）', 'tenjoy-tour'); ?></strong></label>
+  <p class="description"><?php esc_html_e('メディアライブラリから複数の画像を選択できます。1枚目が代表画像として使われます。', 'tenjoy-tour'); ?></p>
+  <div id="vehicle-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
+    <?php
             if ($gallery) {
                 foreach (array_filter(explode(',', $gallery)) as $img_id) {
                     $url = wp_get_attachment_image_url((int) $img_id, 'thumbnail');
@@ -167,46 +167,52 @@ function tenjoy_render_vehicle_meta_box($post)
                 }
             }
             ?>
-        </div>
-        <input type="hidden" id="vehicle_gallery" name="vehicle_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
-        <button type="button" class="button" id="vehicle-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
-        <button type="button" class="button" id="vehicle-gallery-clear" style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
-    </div>
-    <script>
-    (function ($) {
-      var frame;
-      $('#vehicle-gallery-btn').on('click', function (e) {
-        e.preventDefault();
-        if (frame) {
-          frame.open();
-          return;
-        }
-        frame = wp.media({
-          title: '<?php echo esc_js(__('車両画像を選択', 'tenjoy-tour')); ?>',
-          multiple: true,
-          library: { type: 'image' }
-        });
-        frame.on('select', function () {
-          var ids = [], previews = '';
-          frame.state().get('selection').each(function (a) {
-            ids.push(a.id);
-            previews += '<img src="' + a.attributes.sizes.thumbnail.url + '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
-          });
-          $('#vehicle_gallery').val(ids.join(','));
-          $('#vehicle-gallery-preview').html(previews);
-        });
-        frame.open();
+  </div>
+  <input type="hidden" id="vehicle_gallery" name="vehicle_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
+  <button type="button" class="button"
+    id="vehicle-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
+  <button type="button" class="button" id="vehicle-gallery-clear"
+    style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
+</div>
+<script>
+(function($) {
+  var frame;
+  $('#vehicle-gallery-btn').on('click', function(e) {
+    e.preventDefault();
+    if (frame) {
+      frame.open();
+      return;
+    }
+    frame = wp.media({
+      title: '<?php echo esc_js(__('車両画像を選択', 'tenjoy-tour')); ?>',
+      multiple: true,
+      library: {
+        type: 'image'
+      }
+    });
+    frame.on('select', function() {
+      var ids = [],
+        previews = '';
+      frame.state().get('selection').each(function(a) {
+        ids.push(a.id);
+        previews += '<img src="' + a.attributes.sizes.thumbnail.url +
+          '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
       });
-      $('#vehicle-gallery-clear').on('click', function () {
-        $('#vehicle_gallery').val('');
-        $('#vehicle-gallery-preview').html('');
-      });
-    })(jQuery);
-    </script>
+      $('#vehicle_gallery').val(ids.join(','));
+      $('#vehicle-gallery-preview').html(previews);
+    });
+    frame.open();
+  });
+  $('#vehicle-gallery-clear').on('click', function() {
+    $('#vehicle_gallery').val('');
+    $('#vehicle-gallery-preview').html('');
+  });
+})(jQuery);
+</script>
 
-    <p class="description">
-        <?php esc_html_e('タイトルには車両名（例: 大型バス）を設定してください。並び順は「並べ替え」欄で調整できます。', 'tenjoy-tour'); ?>
-    </p>
+<p class="description">
+  <?php esc_html_e('タイトルには車両名（例: 大型バス）を設定してください。並び順は「並べ替え」欄で調整できます。', 'tenjoy-tour'); ?>
+</p>
 <?php
     echo '</div>';
 }
@@ -225,21 +231,21 @@ function tenjoy_render_course_meta_box($post)
     $map_embed = get_post_meta($pid, 'course_map_embed', true);
     echo '<div class="tenjoy-meta-box">';
 ?>
-    <div class="tenjoy-meta-field">
-        <label for="course_map_embed"><strong><?php esc_html_e('Googleマップ 埋め込み', 'tenjoy-tour'); ?></strong></label>
-        <textarea id="course_map_embed" name="course_map_embed" class="widefat" rows="3"
-            placeholder="<?php esc_attr_e('GoogleマップのURL、または「地図を埋め込む」でコピーしたiframeタグをそのまま貼り付けてください', 'tenjoy-tour'); ?>"><?php echo esc_textarea((string) $map_embed); ?></textarea>
-        <p class="description">
-            <?php esc_html_e('Googleマップで場所を検索 →「共有」→「地図を埋め込む」→ 表示されたHTMLをそのまま貼り付けてください（URLだけでも構いません）。', 'tenjoy-tour'); ?>
-        </p>
-        <p>
-            <button type="button" class="button" id="course-map-fetch-btn">
-                <?php esc_html_e('この地図からタイトル・住所を取得', 'tenjoy-tour'); ?>
-            </button>
-            <span id="course-map-fetch-status" style="margin-left:8px;font-size:12px;color:#646970;"></span>
-        </p>
-    </div>
-    <?php
+<div class="tenjoy-meta-field">
+  <label for="course_map_embed"><strong><?php esc_html_e('Googleマップ 埋め込み', 'tenjoy-tour'); ?></strong></label>
+  <textarea id="course_map_embed" name="course_map_embed" class="widefat" rows="3"
+    placeholder="<?php esc_attr_e('GoogleマップのURL、または「地図を埋め込む」でコピーしたiframeタグをそのまま貼り付けてください', 'tenjoy-tour'); ?>"><?php echo esc_textarea((string) $map_embed); ?></textarea>
+  <p class="description">
+    <?php esc_html_e('Googleマップで場所を検索 →「共有」→「地図を埋め込む」→ 表示されたHTMLをそのまま貼り付けてください（URLだけでも構いません）。', 'tenjoy-tour'); ?>
+  </p>
+  <p>
+    <button type="button" class="button" id="course-map-fetch-btn">
+      <?php esc_html_e('この地図からタイトル・住所を取得', 'tenjoy-tour'); ?>
+    </button>
+    <span id="course-map-fetch-status" style="margin-left:8px;font-size:12px;color:#646970;"></span>
+  </p>
+</div>
+<?php
     tenjoy_meta_text_field($pid, 'course_rating', __('星評価', 'tenjoy-tour'), 'text', __('例: 4.8（5.0 満点）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_region', __('エリア', 'tenjoy-tour'), 'text', __('例: 関東 / 関西 / 北海道', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'course_tags', __('特徴タグ', 'tenjoy-tour'), 'text', __('例: 富士山ビュー,温泉施設（カンマ区切り）', 'tenjoy-tour'));
@@ -254,98 +260,98 @@ function tenjoy_render_course_meta_box($post)
     tenjoy_meta_checkbox_field($pid, 'course_has_detail', __('詳細ページを作成する', 'tenjoy-tour'), __('チェックを入れると個別の詳細ページが表示されます', 'tenjoy-tour'));
     echo '</div>';
     ?>
-    <script>
-        (function($) {
-            function extractSrc(raw) {
-                raw = (raw || '').trim();
-                if (!raw) {
-                    return '';
-                }
-                var m = raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
-                if (m) {
-                    raw = m[1];
-                }
-                var ta = document.createElement('textarea');
-                ta.innerHTML = raw;
-                return ta.value.trim();
-            }
+<script>
+(function($) {
+  function extractSrc(raw) {
+    raw = (raw || '').trim();
+    if (!raw) {
+      return '';
+    }
+    var m = raw.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i);
+    if (m) {
+      raw = m[1];
+    }
+    var ta = document.createElement('textarea');
+    ta.innerHTML = raw;
+    return ta.value.trim();
+  }
 
-            function parseFromUrl(url) {
-                var result = {
-                    lat: null,
-                    lng: null,
-                    name: null
-                };
-                try {
-                    var u = new URL(url);
-                    var pb = u.searchParams.get('pb');
-                    if (pb) {
-                        var mLatLng = pb.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
-                        if (mLatLng) {
-                            result.lng = parseFloat(mLatLng[1]);
-                            result.lat = parseFloat(mLatLng[2]);
-                        }
-                        var mName = pb.match(/!1s0x[0-9a-fA-F]+(?:%3A|:)0x[0-9a-fA-F]+!2s([^!]+)!5e0/);
-                        if (mName) {
-                            result.name = decodeURIComponent(mName[1].replace(/\+/g, ' '));
-                        }
-                    }
-                } catch (e) {
-                    // URLとして解釈できない場合は何もしない
-                }
-                return result;
-            }
+  function parseFromUrl(url) {
+    var result = {
+      lat: null,
+      lng: null,
+      name: null
+    };
+    try {
+      var u = new URL(url);
+      var pb = u.searchParams.get('pb');
+      if (pb) {
+        var mLatLng = pb.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
+        if (mLatLng) {
+          result.lng = parseFloat(mLatLng[1]);
+          result.lat = parseFloat(mLatLng[2]);
+        }
+        var mName = pb.match(/!1s0x[0-9a-fA-F]+(?:%3A|:)0x[0-9a-fA-F]+!2s([^!]+)!5e0/);
+        if (mName) {
+          result.name = decodeURIComponent(mName[1].replace(/\+/g, ' '));
+        }
+      }
+    } catch (e) {
+      // URLとして解釈できない場合は何もしない
+    }
+    return result;
+  }
 
-            $('#course-map-fetch-btn').on('click', function() {
-                var $status = $('#course-map-fetch-status');
-                var url = extractSrc($('#course_map_embed').val());
+  $('#course-map-fetch-btn').on('click', function() {
+    var $status = $('#course-map-fetch-status');
+    var url = extractSrc($('#course_map_embed').val());
 
-                if (!url) {
-                    $status.text('<?php echo esc_js(__('URLを認識できませんでした', 'tenjoy-tour')); ?>');
-                    return;
-                }
-                $('#course_map_embed').val(url);
+    if (!url) {
+      $status.text('<?php echo esc_js(__('URLを認識できませんでした', 'tenjoy-tour')); ?>');
+      return;
+    }
+    $('#course_map_embed').val(url);
 
-                var parsed = parseFromUrl(url);
-                var filled = [];
+    var parsed = parseFromUrl(url);
+    var filled = [];
 
-                if (parsed.name) {
-                    var $title = $('#title');
-                    if ($title.length) {
-                        $title.val(parsed.name);
-                        filled.push('<?php echo esc_js(__('タイトル', 'tenjoy-tour')); ?>');
-                    }
-                }
+    if (parsed.name) {
+      var $title = $('#title');
+      if ($title.length) {
+        $title.val(parsed.name);
+        filled.push('<?php echo esc_js(__('タイトル', 'tenjoy-tour')); ?>');
+      }
+    }
 
-                if (parsed.lat && parsed.lng) {
-                    $status.text('<?php echo esc_js(__('住所を取得中...', 'tenjoy-tour')); ?>');
-                    $.getJSON('https://nominatim.openstreetmap.org/reverse', {
-                        format: 'jsonv2',
-                        lat: parsed.lat,
-                        lon: parsed.lng,
-                        'accept-language': 'ja',
-                        zoom: 17
-                    }).done(function(data) {
-                        if (data && data.display_name) {
-                            $('#course_address').val(data.display_name);
-                            filled.push('<?php echo esc_js(__('住所', 'tenjoy-tour')); ?>');
-                        }
-                        if (data && data.address && data.address.state) {
-                            $('#course_prefecture').val(data.address.state);
-                            filled.push('<?php echo esc_js(__('都道府県', 'tenjoy-tour')); ?>');
-                        }
-                        $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join(
-                            '・')) : '<?php echo esc_js(__('住所情報が見つかりませんでした', 'tenjoy-tour')); ?>');
-                    }).fail(function() {
-                        $status.text('<?php echo esc_js(__('住所の取得に失敗しました（時間をおいて再度お試しください）', 'tenjoy-tour')); ?>');
-                    });
-                } else {
-                    $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) :
-                        '<?php echo esc_js(__('位置情報が見つかりませんでした', 'tenjoy-tour')); ?>');
-                }
-            });
-        })(jQuery);
-    </script>
+    if (parsed.lat && parsed.lng) {
+      $status.text('<?php echo esc_js(__('住所を取得中...', 'tenjoy-tour')); ?>');
+      $.getJSON('https://nominatim.openstreetmap.org/reverse', {
+        format: 'jsonv2',
+        lat: parsed.lat,
+        lon: parsed.lng,
+        'accept-language': 'ja',
+        zoom: 17
+      }).done(function(data) {
+        if (data && data.display_name) {
+          $('#course_address').val(data.display_name);
+          filled.push('<?php echo esc_js(__('住所', 'tenjoy-tour')); ?>');
+        }
+        if (data && data.address && data.address.state) {
+          $('#course_prefecture').val(data.address.state);
+          filled.push('<?php echo esc_js(__('都道府県', 'tenjoy-tour')); ?>');
+        }
+        $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join(
+          '・')) : '<?php echo esc_js(__('住所情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+      }).fail(function() {
+        $status.text('<?php echo esc_js(__('住所の取得に失敗しました（時間をおいて再度お試しください）', 'tenjoy-tour')); ?>');
+      });
+    } else {
+      $status.text(filled.length ? ('<?php echo esc_js(__('取得しました:', 'tenjoy-tour')); ?> ' + filled.join('・')) :
+        '<?php echo esc_js(__('位置情報が見つかりませんでした', 'tenjoy-tour')); ?>');
+    }
+  });
+})(jQuery);
+</script>
 <?php
 }
 
@@ -372,11 +378,11 @@ function tenjoy_render_activity_meta_box($post)
     // ギャラリー画像
     $gallery = get_post_meta($pid, 'activity_gallery', true);
 ?>
-    <div class="tenjoy-meta-field">
-        <label><strong><?php esc_html_e('ギャラリー画像', 'tenjoy-tour'); ?></strong></label>
-        <p class="description"><?php esc_html_e('メディアライブラリから画像を選択してください。', 'tenjoy-tour'); ?></p>
-        <div id="activity-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
-            <?php
+<div class="tenjoy-meta-field">
+  <label><strong><?php esc_html_e('ギャラリー画像', 'tenjoy-tour'); ?></strong></label>
+  <p class="description"><?php esc_html_e('メディアライブラリから画像を選択してください。', 'tenjoy-tour'); ?></p>
+  <div id="activity-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
+    <?php
             if ($gallery) {
                 foreach (array_filter(explode(',', $gallery)) as $img_id) {
                     $url = wp_get_attachment_image_url((int) $img_id, 'thumbnail');
@@ -386,48 +392,48 @@ function tenjoy_render_activity_meta_box($post)
                 }
             }
             ?>
-        </div>
-        <input type="hidden" id="activity_gallery" name="activity_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
-        <button type="button" class="button"
-            id="activity-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
-        <button type="button" class="button" id="activity-gallery-clear"
-            style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
-    </div>
-    <script>
-        (function($) {
-            var frame;
-            $('#activity-gallery-btn').on('click', function(e) {
-                e.preventDefault();
-                if (frame) {
-                    frame.open();
-                    return;
-                }
-                frame = wp.media({
-                    title: 'ギャラリー画像を選択',
-                    multiple: true,
-                    library: {
-                        type: 'image'
-                    }
-                });
-                frame.on('select', function() {
-                    var ids = [],
-                        previews = '';
-                    frame.state().get('selection').each(function(a) {
-                        ids.push(a.id);
-                        previews += '<img src="' + a.attributes.sizes.thumbnail.url +
-                            '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
-                    });
-                    $('#activity_gallery').val(ids.join(','));
-                    $('#activity-gallery-preview').html(previews);
-                });
-                frame.open();
-            });
-            $('#activity-gallery-clear').on('click', function() {
-                $('#activity_gallery').val('');
-                $('#activity-gallery-preview').html('');
-            });
-        })(jQuery);
-    </script>
+  </div>
+  <input type="hidden" id="activity_gallery" name="activity_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
+  <button type="button" class="button"
+    id="activity-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
+  <button type="button" class="button" id="activity-gallery-clear"
+    style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
+</div>
+<script>
+(function($) {
+  var frame;
+  $('#activity-gallery-btn').on('click', function(e) {
+    e.preventDefault();
+    if (frame) {
+      frame.open();
+      return;
+    }
+    frame = wp.media({
+      title: 'ギャラリー画像を選択',
+      multiple: true,
+      library: {
+        type: 'image'
+      }
+    });
+    frame.on('select', function() {
+      var ids = [],
+        previews = '';
+      frame.state().get('selection').each(function(a) {
+        ids.push(a.id);
+        previews += '<img src="' + a.attributes.sizes.thumbnail.url +
+          '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+      });
+      $('#activity_gallery').val(ids.join(','));
+      $('#activity-gallery-preview').html(previews);
+    });
+    frame.open();
+  });
+  $('#activity-gallery-clear').on('click', function() {
+    $('#activity_gallery').val('');
+    $('#activity-gallery-preview').html('');
+  });
+})(jQuery);
+</script>
 <?php
     echo '</div>';
 }
@@ -448,11 +454,11 @@ function tenjoy_render_staff_meta_box($post)
 
     $bio = get_post_meta($pid, 'staff_bio', true);
 ?>
-    <div class="tenjoy-meta-field">
-        <label for="staff_bio"><strong><?php esc_html_e('自己紹介', 'tenjoy-tour'); ?></strong></label>
-        <textarea id="staff_bio" name="staff_bio" class="widefat"
-            rows="4"><?php echo esc_textarea((string) $bio); ?></textarea>
-    </div>
+<div class="tenjoy-meta-field">
+  <label for="staff_bio"><strong><?php esc_html_e('自己紹介', 'tenjoy-tour'); ?></strong></label>
+  <textarea id="staff_bio" name="staff_bio" class="widefat"
+    rows="4"><?php echo esc_textarea((string) $bio); ?></textarea>
+</div>
 <?php
     tenjoy_meta_text_field($pid, 'staff_languages', __('対応言語', 'tenjoy-tour'), 'text', __('例: 日本語, 英語, 中国語（カンマ区切り）', 'tenjoy-tour'));
     tenjoy_meta_text_field($pid, 'staff_email', __('メールアドレス', 'tenjoy-tour'), 'text', __('例: staff@tenjoy-tour.com', 'tenjoy-tour'));
@@ -479,14 +485,14 @@ function tenjoy_render_review_meta_box($post)
         $rating = 5;
     }
 ?>
-    <div class="tenjoy-meta-field">
-        <label for="review_rating"><strong><?php esc_html_e('星評価', 'tenjoy-tour'); ?></strong></label>
-        <select id="review_rating" name="review_rating" class="widefat" style="max-width:120px;">
-            <?php for ($i = 5; $i >= 1; $i--) : ?>
-                <option value="<?php echo $i; ?>" <?php selected($rating, $i); ?>><?php echo $i; ?> ★</option>
-            <?php endfor; ?>
-        </select>
-    </div>
+<div class="tenjoy-meta-field">
+  <label for="review_rating"><strong><?php esc_html_e('星評価', 'tenjoy-tour'); ?></strong></label>
+  <select id="review_rating" name="review_rating" class="widefat" style="max-width:120px;">
+    <?php for ($i = 5; $i >= 1; $i--) : ?>
+    <option value="<?php echo $i; ?>" <?php selected($rating, $i); ?>><?php echo $i; ?> ★</option>
+    <?php endfor; ?>
+  </select>
+</div>
 <?php
     echo '</div>';
 }
@@ -675,35 +681,35 @@ add_action('admin_head', function () {
         return;
     }
 ?>
-    <style>
-        .tenjoy-meta-box {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+<style>
+.tenjoy-meta-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
-        .tenjoy-meta-field {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+.tenjoy-meta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-        .tenjoy-meta-field label {
-            font-size: 13px;
-        }
+.tenjoy-meta-field label {
+  font-size: 13px;
+}
 
-        .tenjoy-meta-field input[type="text"],
-        .tenjoy-meta-field input[type="url"],
-        .tenjoy-meta-field input[type="number"],
-        .tenjoy-meta-field textarea {
-            margin-top: 2px;
-        }
+.tenjoy-meta-field input[type="text"],
+.tenjoy-meta-field input[type="url"],
+.tenjoy-meta-field input[type="number"],
+.tenjoy-meta-field textarea {
+  margin-top: 2px;
+}
 
-        .tenjoy-meta-field .description {
-            color: #646970;
-            font-size: 12px;
-            margin: 2px 0 0;
-        }
-    </style>
+.tenjoy-meta-field .description {
+  color: #646970;
+  font-size: 12px;
+  margin: 2px 0 0;
+}
+</style>
 <?php
 });

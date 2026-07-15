@@ -218,6 +218,11 @@ function tenjoy_strings(): array
         'common_02' => ['text' => 'パンくず', 'group' => '共通'],
         'common_03' => ['text' => 'ブログ一覧に戻る', 'group' => '共通'],
 
+        // 画像ライトボックス
+        'lightbox_01' => ['text' => '閉じる', 'group' => '共通'],
+        'lightbox_02' => ['text' => '前の画像', 'group' => '共通'],
+        'lightbox_03' => ['text' => '次の画像', 'group' => '共通'],
+
         // トップ：会社概要
         'company_home_01' => ['text' => '会社情報', 'group' => 'トップ：会社概要'],
         'company_home_02' => ['text' => '日本、東京、渋谷区', 'group' => 'トップ：会社概要'],
