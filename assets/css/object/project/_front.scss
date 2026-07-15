@@ -283,6 +283,57 @@
 .vehicle-img-wrap {
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  position: relative;
+}
+
+.vehicle-swiper {
+  --swiper-navigation-size: 16px;
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 50%;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+
+    &::after {
+      font-weight: 700;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  &:hover .swiper-button-prev,
+  &:hover .swiper-button-next {
+    opacity: 1;
+  }
+
+  .swiper-button-prev {
+    left: 0.5rem;
+  }
+
+  .swiper-button-next {
+    right: 0.5rem;
+  }
+
+  .swiper-pagination {
+    bottom: 0.5rem;
+  }
+
+  .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.6;
+  }
+
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #fff;
+  }
 }
 
 .vehicle-img {

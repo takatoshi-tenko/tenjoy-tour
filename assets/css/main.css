@@ -1093,6 +1093,49 @@ body {
 .vehicle-img-wrap {
   aspect-ratio: 16/9;
   overflow: hidden;
+  position: relative;
+}
+
+.vehicle-swiper {
+  --swiper-navigation-size: 16px;
+}
+.vehicle-swiper .swiper-button-prev,
+.vehicle-swiper .swiper-button-next {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+.vehicle-swiper .swiper-button-prev::after,
+.vehicle-swiper .swiper-button-next::after {
+  font-weight: 700;
+}
+.vehicle-swiper .swiper-button-prev:hover,
+.vehicle-swiper .swiper-button-next:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+.vehicle-swiper:hover .swiper-button-prev, .vehicle-swiper:hover .swiper-button-next {
+  opacity: 1;
+}
+.vehicle-swiper .swiper-button-prev {
+  left: 0.5rem;
+}
+.vehicle-swiper .swiper-button-next {
+  right: 0.5rem;
+}
+.vehicle-swiper .swiper-pagination {
+  bottom: 0.5rem;
+}
+.vehicle-swiper .swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.6;
+}
+.vehicle-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: #fff;
 }
 
 .vehicle-img {

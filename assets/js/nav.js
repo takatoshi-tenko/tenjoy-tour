@@ -64,6 +64,24 @@
       });
     }
 
+    // 車両画像 Swiper カルーセル（1車両ずつ独立したインスタンス）
+    if (typeof Swiper !== 'undefined') {
+      document.querySelectorAll('.vehicle-swiper').forEach(function (el) {
+        new Swiper(el, {
+          slidesPerView: 1,
+          loop: true,
+          navigation: {
+            prevEl: el.querySelector('.swiper-button-prev'),
+            nextEl: el.querySelector('.swiper-button-next'),
+          },
+          pagination: {
+            el: el.querySelector('.swiper-pagination'),
+            clickable: true,
+          },
+        });
+      });
+    }
+
     // レビュー投稿フォーム（AJAX）
     var reviewForm = document.getElementById('review-form');
     var reviewMsg = document.getElementById('review-form-msg');

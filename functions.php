@@ -396,6 +396,14 @@ function tenjoy_register_post_meta()
             return current_user_can('edit_posts');
         },
     ]);
+    register_post_meta('vehicles', 'vehicle_gallery', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'auth_callback' => function () {
+            return current_user_can('edit_posts');
+        },
+    ]);
 }
 add_action('init', 'tenjoy_register_post_meta');
 

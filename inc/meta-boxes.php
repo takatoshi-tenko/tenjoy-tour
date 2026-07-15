@@ -141,8 +141,9 @@ function tenjoy_meta_checkbox_field($post_id, $key, $label, $desc = '')
 function tenjoy_render_vehicle_meta_box($post)
 {
     wp_nonce_field('tenjoy_vehicle_meta_save', 'tenjoy_vehicle_meta_nonce');
-    $pid  = $post->ID;
-    $desc = get_post_meta($pid, 'vehicle_desc', true);
+    $pid     = $post->ID;
+    $desc    = get_post_meta($pid, 'vehicle_desc', true);
+    $gallery = get_post_meta($pid, 'vehicle_gallery', true);
     echo '<div class="tenjoy-meta-box">';
 ?>
     <div class="tenjoy-meta-field">
@@ -151,8 +152,60 @@ function tenjoy_render_vehicle_meta_box($post)
             rows="3"><?php echo esc_textarea((string) $desc); ?></textarea>
         <p class="description"><?php esc_html_e('例: 大人数でのご移動に最適です（最大45名）', 'tenjoy-tour'); ?></p>
     </div>
+
+    <div class="tenjoy-meta-field">
+        <label><strong><?php esc_html_e('車両画像（複数登録可）', 'tenjoy-tour'); ?></strong></label>
+        <p class="description"><?php esc_html_e('メディアライブラリから複数の画像を選択できます。1枚目が代表画像として使われます。', 'tenjoy-tour'); ?></p>
+        <div id="vehicle-gallery-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;">
+            <?php
+            if ($gallery) {
+                foreach (array_filter(explode(',', $gallery)) as $img_id) {
+                    $url = wp_get_attachment_image_url((int) $img_id, 'thumbnail');
+                    if ($url) {
+                        echo '<img src="' . esc_url($url) . '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+                    }
+                }
+            }
+            ?>
+        </div>
+        <input type="hidden" id="vehicle_gallery" name="vehicle_gallery" value="<?php echo esc_attr((string) $gallery); ?>">
+        <button type="button" class="button" id="vehicle-gallery-btn"><?php esc_html_e('画像を選択 / 追加', 'tenjoy-tour'); ?></button>
+        <button type="button" class="button" id="vehicle-gallery-clear" style="margin-left:4px;"><?php esc_html_e('クリア', 'tenjoy-tour'); ?></button>
+    </div>
+    <script>
+    (function ($) {
+      var frame;
+      $('#vehicle-gallery-btn').on('click', function (e) {
+        e.preventDefault();
+        if (frame) {
+          frame.open();
+          return;
+        }
+        frame = wp.media({
+          title: '<?php echo esc_js(__('車両画像を選択', 'tenjoy-tour')); ?>',
+          multiple: true,
+          library: { type: 'image' }
+        });
+        frame.on('select', function () {
+          var ids = [], previews = '';
+          frame.state().get('selection').each(function (a) {
+            ids.push(a.id);
+            previews += '<img src="' + a.attributes.sizes.thumbnail.url + '" style="width:80px;height:80px;object-fit:cover;border-radius:4px;">';
+          });
+          $('#vehicle_gallery').val(ids.join(','));
+          $('#vehicle-gallery-preview').html(previews);
+        });
+        frame.open();
+      });
+      $('#vehicle-gallery-clear').on('click', function () {
+        $('#vehicle_gallery').val('');
+        $('#vehicle-gallery-preview').html('');
+      });
+    })(jQuery);
+    </script>
+
     <p class="description">
-        <?php esc_html_e('タイトルには車両名（例: 大型バス）、アイキャッチ画像には車両写真を設定してください。並び順は「並べ替え」欄で調整できます。', 'tenjoy-tour'); ?>
+        <?php esc_html_e('タイトルには車両名（例: 大型バス）を設定してください。並び順は「並べ替え」欄で調整できます。', 'tenjoy-tour'); ?>
     </p>
 <?php
     echo '</div>';
@@ -460,6 +513,10 @@ add_action('save_post', function ($post_id) {
         }
         if (isset($_POST['vehicle_desc'])) {
             update_post_meta($post_id, 'vehicle_desc', sanitize_textarea_field(wp_unslash($_POST['vehicle_desc'])));
+        }
+        if (isset($_POST['vehicle_gallery'])) {
+            $gallery_ids = array_filter(array_map('intval', explode(',', wp_unslash($_POST['vehicle_gallery']))));
+            update_post_meta($post_id, 'vehicle_gallery', implode(',', $gallery_ids));
         }
     }
 
