@@ -132,6 +132,12 @@ function tenjoy_strings(): array
         'testimonials_page_07' => ['text' => 'コメント', 'group' => 'お客様の声ページ'],
         'testimonials_page_08' => ['text' => 'ご感想をお書きください', 'group' => 'お客様の声ページ'],
 
+        // レビュー投稿（送信結果メッセージ）
+        'review_ajax_01' => ['text' => 'セキュリティエラーが発生しました。', 'group' => 'レビュー投稿'],
+        'review_ajax_02' => ['text' => 'お名前とコメントは必須です。', 'group' => 'レビュー投稿'],
+        'review_ajax_03' => ['text' => '送信に失敗しました。', 'group' => 'レビュー投稿'],
+        'review_ajax_04' => ['text' => '送信しました、レビューいただきまして誠にありがとうございます！', 'group' => 'レビュー投稿'],
+
         // 共通
         'common_01' => ['text' => 'コンテンツが見つかりません。', 'group' => '共通'],
 

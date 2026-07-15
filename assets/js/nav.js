@@ -90,11 +90,11 @@
             reviewMsg.hidden = false;
             if (json.success) {
               reviewMsg.className = 'review-form-msg review-form-msg--success';
-              reviewMsg.textContent = json.data;
+              reviewMsg.textContent = (json.data && json.data.message) || '送信しました。';
               reviewForm.reset();
             } else {
               reviewMsg.className = 'review-form-msg review-form-msg--error';
-              reviewMsg.textContent = json.data || 'エラーが発生しました。';
+              reviewMsg.textContent = (json.data && json.data.message) || 'エラーが発生しました。';
             }
           })
           .catch(function () {

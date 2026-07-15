@@ -498,39 +498,39 @@ function tenjoy_pll_strings_per_page_shortcuts(): void
 {
     $show_all_value = 99999;
 ?>
-<script>
-(function($) {
-  var $input = $('#pll_strings_per_page');
-  if (!$input.length) {
-    return;
-  }
+    <script>
+        (function($) {
+            var $input = $('#pll_strings_per_page');
+            if (!$input.length) {
+                return;
+            }
 
-  var $wrap = $('<div class="tenjoy-per-page-shortcuts" style="margin-top:8px;"></div>');
-  var presets = [10, 30, 50, 100];
+            var $wrap = $('<div class="tenjoy-per-page-shortcuts" style="margin-top:8px;"></div>');
+            var presets = [10, 30, 50, 100];
 
-  function applyValue(value) {
-    $input.val(value);
-    $('input[name="screen-options-apply"]').trigger('click');
-  }
+            function applyValue(value) {
+                $input.val(value);
+                $('input[name="screen-options-apply"]').trigger('click');
+            }
 
-  presets.forEach(function(n) {
-    var $btn = $('<button type="button" class="button button-small" style="margin-right:4px;"></button>').text(n);
-    $btn.on('click', function() {
-      applyValue(n);
-    });
-    $wrap.append($btn);
-  });
+            presets.forEach(function(n) {
+                var $btn = $('<button type="button" class="button button-small" style="margin-right:4px;"></button>').text(n);
+                $btn.on('click', function() {
+                    applyValue(n);
+                });
+                $wrap.append($btn);
+            });
 
-  var $all = $('<button type="button" class="button button-small"></button>').text(
-    '<?php echo esc_js(__('全部', 'tenjoy-tour')); ?>');
-  $all.on('click', function() {
-    applyValue(<?php echo (int) $show_all_value; ?>);
-  });
-  $wrap.append($all);
+            var $all = $('<button type="button" class="button button-small"></button>').text(
+                '<?php echo esc_js(__('全部', 'tenjoy-tour')); ?>');
+            $all.on('click', function() {
+                applyValue(<?php echo (int) $show_all_value; ?>);
+            });
+            $wrap.append($all);
 
-  $input.closest('.screen-options').append($wrap);
-})(jQuery);
-</script>
+            $input.closest('.screen-options').append($wrap);
+        })(jQuery);
+    </script>
 <?php
 }
 
@@ -797,7 +797,7 @@ add_action('wp_ajax_tenjoy_submit_review', 'tenjoy_submit_review');
 function tenjoy_submit_review()
 {
     if (! check_ajax_referer('tenjoy_review_nonce', 'nonce', false)) {
-        wp_send_json_error(['message' => 'セキュリティエラーが発生しました。']);
+        wp_send_json_error(['message' => tenjoy__('review_ajax_01')]);
     }
 
     $author  = sanitize_text_field(wp_unslash($_POST['author'] ?? ''));
@@ -806,7 +806,7 @@ function tenjoy_submit_review()
     $rating  = max(1, min(5, (int) ($_POST['rating'] ?? 5)));
 
     if (empty($author) || empty($content)) {
-        wp_send_json_error(['message' => 'お名前とコメントは必須です。']);
+        wp_send_json_error(['message' => tenjoy__('review_ajax_02')]);
     }
 
     $post_id = wp_insert_post([
@@ -817,7 +817,7 @@ function tenjoy_submit_review()
     ]);
 
     if (is_wp_error($post_id)) {
-        wp_send_json_error(['message' => '送信に失敗しました。']);
+        wp_send_json_error(['message' => tenjoy__('review_ajax_03')]);
     }
 
     update_post_meta($post_id, 'review_rating', $rating);
@@ -847,7 +847,7 @@ function tenjoy_submit_review()
         ['Content-Type: text/plain; charset=UTF-8']
     );
 
-    wp_send_json_success(['message' => 'レビューを送信しました。承認後に表示されます。']);
+    wp_send_json_success(['message' => tenjoy__('review_ajax_04')]);
 }
 
 // ==========================================================================
