@@ -561,7 +561,7 @@ add_action('manage_courses_posts_custom_column', 'tenjoy_courses_column_cell', 1
 
 function tenjoy_polylang_register_types($post_types, $is_settings)
 {
-    $tenjoy_types = ['activities', 'courses', 'staff', 'vehicles'];
+    $tenjoy_types = ['activities', 'courses', 'staff', 'vehicles', 'faq'];
     return array_merge($post_types, $tenjoy_types);
 }
 add_filter('pll_get_post_types', 'tenjoy_polylang_register_types', 10, 2);
