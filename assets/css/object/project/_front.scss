@@ -379,6 +379,10 @@
   max-width: 72rem;
   margin: 0 auto;
 
+  > * {
+    min-width: 0;
+  }
+
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -393,6 +397,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--background);
+  overflow-wrap: break-word;
 }
 
 .info-list {
@@ -529,6 +534,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 0;
   padding: 1.25rem 1rem;
   background: #fff;
   border: 1px solid var(--border);
@@ -578,8 +584,9 @@
 }
 
 .messenger-qr {
-  width: 160px;
-  height: 160px;
+  width: 100%;
+  max-width: 160px;
+  aspect-ratio: 1;
   margin-bottom: 0.75rem;
 
   img {
