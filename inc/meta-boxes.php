@@ -421,14 +421,14 @@ function tenjoy_render_activity_meta_box($post)
   tenjoy_meta_select_field(
     $pid,
     'activity_image_position',
-    __('一覧カード画像の表示位置', 'tenjoy-tour'),
+    __('画像の表示位置', 'tenjoy-tour'),
     [
       'top'    => __('上', 'tenjoy-tour'),
       'center' => __('中央（標準）', 'tenjoy-tour'),
       'bottom' => __('下', 'tenjoy-tour'),
     ],
     'center',
-    __('一覧カードの画像は16:9に切り抜かれます。見せたい部分が見切れる場合はここで調整してください。', 'tenjoy-tour')
+    __('一覧カードと詳細ページのアイキャッチ（どちらも16:9）で画像が切り抜かれます。見せたい部分が見切れる場合はここで調整してください。', 'tenjoy-tour')
   );
 
   // ギャラリー画像

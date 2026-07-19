@@ -56,9 +56,19 @@ $gallery_ids = $gallery_raw ? array_filter(array_map('intval', explode(',', $gal
       <h1 class="activity-single-title"><?php the_title(); ?></h1>
 
       <!-- アイキャッチ -->
+      <?php
+      $single_img_position = (string) get_post_meta(get_the_ID(), 'activity_image_position', true) ?: 'center';
+      if (! in_array($single_img_position, ['top', 'center', 'bottom'], true)) {
+        $single_img_position = 'center';
+      }
+      ?>
       <?php if (has_post_thumbnail()) : ?>
       <div class="activity-single-thumbnail">
-        <?php the_post_thumbnail('tenjoy-hero', ['alt' => get_the_title(), 'class' => 'activity-single-img']); ?>
+        <?php the_post_thumbnail('tenjoy-hero', [
+          'alt' => get_the_title(),
+          'class' => 'activity-single-img',
+          'style' => 'object-position: center ' . esc_attr($single_img_position) . ';',
+        ]); ?>
       </div>
       <?php endif; ?>
 
