@@ -8,6 +8,7 @@
  *
  * 設定項目:
  *   - ヒーロー画像
+ *   - 料金表リンクURL
  *   - SNS連絡先 QRコード（Kakao / WeChat / Instagram / LINE / WhatsApp）
  *   - SNSアイコン画像（Kakao / WeChat / Instagram / LINE / WhatsApp）
  *
@@ -76,6 +77,27 @@ function tenjoy_customizer_register(WP_Customize_Manager $wp_customize)
             'center bottom' => __('中央下', 'tenjoy-tour'),
             'right bottom'  => __('右下', 'tenjoy-tour'),
         ],
+    ]);
+
+    // ======================================================================
+    // セクション: 料金表
+    // ======================================================================
+
+    $wp_customize->add_section('tenjoy_price_list', [
+        'title' => __('料金表', 'tenjoy-tour'),
+        'panel' => 'tenjoy_panel',
+    ]);
+
+    $wp_customize->add_setting('tenjoy_price_list_url', [
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+
+    $wp_customize->add_control('tenjoy_price_list_url', [
+        'label'       => __('料金表リンクURL', 'tenjoy-tour'),
+        'description' => __('トップページの「料金表」案内から遷移するリンク先URLを設定します。', 'tenjoy-tour'),
+        'section'     => 'tenjoy_price_list',
+        'type'        => 'url',
     ]);
 
     // ======================================================================

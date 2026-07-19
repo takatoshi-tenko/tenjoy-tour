@@ -376,11 +376,15 @@
 .company-grid {
   display: grid;
   gap: 3rem;
-  max-width: 56rem;
+  max-width: 72rem;
   margin: 0 auto;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -422,42 +426,62 @@
   }
 }
 
-.area-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.price-list-desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  margin: 0 0 0.875rem;
 }
 
-.area-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+.price-list-link {
+  display: inline-block;
   font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  text-decoration: underline;
 
-  strong {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+  &:hover {
+    color: var(--primary);
   }
+}
+
+.service-area-card {
+  font-size: 0.875rem;
+  line-height: 1.65;
 
   p {
     color: var(--muted-foreground);
-    margin: 0;
+    margin: 0 0 0.875rem;
   }
-}
 
-.area-icon {
-  color: var(--brand);
-  flex-shrink: 0;
-  margin-top: 2px;
+  .service-area-ref-title {
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0 0 0.5rem;
+  }
 
-  svg {
-    display: block;
-    width: 20px;
-    height: 20px;
+  .service-area-ref-list {
+    margin: 0 0 0.875rem;
+    padding-left: 1.125rem;
+    color: var(--muted-foreground);
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+
+    a {
+      color: var(--foreground);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+
+  .service-area-note {
+    font-size: 0.8125rem;
+    margin: 0;
   }
 }
 

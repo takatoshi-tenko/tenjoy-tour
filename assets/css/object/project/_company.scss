@@ -79,32 +79,43 @@
 }
 
 /* サービスエリア */
-.company-area-grid {
-  display: grid;
-  gap: 1rem;
+.company-info-section > p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  margin: 0 0 1rem;
+}
 
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(3, 1fr);
+.service-area-ref-title {
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 1rem 0 0.5rem;
+}
+
+.service-area-ref-list {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+
+  li {
+    margin-bottom: 0.375rem;
+  }
+
+  a {
+    color: var(--foreground);
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--primary);
+    }
   }
 }
 
-.company-area-card {
-  padding: 1.25rem;
-  background: var(--muted);
-  border-radius: var(--radius);
-}
-
-.company-area-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-}
-
-.company-area-desc {
-  font-size: 0.875rem;
+.service-area-note {
+  font-size: 0.8125rem;
   color: var(--muted-foreground);
   margin: 0;
-  line-height: 1.6;
 }
 
 /* 代表挨拶 */

@@ -50,33 +50,36 @@ $co_email   = tenjoy_get_company_meta('company_email', 'info@tenjoy-tour.com');
       <!-- サービスエリア -->
       <div class="service-area">
         <h2 class="subsection-title"><?php tenjoy_e('company_24'); ?></h2>
-        <div class="info-card">
-          <ul class="area-list">
-            <li class="area-item">
-              <span class="area-icon"><?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput 
-                                      ?></span>
-              <div>
-                <strong><?php tenjoy_e('company_home_04'); ?></strong>
-                <p><?php tenjoy_e('company_home_05'); ?></p>
-              </div>
+        <div class="info-card service-area-card">
+          <p><?php tenjoy_e('service_area_01'); ?></p>
+          <p class="service-area-ref-title"><?php tenjoy_e('service_area_02'); ?></p>
+          <ul class="service-area-ref-list">
+            <li>
+              <?php tenjoy_e('service_area_03'); ?><a href="https://golf-in-japan.com/" target="_blank"
+                rel="noopener noreferrer"><?php tenjoy_e('service_area_04'); ?></a>
             </li>
-            <li class="area-item">
-              <span class="area-icon"><?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput 
-                                      ?></span>
-              <div>
-                <strong><?php tenjoy_e('company_home_06'); ?></strong>
-                <p><?php tenjoy_e('company_home_07'); ?></p>
-              </div>
-            </li>
-            <li class="area-item">
-              <span class="area-icon"><?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput 
-                                      ?></span>
-              <div>
-                <strong><?php tenjoy_e('company_home_08'); ?></strong>
-                <p><?php tenjoy_e('company_home_09'); ?></p>
-              </div>
+            <li>
+              <?php tenjoy_e('service_area_05'); ?><a
+                href="https://www.booking.com/index.ko.html?label=gen173nr-1BCAEoggI46AdIM1gEaH2IAQGYARW4AQfIAQzYAQHoAQGIAgGoAgO4Arzs-6MGwAIB0gIkNGI3Mjg2ZDAtMTQ0Yi00ZmRmLWI4OTUtMzcyYWRhYzUyNjYz2AIF4AIB&sid=0dcd94148e8430db9d304eba912b1473&keep_landing=1&sb_price_type=total&lang=ko&soz=1&lang_changed=1"
+                target="_blank" rel="noopener noreferrer"><?php tenjoy_e('service_area_06'); ?></a>
             </li>
           </ul>
+          <p class="service-area-note"><?php tenjoy_e('service_area_07'); ?></p>
+        </div>
+      </div>
+
+      <!-- 料金表 -->
+      <div class="price-list">
+        <h2 class="subsection-title"><?php tenjoy_e('price_list_01'); ?></h2>
+        <div class="info-card">
+          <p class="price-list-desc"><?php tenjoy_e('price_list_02'); ?></p>
+          <?php $price_list_url = get_theme_mod('tenjoy_price_list_url', ''); ?>
+          <?php if ($price_list_url) : ?>
+            <a href="<?php echo esc_url($price_list_url); ?>" class="price-list-link" target="_blank"
+              rel="noopener noreferrer">
+              <?php tenjoy_e('price_list_03'); ?>
+            </a>
+          <?php endif; ?>
         </div>
       </div>
 

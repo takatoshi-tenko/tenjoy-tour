@@ -149,20 +149,17 @@ $co  = [
         <!-- サービスエリア -->
         <section class="company-info-section">
           <h2 class="company-section-title"><?php tenjoy_e('company_24'); ?></h2>
-          <div class="company-area-grid">
-            <div class="company-area-card">
-              <h3 class="company-area-name"><?php tenjoy_e('company_25'); ?></h3>
-              <p class="company-area-desc"><?php tenjoy_e('company_26'); ?></p>
-            </div>
-            <div class="company-area-card">
-              <h3 class="company-area-name"><?php tenjoy_e('company_27'); ?></h3>
-              <p class="company-area-desc"><?php tenjoy_e('company_28'); ?></p>
-            </div>
-            <div class="company-area-card">
-              <h3 class="company-area-name"><?php tenjoy_e('company_29'); ?></h3>
-              <p class="company-area-desc"><?php tenjoy_e('company_30'); ?></p>
-            </div>
-          </div>
+          <p><?php tenjoy_e('service_area_01'); ?></p>
+          <p class="service-area-ref-title"><?php tenjoy_e('service_area_02'); ?></p>
+          <ul class="service-area-ref-list">
+            <li>
+              <?php tenjoy_e('service_area_03'); ?><a href="https://golf-in-japan.com/" target="_blank" rel="noopener noreferrer"><?php tenjoy_e('service_area_04'); ?></a>
+            </li>
+            <li>
+              <?php tenjoy_e('service_area_05'); ?><a href="https://www.booking.com/index.ko.html?label=gen173nr-1BCAEoggI46AdIM1gEaH2IAQGYARW4AQfIAQzYAQHoAQGIAgGoAgO4Arzs-6MGwAIB0gIkNGI3Mjg2ZDAtMTQ0Yi00ZmRmLWI4OTUtMzcyYWRhYzUyNjYz2AIF4AIB&sid=0dcd94148e8430db9d304eba912b1473&keep_landing=1&sb_price_type=total&lang=ko&soz=1&lang_changed=1" target="_blank" rel="noopener noreferrer"><?php tenjoy_e('service_area_06'); ?></a>
+            </li>
+          </ul>
+          <p class="service-area-note"><?php tenjoy_e('service_area_07'); ?></p>
         </section>
 
         <!-- WP管理画面から追加編集できる本文エリア -->
