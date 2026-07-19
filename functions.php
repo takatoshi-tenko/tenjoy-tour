@@ -25,17 +25,59 @@ require_once TENJOY_DIR . '/inc/polylang-strings.php';
 // ==========================================================================
 
 /**
+ * 固定ページのスラッグから、現在のPolylang言語に対応するURLを返す。
+ * 言語ごとにスラッグが異なる場合（例: 中国語版が /contact ではなく
+ * /contact-2 になっている場合）でも、正しい翻訳先ページのURLを返す。
+ * ページが見つからない場合やPolylang未使用時は $fallback_path を返す。
+ *
+ * @param string $slug          既定言語（Polylangのデフォルト言語）でのページスラッグ
+ * @param string $fallback_path 見つからない場合のパス（例: '/contact/'）
+ * @return string
+ */
+function tenjoy_page_url(string $slug, string $fallback_path): string
+{
+    $args = [
+        'post_type'      => 'page',
+        'name'           => $slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ];
+
+    if (function_exists('pll_default_language')) {
+        $args['lang'] = pll_default_language();
+    }
+
+    $pages = get_posts($args);
+    if (! $pages) {
+        return home_url($fallback_path);
+    }
+
+    $post_id = $pages[0]->ID;
+
+    if (function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($post_id);
+        if ($translated_id) {
+            $post_id = $translated_id;
+        }
+    }
+
+    $permalink = get_permalink($post_id);
+
+    return $permalink ?: home_url($fallback_path);
+}
+
+/**
  * プライマリメニュー未設定時のフォールバック出力
  */
 function tenjoy_fallback_nav()
 {
     $links = [
-        home_url('/#services')     => ['label' => tenjoy__('nav_01'),   'cta' => false],
-        home_url('/courses/')      => ['label' => tenjoy__('nav_02'),   'cta' => false],
-        home_url('/activities/')   => ['label' => tenjoy__('nav_03'), 'cta' => false],
-        home_url('/testimonials/') => ['label' => tenjoy__('nav_04'), 'cta' => false],
-        home_url('/company/')      => ['label' => tenjoy__('nav_05'),   'cta' => false],
-        home_url('/contact/')      => ['label' => tenjoy__('nav_06'), 'cta' => true],
+        home_url('/#services')                             => ['label' => tenjoy__('nav_01'), 'cta' => false],
+        home_url('/courses/')                               => ['label' => tenjoy__('nav_02'), 'cta' => false],
+        home_url('/activities/')                            => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        tenjoy_page_url('testimonials', '/testimonials/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
+        tenjoy_page_url('company', '/company/')             => ['label' => tenjoy__('nav_05'), 'cta' => false],
+        tenjoy_page_url('contact', '/contact/')             => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];
     echo '<ul class="nav-menu">';
     foreach ($links as $url => $item) {
@@ -48,12 +90,12 @@ function tenjoy_fallback_nav()
 function tenjoy_fallback_mobile_nav()
 {
     $links = [
-        home_url('/#services')     => ['label' => tenjoy__('nav_01'),     'cta' => false],
-        home_url('/courses/')      => ['label' => tenjoy__('nav_02'),     'cta' => false],
-        home_url('/activities/')   => ['label' => tenjoy__('nav_03'), 'cta' => false],
-        home_url('/testimonials/') => ['label' => tenjoy__('nav_04'),   'cta' => false],
-        home_url('/company/')      => ['label' => tenjoy__('nav_05'),     'cta' => false],
-        home_url('/contact/')      => ['label' => tenjoy__('nav_06'), 'cta' => true],
+        home_url('/#services')                             => ['label' => tenjoy__('nav_01'), 'cta' => false],
+        home_url('/courses/')                               => ['label' => tenjoy__('nav_02'), 'cta' => false],
+        home_url('/activities/')                            => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        tenjoy_page_url('testimonials', '/testimonials/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
+        tenjoy_page_url('company', '/company/')             => ['label' => tenjoy__('nav_05'), 'cta' => false],
+        tenjoy_page_url('contact', '/contact/')             => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];
     echo '<ul class="mobile-nav-menu">';
     foreach ($links as $url => $item) {
