@@ -128,7 +128,7 @@ $gallery_ids = $gallery_raw ? array_filter(array_map('intval', explode(',', $gal
           <?php tenjoy_e('activity_single_10'); ?>
         </p>
         <div class="courses-cta-buttons">
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+          <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-primary btn-lg">
             <?php tenjoy_e('activity_single_08'); ?>
           </a>
         </div>

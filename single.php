@@ -15,10 +15,9 @@ get_header();
     <div class="single-news-wrap">
 
       <nav class="single-news-breadcrumb" aria-label="<?php tenjoy_attr_e('common_02'); ?>">
-        <a href="<?php echo esc_url(home_url('/')); ?>"><?php tenjoy_e('footer_03'); ?></a>
+        <a href="<?php echo esc_url(tenjoy_front_page_url()); ?>"><?php tenjoy_e('footer_03'); ?></a>
         <span class="single-news-breadcrumb-sep">/</span>
-        <a
-          href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>"><?php tenjoy_e('footer_06'); ?></a>
+        <a href="<?php echo esc_url(tenjoy_posts_page_url()); ?>"><?php tenjoy_e('footer_06'); ?></a>
         <span class="single-news-breadcrumb-sep">/</span>
         <span><?php the_title(); ?></span>
       </nav>
@@ -44,7 +43,7 @@ get_header();
         </div>
 
         <footer class="single-news-footer">
-          <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="btn btn-outline">
+          <a href="<?php echo esc_url(tenjoy_posts_page_url()); ?>" class="btn btn-outline">
             <?php tenjoy_e('common_03'); ?>
           </a>
         </footer>

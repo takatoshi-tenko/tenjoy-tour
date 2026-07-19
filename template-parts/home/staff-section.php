@@ -47,7 +47,7 @@ $staff_query = new WP_Query([
       <?php wp_reset_postdata(); ?>
     <?php endif; ?>
     <div class="section-cta">
-      <a href="<?php echo esc_url(home_url('/staff/')); ?>" class="btn btn-outline">
+      <a href="<?php echo esc_url(tenjoy_page_url('staff', '/staff/')); ?>" class="btn btn-outline">
         <?php tenjoy_e('staff_home_01'); ?>
       </a>
     </div>

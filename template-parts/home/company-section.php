@@ -41,7 +41,7 @@ $co_email   = tenjoy_get_company_meta('company_email', 'info@tenjoy-tour.com');
           </dl>
         </div>
         <div class="section-cta" style="text-align:left;margin-top:1.25rem;">
-          <a href="<?php echo esc_url(home_url('/company/')); ?>" class="btn btn-outline">
+          <a href="<?php echo esc_url(tenjoy_page_url('company', '/company/')); ?>" class="btn btn-outline">
             <?php tenjoy_e('company_home_03'); ?>
           </a>
         </div>

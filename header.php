@@ -26,7 +26,7 @@
     <div class="header-inner">
 
       <!-- ロゴ -->
-      <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
+      <a href="<?php echo esc_url(tenjoy_front_page_url()); ?>" class="site-logo">
         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
           alt="<?php bloginfo('name'); ?>" width="48" height="48" loading="eager">
         <span class="site-logo-name">TENJOY-TOUR</span>

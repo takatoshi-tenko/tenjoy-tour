@@ -67,15 +67,64 @@ function tenjoy_page_url(string $slug, string $fallback_path): string
 }
 
 /**
+ * 現在のPolylang言語に対応するフロントページ（トップページ）のURLを返す。
+ * フロントページは言語ごとに別の固定ページ（スラッグも異なる）として
+ * 設定されている場合があるため、単純な home_url('/') では対応できない。
+ *
+ * @param string $anchor 末尾に追加するアンカー（例: '#services'）。不要なら空文字。
+ * @return string
+ */
+function tenjoy_front_page_url(string $anchor = ''): string
+{
+    $front_id = (int) get_option('page_on_front');
+
+    if ($front_id && function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($front_id);
+        if ($translated_id) {
+            $front_id = $translated_id;
+        }
+    }
+
+    $url = $front_id ? get_permalink($front_id) : '';
+    if (! $url) {
+        $url = home_url('/');
+    }
+
+    return $anchor ? $url . $anchor : $url;
+}
+
+/**
+ * 現在のPolylang言語に対応する投稿ページ（ブログ一覧）のURLを返す。
+ * page_on_front と同様、投稿ページも言語ごとに別の固定ページになりうる。
+ *
+ * @return string
+ */
+function tenjoy_posts_page_url(): string
+{
+    $page_id = (int) get_option('page_for_posts');
+
+    if ($page_id && function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($page_id);
+        if ($translated_id) {
+            $page_id = $translated_id;
+        }
+    }
+
+    $url = $page_id ? get_permalink($page_id) : '';
+
+    return $url ?: home_url('/blog/');
+}
+
+/**
  * プライマリメニュー未設定時のフォールバック出力
  */
 function tenjoy_fallback_nav()
 {
     $links = [
-        home_url('/#services')                             => ['label' => tenjoy__('nav_01'), 'cta' => false],
-        home_url('/courses/')                               => ['label' => tenjoy__('nav_02'), 'cta' => false],
-        home_url('/activities/')                            => ['label' => tenjoy__('nav_03'), 'cta' => false],
-        tenjoy_page_url('testimonials', '/testimonials/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
+        tenjoy_front_page_url('#services')                              => ['label' => tenjoy__('nav_01'), 'cta' => false],
+        get_post_type_archive_link('courses')               => ['label' => tenjoy__('nav_02'), 'cta' => false],
+        get_post_type_archive_link('activities')            => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        tenjoy_page_url('reviews', '/reviews/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
         tenjoy_page_url('company', '/company/')             => ['label' => tenjoy__('nav_05'), 'cta' => false],
         tenjoy_page_url('contact', '/contact/')             => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];
@@ -90,10 +139,10 @@ function tenjoy_fallback_nav()
 function tenjoy_fallback_mobile_nav()
 {
     $links = [
-        home_url('/#services')                             => ['label' => tenjoy__('nav_01'), 'cta' => false],
-        home_url('/courses/')                               => ['label' => tenjoy__('nav_02'), 'cta' => false],
-        home_url('/activities/')                            => ['label' => tenjoy__('nav_03'), 'cta' => false],
-        tenjoy_page_url('testimonials', '/testimonials/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
+        tenjoy_front_page_url('#services')                              => ['label' => tenjoy__('nav_01'), 'cta' => false],
+        get_post_type_archive_link('courses')               => ['label' => tenjoy__('nav_02'), 'cta' => false],
+        get_post_type_archive_link('activities')            => ['label' => tenjoy__('nav_03'), 'cta' => false],
+        tenjoy_page_url('reviews', '/reviews/')   => ['label' => tenjoy__('nav_04'), 'cta' => false],
         tenjoy_page_url('company', '/company/')             => ['label' => tenjoy__('nav_05'), 'cta' => false],
         tenjoy_page_url('contact', '/contact/')             => ['label' => tenjoy__('nav_06'), 'cta' => true],
     ];

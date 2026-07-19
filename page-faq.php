@@ -61,7 +61,7 @@ $faq_posts = get_posts([
         <p class="faq-cta-desc">
           <?php tenjoy_e('faq_05'); ?>
         </p>
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary">
+        <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-primary">
           <?php tenjoy_e('faq_06'); ?>
         </a>
       </div>

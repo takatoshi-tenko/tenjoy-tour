@@ -90,7 +90,7 @@ get_header();
                       <?php tenjoy_e('courses_archive_03'); ?>
                     </a>
                   <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-outline">
+                    <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-outline">
                       <?php tenjoy_e('nav_06'); ?>
                     </a>
                   <?php endif; ?>
@@ -115,7 +115,7 @@ get_header();
           <p class="courses-cta-desc">
             <?php tenjoy_e('courses_archive_06'); ?>
           </p>
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+          <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-primary btn-lg">
             <?php tenjoy_e('courses_archive_07'); ?>
           </a>
         </div>

@@ -178,10 +178,10 @@ $co  = [
           <p class="company-cta-title"><?php tenjoy_e('company_31'); ?></p>
           <p class="company-cta-text"><?php tenjoy_e('company_32'); ?></p>
           <div class="company-cta-buttons">
-            <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+            <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-primary btn-lg">
               <?php tenjoy_e('nav_06'); ?>
             </a>
-            <a href="<?php echo esc_url(home_url('/courses/')); ?>" class="btn btn-outline btn-lg">
+            <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="btn btn-outline btn-lg">
               <?php tenjoy_e('company_33'); ?>
             </a>
           </div>

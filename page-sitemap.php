@@ -27,9 +27,9 @@ get_header();
         <section>
           <h2 class="sitemap-section-title"><?php tenjoy_e('sitemap_02'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(home_url('/')); ?>"><?php tenjoy_e('sitemap_03'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/company/')); ?>"><?php tenjoy_e('nav_05'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_front_page_url()); ?>"><?php tenjoy_e('sitemap_03'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('company', '/company/')); ?>"><?php tenjoy_e('nav_05'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('staff', '/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a></li>
           </ul>
         </section>
 
@@ -48,15 +48,15 @@ get_header();
         <section>
           <h2 class="sitemap-section-title"><?php tenjoy_e('nav_06'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php tenjoy_e('nav_06'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>"><?php tenjoy_e('nav_06'); ?></a></li>
           </ul>
         </section>
 
         <section>
           <h2 class="sitemap-section-title"><?php tenjoy_e('sitemap_06'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(home_url('/faq/')); ?>"><?php tenjoy_e('faq_01'); ?></a></li>
-            <li><a href="<?php echo esc_url(home_url('/testimonials/')); ?>"><?php tenjoy_e('nav_04'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('faq', '/faq/')); ?>"><?php tenjoy_e('faq_01'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('reviews', '/reviews/')); ?>"><?php tenjoy_e('nav_04'); ?></a></li>
           </ul>
         </section>
 
@@ -64,14 +64,7 @@ get_header();
           <h2 class="sitemap-section-title"><?php tenjoy_e('footer_06'); ?></h2>
           <ul class="sitemap-links">
             <li>
-              <?php
-              $blog_url = get_permalink(get_option('page_for_posts'));
-              if ($blog_url) :
-              ?>
-                <a href="<?php echo esc_url($blog_url); ?>"><?php tenjoy_e('sitemap_07'); ?></a>
-              <?php else : ?>
-                <a href="<?php echo esc_url(home_url('/blog/')); ?>"><?php tenjoy_e('sitemap_07'); ?></a>
-              <?php endif; ?>
+              <a href="<?php echo esc_url(tenjoy_posts_page_url()); ?>"><?php tenjoy_e('sitemap_07'); ?></a>
             </li>
           </ul>
         </section>
@@ -79,7 +72,7 @@ get_header();
         <section>
           <h2 class="sitemap-section-title"><?php tenjoy_e('sitemap_08'); ?></h2>
           <ul class="sitemap-links">
-            <li><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>"><?php tenjoy_e('sitemap_09'); ?></a></li>
+            <li><a href="<?php echo esc_url(tenjoy_page_url('privacy-policy', '/privacy-policy/')); ?>"><?php tenjoy_e('sitemap_09'); ?></a></li>
           </ul>
         </section>
 

@@ -127,7 +127,7 @@ $map_embed  = get_post_meta(get_the_ID(), 'course_map_embed', true);
           <?php tenjoy_e('course_single_16'); ?>
         </p>
         <div class="courses-cta-buttons">
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn-primary btn-lg">
+          <a href="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="btn btn-primary btn-lg">
             <?php tenjoy_e('course_single_01'); ?>
           </a>
           <a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>" class="btn btn-outline">

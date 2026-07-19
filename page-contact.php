@@ -87,7 +87,7 @@ get_header();
         else :
         ?>
           <div class="contact-form-card">
-            <form method="post" action="<?php echo esc_url(home_url('/contact/')); ?>" class="contact-form" novalidate>
+            <form method="post" action="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="contact-form" novalidate>
               <?php wp_nonce_field('tenjoy_contact', 'tenjoy_contact_nonce'); ?>
 
               <div class="contact-form-row">

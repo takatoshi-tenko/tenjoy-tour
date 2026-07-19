@@ -109,7 +109,7 @@ $fallback_reviews = [
     </div>
 
     <div class="reviews-more-link">
-      <a href="<?php echo esc_url(home_url('/testimonials/')); ?>" class="btn btn-outline">
+      <a href="<?php echo esc_url(tenjoy_page_url('reviews', '/reviews/')); ?>" class="btn btn-outline">
         <?php tenjoy_e('reviews_04'); ?>
       </a>
     </div>

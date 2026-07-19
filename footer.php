@@ -14,7 +14,7 @@
 
       <!-- ロゴ・説明 -->
       <div class="footer-brand">
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="footer-logo">
+        <a href="<?php echo esc_url(tenjoy_front_page_url()); ?>" class="footer-logo">
           <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>"
             alt="<?php bloginfo('name'); ?>" width="40" height="40" loading="lazy">
           <span class="footer-logo-name">TENJOY-TOUR</span>
@@ -28,11 +28,11 @@
       <div class="footer-links-block">
         <h3 class="footer-links-title"><?php tenjoy_e('footer_02'); ?></h3>
         <ul class="footer-links">
-          <li><a href="<?php echo esc_url(home_url('/')); ?>"><?php tenjoy_e('footer_03'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/#services')); ?>"><?php tenjoy_e('nav_01'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/activities/')); ?>"><?php tenjoy_e('nav_03'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/courses/')); ?>"><?php tenjoy_e('footer_04'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/sitemap/')); ?>"><?php tenjoy_e('footer_02'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_front_page_url()); ?>"><?php tenjoy_e('footer_03'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_front_page_url('#services')); ?>"><?php tenjoy_e('nav_01'); ?></a></li>
+          <li><a href="<?php echo esc_url(get_post_type_archive_link('activities')); ?>"><?php tenjoy_e('nav_03'); ?></a></li>
+          <li><a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>"><?php tenjoy_e('footer_04'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_page_url('sitemap', '/sitemap/')); ?>"><?php tenjoy_e('footer_02'); ?></a></li>
         </ul>
       </div>
 
@@ -40,9 +40,9 @@
       <div class="footer-links-block">
         <h3 class="footer-links-title"><?php tenjoy_e('nav_01'); ?></h3>
         <ul class="footer-links">
-          <li><a href="<?php echo esc_url(home_url('/#reviews')); ?>"><?php tenjoy_e('nav_04'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a></li>
-          <li><a href="<?php echo esc_url(home_url('/blog/')); ?>"><?php tenjoy_e('footer_06'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_front_page_url('#reviews')); ?>"><?php tenjoy_e('nav_04'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_page_url('staff', '/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_posts_page_url()); ?>"><?php tenjoy_e('footer_06'); ?></a></li>
         </ul>
       </div>
 
@@ -73,7 +73,7 @@
         <div class="footer-messenger-links">
           <?php foreach ($footer_messengers as $key => $m) : ?>
             <?php $icon_url = tenjoy_customizer_image_url("tenjoy_icon_{$key}", 'thumbnail'); ?>
-            <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer-messenger-item">
+            <a href="<?php echo esc_url(tenjoy_front_page_url('#contact')); ?>" class="footer-messenger-item">
               <span class="footer-messenger-icon-wrap"
                 style="background-color: <?php echo esc_attr($m['color']); ?>; color: <?php echo esc_attr($m['text']); ?>">
                 <?php if ($icon_url) : ?>
