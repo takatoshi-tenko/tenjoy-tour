@@ -25,43 +25,51 @@ get_header();
   </section>
 
   <!-- 連絡先情報カード -->
+  <?php
+  $contact_company_phone   = tenjoy_get_company_meta('company_phone', '090-9561-3388');
+  $contact_company_email   = tenjoy_get_company_meta('company_email', 'info@tenjoy-tour.com');
+  $contact_company_address = tenjoy_get_company_meta('company_address', '福岡市東区');
+  $contact_company_hours   = tenjoy_get_company_meta('company_hours', '09:00 〜 18:00（年中無休）');
+  ?>
   <section class="contact-info-section">
     <div class="container">
       <div class="contact-info-grid">
 
         <div class="contact-info-card">
           <div class="contact-info-icon">
-            <?php echo tenjoy_icon('phone'); // phpcs:ignore WordPress.Security.EscapeOutput 
+            <?php echo tenjoy_icon('phone'); // phpcs:ignore WordPress.Security.EscapeOutput
             ?></div>
           <h3 class="contact-info-title"><?php tenjoy_e('contact_02'); ?></h3>
-          <a href="tel:+81312345678" class="contact-info-value">+81-3-1234-5678</a>
+          <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_company_phone)); ?>"
+            class="contact-info-value"><?php echo esc_html($contact_company_phone); ?></a>
           <p class="contact-info-note"><?php tenjoy_e('contact_03'); ?></p>
         </div>
 
         <div class="contact-info-card">
           <div class="contact-info-icon">
-            <?php echo tenjoy_icon('mail'); // phpcs:ignore WordPress.Security.EscapeOutput 
+            <?php echo tenjoy_icon('mail'); // phpcs:ignore WordPress.Security.EscapeOutput
             ?></div>
           <h3 class="contact-info-title"><?php tenjoy_e('contact_04'); ?></h3>
-          <a href="mailto:info@tenjoy-tour.com" class="contact-info-value">info@tenjoy-tour.com</a>
+          <a href="mailto:<?php echo esc_attr($contact_company_email); ?>"
+            class="contact-info-value"><?php echo esc_html($contact_company_email); ?></a>
           <p class="contact-info-note"><?php tenjoy_e('contact_05'); ?></p>
         </div>
 
         <div class="contact-info-card">
           <div class="contact-info-icon">
-            <?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput 
+            <?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput
             ?></div>
           <h3 class="contact-info-title"><?php tenjoy_e('contact_06'); ?></h3>
-          <p class="contact-info-value"><?php tenjoy_e('contact_07'); ?></p>
+          <p class="contact-info-value"><?php echo esc_html($contact_company_address); ?></p>
           <p class="contact-info-note"><?php tenjoy_e('contact_08'); ?></p>
         </div>
 
         <div class="contact-info-card">
           <div class="contact-info-icon">
-            <?php echo tenjoy_icon('clock'); // phpcs:ignore WordPress.Security.EscapeOutput 
+            <?php echo tenjoy_icon('clock'); // phpcs:ignore WordPress.Security.EscapeOutput
             ?></div>
           <h3 class="contact-info-title"><?php tenjoy_e('contact_09'); ?></h3>
-          <p class="contact-info-value"><?php tenjoy_e('contact_03'); ?></p>
+          <p class="contact-info-value"><?php echo esc_html($contact_company_hours); ?></p>
           <p class="contact-info-note"><?php tenjoy_e('contact_10'); ?></p>
         </div>
 
