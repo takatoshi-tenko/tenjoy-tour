@@ -236,7 +236,7 @@ function tenjoy_strings(): array
         'contact_qr_04' => ['text' => 'WeChatで連絡', 'group' => 'トップ：お問い合わせ導線'],
         'contact_qr_05' => ['text' => '写真・動画を公開中', 'group' => 'トップ：お問い合わせ導線'],
         'contact_qr_06' => ['text' => 'Instagramでフォロー', 'group' => 'トップ：お問い合わせ導線'],
-        'contact_qr_07' => ['text' => '日本で人気', 'group' => 'トップ：お問い合わせ導線'],
+        'contact_qr_07' => ['text' => '日本や台湾で人気', 'group' => 'トップ：お問い合わせ導線'],
         'contact_qr_08' => ['text' => 'LINEで連絡', 'group' => 'トップ：お問い合わせ導線'],
         'contact_qr_09' => ['text' => '世界中で人気', 'group' => 'トップ：お問い合わせ導線'],
         'contact_qr_10' => ['text' => 'WhatsAppで連絡', 'group' => 'トップ：お問い合わせ導線'],
