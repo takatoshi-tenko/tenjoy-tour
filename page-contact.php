@@ -60,7 +60,9 @@ get_header();
             <?php echo tenjoy_icon('map-pin'); // phpcs:ignore WordPress.Security.EscapeOutput
             ?></div>
           <h3 class="contact-info-title"><?php tenjoy_e('contact_06'); ?></h3>
-          <p class="contact-info-value"><?php echo esc_html($contact_company_address); ?></p>
+          <a href="<?php echo esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($contact_company_address)); ?>"
+            class="contact-info-value" target="_blank"
+            rel="noopener noreferrer"><?php echo esc_html($contact_company_address); ?></a>
           <p class="contact-info-note"><?php tenjoy_e('contact_08'); ?></p>
         </div>
 
