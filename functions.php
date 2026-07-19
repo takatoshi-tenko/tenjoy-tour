@@ -455,11 +455,12 @@ function tenjoy_register_post_meta()
 
     // スタッフ
     $staff_meta = [
-        'staff_role'      => 'string', // 役職
-        'staff_bio'       => 'string', // 自己紹介
-        'staff_languages' => 'string', // 対応言語（カンマ区切り）
-        'staff_email'     => 'string', // メールアドレス
-        'staff_phone'     => 'string', // 電話番号
+        'staff_role'            => 'string', // 役職
+        'staff_bio'             => 'string', // 自己紹介
+        'staff_image_position'  => 'string', // 写真の object-position
+        'staff_languages'       => 'string', // 対応言語（カンマ区切り）
+        'staff_email'           => 'string', // メールアドレス
+        'staff_phone'           => 'string', // 電話番号
     ];
     foreach ($staff_meta as $key => $type) {
         register_post_meta('staff', $key, [

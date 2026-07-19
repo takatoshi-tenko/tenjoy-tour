@@ -59,24 +59,14 @@ function tenjoy_customizer_register(WP_Customize_Manager $wp_customize)
 
     $wp_customize->add_setting('tenjoy_hero_image_position', [
         'default'           => 'center center',
-        'sanitize_callback' => 'tenjoy_sanitize_hero_image_position',
+        'sanitize_callback' => 'tenjoy_sanitize_image_position',
     ]);
 
     $wp_customize->add_control('tenjoy_hero_image_position', [
         'label'   => __('画像の表示位置', 'tenjoy-tour'),
         'section' => 'tenjoy_hero',
         'type'    => 'select',
-        'choices' => [
-            'left top'      => __('左上', 'tenjoy-tour'),
-            'center top'    => __('中央上', 'tenjoy-tour'),
-            'right top'     => __('右上', 'tenjoy-tour'),
-            'left center'   => __('左中央', 'tenjoy-tour'),
-            'center center' => __('中央（初期値）', 'tenjoy-tour'),
-            'right center'  => __('右中央', 'tenjoy-tour'),
-            'left bottom'   => __('左下', 'tenjoy-tour'),
-            'center bottom' => __('中央下', 'tenjoy-tour'),
-            'right bottom'  => __('右下', 'tenjoy-tour'),
-        ],
+        'choices' => tenjoy_image_position_choices(),
     ]);
 
     // ======================================================================
@@ -184,24 +174,34 @@ function tenjoy_customizer_image_url(string $setting_key, string $size = 'full',
 }
 
 /**
- * ヒーロー画像の表示位置（object-position）を許可リストで検証する。
+ * 画像の表示位置（object-position）の選択肢。
+ *
+ * @return array<string, string>
+ */
+function tenjoy_image_position_choices(): array
+{
+    return [
+        'left top'      => __('左上', 'tenjoy-tour'),
+        'center top'    => __('中央上', 'tenjoy-tour'),
+        'right top'     => __('右上', 'tenjoy-tour'),
+        'left center'   => __('左中央', 'tenjoy-tour'),
+        'center center' => __('中央（初期値）', 'tenjoy-tour'),
+        'right center'  => __('右中央', 'tenjoy-tour'),
+        'left bottom'   => __('左下', 'tenjoy-tour'),
+        'center bottom' => __('中央下', 'tenjoy-tour'),
+        'right bottom'  => __('右下', 'tenjoy-tour'),
+    ];
+}
+
+/**
+ * 画像の表示位置（object-position）を許可リストで検証する。
  *
  * @param string $value
  * @return string
  */
-function tenjoy_sanitize_hero_image_position(string $value): string
+function tenjoy_sanitize_image_position(string $value): string
 {
-    $allowed = [
-        'left top',
-        'center top',
-        'right top',
-        'left center',
-        'center center',
-        'right center',
-        'left bottom',
-        'center bottom',
-        'right bottom',
-    ];
+    $allowed = array_keys(tenjoy_image_position_choices());
 
     return in_array($value, $allowed, true) ? $value : 'center center';
 }
