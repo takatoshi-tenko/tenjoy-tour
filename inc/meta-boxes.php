@@ -117,6 +117,40 @@ function tenjoy_meta_text_field($post_id, $key, $label, $type = 'text', $desc = 
 }
 
 /**
+ * セレクトフィールドを出力する
+ *
+ * @param int    $post_id
+ * @param string $key
+ * @param string $label
+ * @param array  $options 値 => ラベル の連想配列
+ * @param string $default
+ * @param string $desc
+ */
+function tenjoy_meta_select_field($post_id, $key, $label, array $options, $default = '', $desc = '')
+{
+  $value = (string) get_post_meta($post_id, $key, true);
+  if ($value === '') {
+    $value = $default;
+  }
+  $id = esc_attr($key);
+?>
+  <div class="tenjoy-meta-field">
+    <label for="<?php echo $id; ?>"><strong><?php echo esc_html($label); ?></strong></label>
+    <select id="<?php echo $id; ?>" name="<?php echo $id; ?>" class="widefat">
+      <?php foreach ($options as $opt_value => $opt_label) : ?>
+        <option value="<?php echo esc_attr($opt_value); ?>" <?php selected($value, $opt_value); ?>>
+          <?php echo esc_html($opt_label); ?>
+        </option>
+      <?php endforeach; ?>
+    </select>
+    <?php if ($desc) : ?>
+      <p class="description"><?php echo esc_html($desc); ?></p>
+    <?php endif; ?>
+  </div>
+<?php
+}
+
+/**
  * チェックボックスフィールドを出力する
  *
  * @param int    $post_id
@@ -384,6 +418,18 @@ function tenjoy_render_activity_meta_box($post)
   tenjoy_meta_text_field($pid, 'activity_price', __('料金', 'tenjoy-tour'), 'text', __('例: ¥3,000〜', 'tenjoy-tour'));
   tenjoy_meta_text_field($pid, 'activity_course_name', __('利用ゴルフ場', 'tenjoy-tour'), 'text', __('例: 富士桜カントリークラブ', 'tenjoy-tour'));
   tenjoy_meta_checkbox_field($pid, 'activity_has_golf', __('ゴルフアクティビティ（ゴルフバッジを表示）', 'tenjoy-tour'));
+  tenjoy_meta_select_field(
+    $pid,
+    'activity_image_position',
+    __('一覧カード画像の表示位置', 'tenjoy-tour'),
+    [
+      'top'    => __('上', 'tenjoy-tour'),
+      'center' => __('中央（標準）', 'tenjoy-tour'),
+      'bottom' => __('下', 'tenjoy-tour'),
+    ],
+    'center',
+    __('一覧カードの画像は16:9に切り抜かれます。見せたい部分が見切れる場合はここで調整してください。', 'tenjoy-tour')
+  );
 
   // ギャラリー画像
   $gallery = get_post_meta($pid, 'activity_gallery', true);
@@ -608,6 +654,11 @@ add_action('save_post', function ($post_id) {
       }
     }
     update_post_meta($post_id, 'activity_has_golf', isset($_POST['activity_has_golf']) ? true : false);
+    $image_position = isset($_POST['activity_image_position']) ? sanitize_key(wp_unslash($_POST['activity_image_position'])) : 'center';
+    if (! in_array($image_position, ['top', 'center', 'bottom'], true)) {
+      $image_position = 'center';
+    }
+    update_post_meta($post_id, 'activity_image_position', $image_position);
   }
 
   // ---- スタッフ ----

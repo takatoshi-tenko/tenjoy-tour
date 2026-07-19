@@ -31,11 +31,20 @@ get_header();
             $course_name = (string) get_post_meta(get_the_ID(), 'activity_course_name', true);
             $category    = (string) get_post_meta(get_the_ID(), 'activity_category', true);
             $location    = (string) get_post_meta(get_the_ID(), 'activity_location', true);
+            $img_position = (string) get_post_meta(get_the_ID(), 'activity_image_position', true) ?: 'center';
+            if (! in_array($img_position, ['top', 'center', 'bottom'], true)) {
+              $img_position = 'center';
+            }
             ?>
         <a href="<?php the_permalink(); ?>" class="activity-card">
           <div class="activity-card-img-wrap">
             <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail('tenjoy-card', ['class' => 'activity-card-img', 'alt' => get_the_title(), 'loading' => 'lazy']); ?>
+            <?php the_post_thumbnail('tenjoy-card', [
+              'class' => 'activity-card-img',
+              'alt' => get_the_title(),
+              'loading' => 'lazy',
+              'style' => 'object-position: center ' . esc_attr($img_position) . ';',
+            ]); ?>
             <?php else : ?>
             <div class="activity-card-img-placeholder"></div>
             <?php endif; ?>
