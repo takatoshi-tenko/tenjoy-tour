@@ -47,7 +47,15 @@ get_header();
 
       <?php else : ?>
         <div class="news-empty-wrap">
-          <p class="news-empty"><?php tenjoy_e('home_02'); ?></p>
+          <?php $current_lang = function_exists('pll_current_language') ? pll_current_language() : ''; ?>
+          <?php if ($current_lang && $current_lang !== 'ko') : ?>
+            <p class="news-empty"><?php tenjoy_e('home_03'); ?></p>
+            <a href="<?php echo esc_url(tenjoy_posts_page_url_for_lang('ko')); ?>" class="btn btn-outline">
+              <?php tenjoy_e('home_04'); ?>
+            </a>
+          <?php else : ?>
+            <p class="news-empty"><?php tenjoy_e('home_02'); ?></p>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
     </div>

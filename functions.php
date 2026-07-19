@@ -116,6 +116,30 @@ function tenjoy_posts_page_url(): string
 }
 
 /**
+ * 指定した言語に対応する投稿ページ（ブログ一覧）のURLを返す。
+ * ブログ記事が特定の言語でしか投稿されていない場合に、
+ * その言語版へ案内するリンクを作るために使う。
+ *
+ * @param string $lang Polylangの言語コード（例: 'ko'）
+ * @return string
+ */
+function tenjoy_posts_page_url_for_lang(string $lang): string
+{
+    $page_id = (int) get_option('page_for_posts');
+
+    if ($page_id && function_exists('pll_get_post')) {
+        $translated_id = pll_get_post($page_id, $lang);
+        if ($translated_id) {
+            $page_id = $translated_id;
+        }
+    }
+
+    $url = $page_id ? get_permalink($page_id) : '';
+
+    return $url ?: home_url('/blog/');
+}
+
+/**
  * プライマリメニュー未設定時のフォールバック出力
  */
 function tenjoy_fallback_nav()
