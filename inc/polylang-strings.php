@@ -150,7 +150,7 @@ function tenjoy_strings(): array
         'footer_08' => ['text' => 'All rights reserved.', 'group' => 'フッター'],
 
         // ゴルフ場一覧
-        'courses_archive_01' => ['text' => '日本全国の厳選されたゴルフコースをご紹介します', 'group' => 'ゴルフ場一覧'],
+        'courses_archive_01' => ['text' => '過去訪れたことのある日本のゴルフ場をご紹介します。', 'group' => 'ゴルフ場一覧'],
         'courses_archive_02' => ['text' => '回訪問', 'group' => 'ゴルフ場一覧'],
         'courses_archive_03' => ['text' => '詳細を見る', 'group' => 'ゴルフ場一覧'],
         'courses_archive_04' => ['text' => 'ゴルフ場情報は準備中です。', 'group' => 'ゴルフ場一覧'],

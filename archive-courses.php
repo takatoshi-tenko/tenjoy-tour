@@ -34,11 +34,15 @@ get_header();
             $prefecture  = (string) get_post_meta(get_the_ID(), 'course_prefecture', true);
             $holes       = (string) get_post_meta(get_the_ID(), 'course_holes', true);
             $has_detail  = (bool)   get_post_meta(get_the_ID(), 'course_has_detail', true);
+            $map_embed   = (string) get_post_meta(get_the_ID(), 'course_map_embed', true);
             ?>
             <article class="course-card">
               <div class="course-card-img-wrap">
                 <?php if (has_post_thumbnail()) : ?>
                   <?php the_post_thumbnail('tenjoy-card', ['class' => 'course-card-img', 'alt' => get_the_title()]); ?>
+                <?php elseif ($map_embed && tenjoy_is_valid_map_embed_url($map_embed)) : ?>
+                  <iframe class="course-card-map" src="<?php echo esc_url($map_embed); ?>" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" title="<?php echo esc_attr(get_the_title()); ?>"></iframe>
                 <?php else : ?>
                   <div class="course-card-img-placeholder"></div>
                 <?php endif; ?>
