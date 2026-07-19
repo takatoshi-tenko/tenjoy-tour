@@ -33,16 +33,16 @@ $faq_posts = get_posts([
 
       <?php if (! empty($faq_posts)) : ?>
         <div class="faq-list" id="faq-list">
-          <?php foreach ($faq_posts as $post) : setup_postdata($post); ?>
+          <?php foreach ($faq_posts as $faq_post) : setup_postdata($faq_post); ?>
             <div class="faq-item">
               <button type="button" class="faq-question" aria-expanded="false"
-                aria-controls="faq-answer-<?php echo esc_attr((string) $post->ID); ?>" data-faq-toggle>
-                <span class="faq-question-text"><?php the_title(); ?></span>
+                aria-controls="faq-answer-<?php echo esc_attr((string) $faq_post->ID); ?>" data-faq-toggle>
+                <span class="faq-question-text"><?php echo esc_html(get_the_title($faq_post)); ?></span>
                 <span class="faq-question-icon" aria-hidden="true"></span>
               </button>
-              <div class="faq-answer" id="faq-answer-<?php echo esc_attr((string) $post->ID); ?>" hidden>
+              <div class="faq-answer" id="faq-answer-<?php echo esc_attr((string) $faq_post->ID); ?>" hidden>
                 <div class="faq-answer-inner">
-                  <?php the_content(); ?>
+                  <?php echo apply_filters('the_content', $faq_post->post_content); ?>
                 </div>
               </div>
             </div>

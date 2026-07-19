@@ -1,4 +1,5 @@
 <?php
+
 /**
  * トップページ
  *
@@ -15,8 +16,8 @@ get_header();
   <?php get_template_part('template-parts/home/staff-section'); ?>
   <?php get_template_part('template-parts/home/vehicles-section'); ?>
   <?php get_template_part('template-parts/home/company-section'); ?>
-  <?php get_template_part('template-parts/home/contact-qr-section'); ?>
   <?php get_template_part('template-parts/home/reviews-section'); ?>
+  <?php get_template_part('template-parts/home/contact-qr-section'); ?>
 
 </main>
 

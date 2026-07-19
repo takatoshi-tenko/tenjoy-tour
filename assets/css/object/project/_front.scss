@@ -490,6 +490,7 @@
    ============================================================ */
 .contact-qr-section {
   padding: 4rem 0;
+  background: rgba(249, 203, 21, 0.08);
 
   @media (min-width: 768px) {
     padding: 6rem 0;
@@ -529,6 +530,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1.25rem 1rem;
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   text-align: center;
@@ -621,7 +623,6 @@
    ============================================================ */
 .reviews-section {
   padding: 4rem 0;
-  background: var(--muted);
 
   @media (min-width: 768px) {
     padding: 6rem 0;

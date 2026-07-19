@@ -30,9 +30,15 @@
         <ul class="footer-links">
           <li><a href="<?php echo esc_url(tenjoy_front_page_url()); ?>"><?php tenjoy_e('footer_03'); ?></a></li>
           <li><a href="<?php echo esc_url(tenjoy_front_page_url('#services')); ?>"><?php tenjoy_e('nav_01'); ?></a></li>
-          <li><a href="<?php echo esc_url(get_post_type_archive_link('activities')); ?>"><?php tenjoy_e('nav_03'); ?></a></li>
-          <li><a href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>"><?php tenjoy_e('footer_04'); ?></a></li>
-          <li><a href="<?php echo esc_url(tenjoy_page_url('sitemap', '/sitemap/')); ?>"><?php tenjoy_e('footer_02'); ?></a></li>
+          <li><a
+              href="<?php echo esc_url(get_post_type_archive_link('activities')); ?>"><?php tenjoy_e('nav_03'); ?></a>
+          </li>
+          <li><a
+              href="<?php echo esc_url(get_post_type_archive_link('courses')); ?>"><?php tenjoy_e('footer_04'); ?></a>
+          </li>
+          <li><a
+              href="<?php echo esc_url(tenjoy_page_url('sitemap', '/sitemap/')); ?>"><?php tenjoy_e('footer_02'); ?></a>
+          </li>
         </ul>
       </div>
 
@@ -41,7 +47,9 @@
         <h3 class="footer-links-title"><?php tenjoy_e('nav_01'); ?></h3>
         <ul class="footer-links">
           <li><a href="<?php echo esc_url(tenjoy_front_page_url('#reviews')); ?>"><?php tenjoy_e('nav_04'); ?></a></li>
-          <li><a href="<?php echo esc_url(tenjoy_page_url('staff', '/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a></li>
+          <li><a href="<?php echo esc_url(tenjoy_page_url('staff', '/staff/')); ?>"><?php tenjoy_e('footer_05'); ?></a>
+          </li>
+          <li><a href="<?php echo esc_url(tenjoy_page_url('faq', '/faq/')); ?>"><?php tenjoy_e('faq_01'); ?></a></li>
           <li><a href="<?php echo esc_url(tenjoy_posts_page_url()); ?>"><?php tenjoy_e('footer_06'); ?></a></li>
         </ul>
       </div>

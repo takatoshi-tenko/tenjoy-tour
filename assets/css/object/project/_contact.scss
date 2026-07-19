@@ -243,4 +243,18 @@ textarea.form-control {
   color: var(--muted-foreground);
   line-height: 1.65;
   margin: 0;
+
+  p {
+    margin: 0;
+
+    & + p {
+      margin-top: 0.75rem;
+    }
+  }
+}
+
+.contact-faq-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 }

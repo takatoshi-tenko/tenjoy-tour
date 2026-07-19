@@ -87,7 +87,8 @@ get_header();
         else :
         ?>
           <div class="contact-form-card">
-            <form method="post" action="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>" class="contact-form" novalidate>
+            <form method="post" action="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>"
+              class="contact-form" novalidate>
               <?php wp_nonce_field('tenjoy_contact', 'tenjoy_contact_nonce'); ?>
 
               <div class="contact-form-row">
@@ -161,35 +162,40 @@ get_header();
   </section>
 
   <!-- FAQ（簡易版） -->
-  <section class="contact-faq-section">
-    <div class="container">
-      <div class="contact-faq-wrap">
-        <div class="section-header">
-          <h2 class="section-title"><?php tenjoy_e('contact_25'); ?></h2>
-        </div>
-        <div class="contact-faq-list">
-          <div class="contact-faq-item">
-            <h3 class="contact-faq-q"><?php tenjoy_e('contact_26'); ?></h3>
-            <p class="contact-faq-a">
-              <?php tenjoy_e('contact_27'); ?>
-            </p>
+  <?php
+  $contact_faq_posts = get_posts([
+    'post_type'      => 'faq',
+    'posts_per_page' => 5,
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+    'post_status'    => 'publish',
+  ]);
+  ?>
+  <?php if (! empty($contact_faq_posts)) : ?>
+    <section class="contact-faq-section">
+      <div class="container">
+        <div class="contact-faq-wrap">
+          <div class="section-header">
+            <h2 class="section-title"><?php tenjoy_e('contact_25'); ?></h2>
           </div>
-          <div class="contact-faq-item">
-            <h3 class="contact-faq-q"><?php tenjoy_e('contact_28'); ?></h3>
-            <p class="contact-faq-a">
-              <?php tenjoy_e('contact_29'); ?>
-            </p>
+          <div class="contact-faq-list">
+            <?php foreach ($contact_faq_posts as $faq_post) : setup_postdata($faq_post); ?>
+              <div class="contact-faq-item">
+                <h3 class="contact-faq-q"><?php echo esc_html(get_the_title($faq_post)); ?></h3>
+                <div class="contact-faq-a"><?php echo apply_filters('the_content', $faq_post->post_content); ?></div>
+              </div>
+            <?php endforeach;
+            wp_reset_postdata(); ?>
           </div>
-          <div class="contact-faq-item">
-            <h3 class="contact-faq-q"><?php tenjoy_e('contact_30'); ?></h3>
-            <p class="contact-faq-a">
-              <?php tenjoy_e('contact_31'); ?>
-            </p>
+          <div class="contact-faq-more">
+            <a href="<?php echo esc_url(tenjoy_page_url('faq', '/faq/')); ?>" class="btn btn-outline">
+              <?php tenjoy_e('contact_32'); ?>
+            </a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  <?php endif; ?>
 
 </main>
 

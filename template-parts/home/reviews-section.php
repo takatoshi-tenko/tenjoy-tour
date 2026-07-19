@@ -2,7 +2,7 @@
 
 /**
  * お客様の声セクション（ホームページ）
- * tenjoy_review CPTの承認済みレビューを表示 ＋ 投稿フォーム
+ * tenjoy_review CPTの承認済みレビューを表示（投稿フォームはお客様の声ページのみ）
  *
  * @package tenjoy-tour
  */
@@ -97,9 +97,8 @@ $fallback_reviews = [
             </div>
             <div class="review-stars" aria-label="5星">
               <?php for ($i = 0; $i < 5; $i++) : ?>
-                <span
-                  class="star-icon"><?php echo tenjoy_icon('star'); // phpcs:ignore WordPress.Security.EscapeOutput 
-                                    ?></span>
+                <span class="star-icon"><?php echo tenjoy_icon('star'); // phpcs:ignore WordPress.Security.EscapeOutput 
+                                        ?></span>
               <?php endfor; ?>
             </div>
             <p class="review-content"><?php echo esc_html($r['content']); ?></p>
@@ -112,41 +111,6 @@ $fallback_reviews = [
       <a href="<?php echo esc_url(tenjoy_page_url('reviews', '/reviews/')); ?>" class="btn btn-outline">
         <?php tenjoy_e('reviews_04'); ?>
       </a>
-    </div>
-
-    <!-- レビュー投稿フォーム -->
-    <div class="review-form-wrap">
-      <h3 class="review-form-title"><?php tenjoy_e('testimonials_page_03'); ?></h3>
-      <form id="review-form" class="review-form" novalidate>
-        <div class="review-form-row">
-          <div class="review-form-field">
-            <label for="review-author"><?php tenjoy_e('contact_13'); ?> <span aria-hidden="true">*</span></label>
-            <input type="text" id="review-author" name="author" required placeholder="例: David Chen">
-          </div>
-          <div class="review-form-field">
-            <label for="review-country"><?php tenjoy_e('testimonials_page_04'); ?></label>
-            <input type="text" id="review-country" name="country" placeholder="例: 台湾">
-          </div>
-        </div>
-        <div class="review-form-field">
-          <label><?php tenjoy_e('testimonials_page_05'); ?></label>
-          <div class="review-star-input" role="radiogroup" aria-label="<?php tenjoy_attr_e('testimonials_page_06'); ?>">
-            <?php for ($i = 5; $i >= 1; $i--) : ?>
-              <input type="radio" id="star-<?php echo $i; ?>" name="rating" value="<?php echo $i; ?>"
-                <?php echo $i === 5 ? 'checked' : ''; ?>>
-              <label for="star-<?php echo $i; ?>" aria-label="<?php echo $i; ?>星">★</label>
-            <?php endfor; ?>
-          </div>
-        </div>
-        <div class="review-form-field">
-          <label for="review-content"><?php tenjoy_e('testimonials_page_07'); ?> <span
-              aria-hidden="true">*</span></label>
-          <textarea id="review-content" name="content" rows="4" required
-            placeholder="<?php tenjoy_attr_e('testimonials_page_08'); ?>"></textarea>
-        </div>
-        <div id="review-form-msg" class="review-form-msg" hidden></div>
-        <button type="submit" class="btn btn-primary"><?php tenjoy_e('contact_23'); ?></button>
-      </form>
     </div>
 
   </div>
