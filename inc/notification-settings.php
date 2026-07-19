@@ -1,9 +1,10 @@
 <?php
+
 /**
- * レビュー通知メール設定ページ
+ * 通知メール設定ページ
  *
- * 管理画面「設定 → レビュー通知メール」から
- * 通知先メールアドレスを複数登録・管理できる。
+ * 管理画面「設定 → 通知メール」から
+ * レビュー・お問い合わせの通知先メールアドレスを複数登録・管理できる。
  *
  * @package tenjoy-tour
  */
@@ -18,8 +19,8 @@ if (! defined('ABSPATH')) {
 
 add_action('admin_menu', function () {
     add_options_page(
-        __('レビュー通知メール設定', 'tenjoy-tour'),
-        __('レビュー通知メール', 'tenjoy-tour'),
+        __('通知メール設定', 'tenjoy-tour'),
+        __('通知メール', 'tenjoy-tour'),
         'manage_options',
         'tenjoy-notification-emails',
         'tenjoy_notification_settings_page'
@@ -82,20 +83,14 @@ function tenjoy_sanitize_notification_emails(string $raw): string
 function tenjoy_notification_emails_field_render(): void
 {
     $value = (string) get_option('tenjoy_notification_emails', '');
-    ?>
-    <textarea
-        name="tenjoy_notification_emails"
-        id="tenjoy_notification_emails"
-        rows="8"
-        cols="40"
-        class="large-text"
-        placeholder="example@gmail.com&#10;another@gmail.com"
-    ><?php echo esc_textarea($value); ?></textarea>
+?>
+    <textarea name="tenjoy_notification_emails" id="tenjoy_notification_emails" rows="8" cols="40" class="large-text"
+        placeholder="example@gmail.com&#10;another@gmail.com"><?php echo esc_textarea($value); ?></textarea>
     <p class="description">
         <?php esc_html_e('1行につき1つのメールアドレスを入力してください。', 'tenjoy-tour'); ?><br>
         <?php esc_html_e('空欄の場合は管理者メールアドレス（設定 → 一般）に送信されます。', 'tenjoy-tour'); ?>
     </p>
-    <?php
+<?php
 }
 
 // ======================================================================
@@ -107,10 +102,10 @@ function tenjoy_notification_settings_page(): void
     if (! current_user_can('manage_options')) {
         return;
     }
-    ?>
+?>
     <div class="wrap">
-        <h1><?php esc_html_e('レビュー通知メール設定', 'tenjoy-tour'); ?></h1>
-        <p><?php esc_html_e('お客様の声フォームからレビューが送信されたときに通知するメールアドレスを設定します。', 'tenjoy-tour'); ?></p>
+        <h1><?php esc_html_e('通知メール設定', 'tenjoy-tour'); ?></h1>
+        <p><?php esc_html_e('お問い合わせフォーム、およびお客様の声フォームから送信があったときに通知するメールアドレスを設定します。', 'tenjoy-tour'); ?></p>
 
         <?php settings_errors('tenjoy_notification_emails'); ?>
 
@@ -128,16 +123,16 @@ function tenjoy_notification_settings_page(): void
         $emails = tenjoy_get_notification_emails();
         if ($emails) :
         ?>
-        <ul>
-            <?php foreach ($emails as $email) : ?>
-                <li><?php echo esc_html($email); ?></li>
-            <?php endforeach; ?>
-        </ul>
+            <ul>
+                <?php foreach ($emails as $email) : ?>
+                    <li><?php echo esc_html($email); ?></li>
+                <?php endforeach; ?>
+            </ul>
         <?php else : ?>
-        <p><?php esc_html_e('未設定（管理者メールアドレスに送信）', 'tenjoy-tour'); ?></p>
+            <p><?php esc_html_e('未設定（管理者メールアドレスに送信）', 'tenjoy-tour'); ?></p>
         <?php endif; ?>
     </div>
-    <?php
+<?php
 }
 
 // ======================================================================

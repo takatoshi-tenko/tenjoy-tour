@@ -81,15 +81,32 @@ get_header();
         </div>
 
         <?php
-        // Contact Form 7 がある場合はショートコードで表示
-        if (function_exists('wpcf7_contact_form')) :
-          echo do_shortcode('[contact-form-7 id="contact" title="お問い合わせ"]');
-        else :
+        $contact_status = isset($_GET['contact']) ? sanitize_key(wp_unslash($_GET['contact'])) : '';
+        if ($contact_status === 'sent') :
         ?>
+          <div class="contact-form-message contact-form-message--success" role="status">
+            <?php tenjoy_e('contact_26'); ?>
+          </div>
+        <?php elseif ($contact_status === 'invalid') : ?>
+          <div class="contact-form-message contact-form-message--error" role="alert">
+            <?php tenjoy_e('contact_28'); ?>
+          </div>
+        <?php elseif ($contact_status === 'error') : ?>
+          <div class="contact-form-message contact-form-message--error" role="alert">
+            <?php tenjoy_e('contact_27'); ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if ($contact_status !== 'sent') : ?>
           <div class="contact-form-card">
             <form method="post" action="<?php echo esc_url(tenjoy_page_url('contact', '/contact/')); ?>"
               class="contact-form" novalidate>
               <?php wp_nonce_field('tenjoy_contact', 'tenjoy_contact_nonce'); ?>
+              <input type="hidden" name="tenjoy_contact_submit" value="1">
+              <div class="contact-hp" aria-hidden="true">
+                <label for="contact-website"><?php esc_html_e('Website', 'tenjoy-tour'); ?></label>
+                <input type="text" id="contact-website" name="contact_website" value="" tabindex="-1" autocomplete="off">
+              </div>
 
               <div class="contact-form-row">
                 <div class="form-group">
@@ -123,7 +140,9 @@ get_header();
                 <select id="contact-prefecture" name="contact_prefecture" class="form-control" required>
                   <option value=""><?php tenjoy_e('contact_18'); ?></option>
                   <?php foreach (tenjoy_get_contact_prefectures() as $prefecture) : ?>
-                    <option value="<?php echo esc_attr($prefecture); ?>"><?php echo esc_html($prefecture); ?></option>
+                    <option value="<?php echo esc_attr($prefecture); ?>">
+                      <?php echo esc_html(tenjoy_translate_contact_prefecture($prefecture)); ?>
+                    </option>
                   <?php endforeach; ?>
                 </select>
               </div>

@@ -886,6 +886,122 @@ function tenjoy_register_cpt_review()
 add_action('init', 'tenjoy_register_cpt_review');
 
 // ==========================================================================
+// カスタム投稿タイプ: お問い合わせ (tenjoy_contact)
+// ==========================================================================
+
+function tenjoy_register_cpt_contact()
+{
+    register_post_type('tenjoy_contact', [
+        'labels'          => [
+            'name'               => __('お問い合わせ', 'tenjoy-tour'),
+            'singular_name'      => __('お問い合わせ', 'tenjoy-tour'),
+            'menu_name'          => __('お問い合わせ', 'tenjoy-tour'),
+            'edit_item'          => __('お問い合わせを確認', 'tenjoy-tour'),
+            'search_items'       => __('お問い合わせを検索', 'tenjoy-tour'),
+            'not_found'          => __('お問い合わせが見つかりません', 'tenjoy-tour'),
+            'not_found_in_trash' => __('ゴミ箱にお問い合わせはありません', 'tenjoy-tour'),
+        ],
+        'public'          => false,
+        'show_ui'         => true,
+        'show_in_menu'    => true,
+        'query_var'       => false,
+        'rewrite'         => false,
+        'capability_type' => 'post',
+        'capabilities'    => [
+            'create_posts' => 'do_not_allow',
+        ],
+        'map_meta_cap'    => true,
+        'has_archive'     => false,
+        'hierarchical'    => false,
+        'menu_position'   => 11,
+        'menu_icon'       => 'dashicons-email-alt',
+        'supports'        => ['title', 'editor'],
+        'show_in_rest'    => false,
+    ]);
+}
+add_action('init', 'tenjoy_register_cpt_contact');
+
+// ==========================================================================
+// お問い合わせ メタ登録
+// ==========================================================================
+
+function tenjoy_register_contact_meta()
+{
+    $fields = [
+        'contact_email'      => 'string',
+        'contact_phone'      => 'string',
+        'contact_prefecture' => 'string',
+        'contact_visit_date' => 'string',
+    ];
+
+    foreach ($fields as $key => $type) {
+        register_post_meta('tenjoy_contact', $key, [
+            'show_in_rest'  => false,
+            'single'        => true,
+            'type'          => $type,
+            'auth_callback' => function () {
+                return current_user_can('edit_posts');
+            },
+        ]);
+    }
+}
+add_action('init', 'tenjoy_register_contact_meta');
+
+// ==========================================================================
+// お問い合わせ一覧カラム
+// ==========================================================================
+
+/**
+ * @param array<string, string> $columns
+ * @return array<string, string>
+ */
+function tenjoy_contact_columns($columns)
+{
+    $new = [];
+    foreach ($columns as $key => $label) {
+        if ($key === 'title') {
+            $new[$key] = __('お名前', 'tenjoy-tour');
+            $new['contact_email']      = __('メール', 'tenjoy-tour');
+            $new['contact_prefecture'] = __('予定の県', 'tenjoy-tour');
+            $new['contact_visit_date'] = __('来日予定日', 'tenjoy-tour');
+            $new['contact_phone']      = __('電話番号', 'tenjoy-tour');
+            continue;
+        }
+        $new[$key] = $label;
+    }
+
+    return $new;
+}
+add_filter('manage_tenjoy_contact_posts_columns', 'tenjoy_contact_columns');
+
+/**
+ * @param string $column
+ * @param int    $post_id
+ */
+function tenjoy_contact_column_cell($column, $post_id)
+{
+    $map = [
+        'contact_email'      => 'contact_email',
+        'contact_prefecture' => 'contact_prefecture',
+        'contact_visit_date' => 'contact_visit_date',
+        'contact_phone'      => 'contact_phone',
+    ];
+
+    if (! isset($map[$column])) {
+        return;
+    }
+
+    $value = (string) get_post_meta($post_id, $map[$column], true);
+    if ($column === 'contact_email' && $value !== '' && is_email($value)) {
+        echo '<a href="mailto:' . esc_attr($value) . '">' . esc_html($value) . '</a>';
+        return;
+    }
+
+    echo $value !== '' ? esc_html($value) : '—';
+}
+add_action('manage_tenjoy_contact_posts_custom_column', 'tenjoy_contact_column_cell', 10, 2);
+
+// ==========================================================================
 // レビュー メタ登録
 // ==========================================================================
 

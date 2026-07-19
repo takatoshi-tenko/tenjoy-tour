@@ -56,6 +56,16 @@ add_action('add_meta_boxes', function () {
     'high'
   );
 
+  // お問い合わせ
+  add_meta_box(
+    'tenjoy_contact_meta',
+    __('お問い合わせ詳細', 'tenjoy-tour'),
+    'tenjoy_render_contact_meta_box',
+    'tenjoy_contact',
+    'normal',
+    'high'
+  );
+
   // スタッフ
   add_meta_box(
     'tenjoy_staff_meta',
@@ -509,6 +519,26 @@ function tenjoy_render_review_meta_box($post)
 }
 
 // ==========================================================================
+// お問い合わせメタボックス
+// ==========================================================================
+
+/**
+ * @param WP_Post $post
+ */
+function tenjoy_render_contact_meta_box($post)
+{
+  wp_nonce_field('tenjoy_contact_meta_save', 'tenjoy_contact_meta_nonce');
+  $pid = $post->ID;
+  echo '<div class="tenjoy-meta-box">';
+  echo '<p class="description">' . esc_html__('タイトルはお名前、本文はお問い合わせ内容です。', 'tenjoy-tour') . '</p>';
+  tenjoy_meta_text_field($pid, 'contact_email', __('メールアドレス', 'tenjoy-tour'), 'email');
+  tenjoy_meta_text_field($pid, 'contact_phone', __('電話番号', 'tenjoy-tour'), 'text');
+  tenjoy_meta_text_field($pid, 'contact_prefecture', __('どの県に行く予定ですか', 'tenjoy-tour'), 'text');
+  tenjoy_meta_text_field($pid, 'contact_visit_date', __('いつ日本に来る予定ですか', 'tenjoy-tour'), 'text');
+  echo '</div>';
+}
+
+// ==========================================================================
 // 保存処理
 // ==========================================================================
 
@@ -640,6 +670,23 @@ add_action('save_post', function ($post_id) {
     }
     $rating = isset($_POST['review_rating']) ? max(1, min(5, (int) $_POST['review_rating'])) : 5;
     update_post_meta($post_id, 'review_rating', $rating);
+  }
+
+  // ---- お問い合わせ ----
+  if ($post_type === 'tenjoy_contact' && isset($_POST['tenjoy_contact_meta_nonce'])) {
+    if (! wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['tenjoy_contact_meta_nonce'])), 'tenjoy_contact_meta_save')) {
+      return;
+    }
+    foreach (['contact_email', 'contact_phone', 'contact_prefecture', 'contact_visit_date'] as $field) {
+      if (! isset($_POST[$field])) {
+        continue;
+      }
+      $value = sanitize_text_field(wp_unslash($_POST[$field]));
+      if ($field === 'contact_email') {
+        $value = sanitize_email(wp_unslash($_POST[$field]));
+      }
+      update_post_meta($post_id, $field, $value);
+    }
   }
 });
 

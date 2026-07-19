@@ -129,6 +129,34 @@
   padding: 2rem;
 }
 
+.contact-form-message {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+
+  &--success {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    color: #067647;
+  }
+
+  &--error {
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+    color: #b42318;
+  }
+}
+
+.contact-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .contact-form-row {
   display: grid;
   gap: 1rem;
